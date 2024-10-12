@@ -1,101 +1,139 @@
-import Image from "next/image";
+'use client'
+
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { FaLeaf, FaPalette, FaCog, FaRecycle, FaBoxOpen, FaTruck } from 'react-icons/fa'
+import Hero from '../components/Hero'  // Import the Hero component
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const fadeInUp = {
+    initial: { opacity: 0, y: 60 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 }
+  };
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const stagger = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  return (
+    <main className="bg-white">
+      {/* Hero Section */}
+      <Hero />  {/* Add the Hero component here */}
+
+      {/* Existing Sections */}
+      <section className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <motion.h1 
+              className="text-4xl font-extrabold sm:text-5xl md:text-6xl"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Innovative Packaging Solutions
+            </motion.h1>
+            <motion.p 
+              className="mt-3 max-w-md mx-auto text-base sm:text-lg md:mt-5 md:text-xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              Sustainable, customizable, and efficient packaging for your business needs.
+            </motion.p>
+            <motion.div 
+              className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <Link href="/products" className="rounded-md bg-white text-indigo-600 px-8 py-3 text-base font-medium hover:bg-gray-50 md:py-4 md:text-lg md:px-10 flex items-center">
+                <FaBoxOpen className="mr-2" /> Our Products
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={stagger}
+          >
+            <motion.h2 
+              className="text-3xl font-extrabold text-gray-900 sm:text-4xl text-center mb-12"
+              variants={fadeInUp}
+            >
+              Why Choose Arbab Pack Ltd?
+            </motion.h2>
+            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                { icon: FaLeaf, title: 'Sustainable Materials', description: 'We prioritize eco-friendly packaging solutions, using recycled and biodegradable materials to minimize environmental impact.' },
+                { icon: FaPalette, title: 'Custom Designs', description: 'Our team of expert designers create tailored packaging that perfectly fits your brand identity and product requirements.' },
+                { icon: FaCog, title: 'Efficient Production', description: 'State-of-the-art technology and streamlined processes ensure quick turnaround times without compromising on quality.' },
+                { icon: FaRecycle, title: 'Circular Economy', description: 'We promote a circular economy by designing packaging that is easy to recycle and reuse, reducing waste in the long term.' },
+                { icon: FaBoxOpen, title: 'Diverse Product Range', description: 'From corrugated boxes to flexible packaging, we offer a wide range of solutions to meet diverse industry needs.' },
+                { icon: FaTruck, title: 'Reliable Logistics', description: 'Our robust supply chain ensures timely delivery of your packaging materials, keeping your production on schedule.' },
+              ].map((feature, index) => (
+                <motion.div key={feature.title} className="pt-6" variants={fadeInUp}>
+                  <div className="flow-root bg-gray-50 rounded-lg px-6 pb-8">
+                    <div className="-mt-6">
+                      <div className="inline-flex items-center justify-center p-3 bg-indigo-500 rounded-md shadow-lg transform -translate-y-1/2">
+                        <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                      </div>
+                      <h3 className="mt-8 text-lg font-medium text-gray-900 tracking-tight">{feature.title}</h3>
+                      <p className="mt-5 text-base text-gray-500">{feature.description}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-indigo-700">
+        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+              <span className="block">Ready to get started?</span>
+              <span className="block text-indigo-300">Contact us today for a quote.</span>
+            </h2>
+            <p className="mt-4 text-lg leading-6 text-indigo-200">
+              Let's work together to create the perfect packaging solution for your products.
+            </p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="mt-8 flex lg:mt-0 lg:flex-shrink-0"
+          >
+            <div className="inline-flex rounded-md shadow">
+              <Link href="/contact" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50">
+                <FaBoxOpen className="mr-2" /> Get in touch
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </main>
+  )
 }
