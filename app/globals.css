@@ -25,3 +25,16 @@ body {
     text-wrap: balance;
   }
 }
+
+@keyframes blur {
+  from {
+    backdrop-filter: blur(0px);
+  }
+  to {
+    backdrop-filter: blur(8px);
+  }
+}
+
+.backdrop-blur-sm {
+  animation: blur 0.3s forwards;
+}
