@@ -117,7 +117,7 @@ export default function Certification() {
   const [selectedCert, setSelectedCert] = useState(null);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-400 to-indigo-600 p-8 md:p-24">
+    <main className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 p-8 md:p-24 font-sans text-white">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -126,7 +126,7 @@ export default function Certification() {
       >
         <Link
           href="/"
-          className="text-white flex items-center mb-8 hover:underline"
+          className="text-gray-300 flex items-center mb-12 hover:text-white transition-colors duration-300 font-poppins"
         >
           <ArrowLeftIcon className="w-5 h-5 mr-2" /> Back to Home
         </Link>
@@ -134,7 +134,7 @@ export default function Certification() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-5xl font-bold text-white mb-8"
+          className="text-7xl font-bold mb-8 font-poppins leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500"
         >
           Our Capacity and Certifications
         </motion.h1>
@@ -142,7 +142,7 @@ export default function Certification() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="text-xl text-white mb-12"
+          className="text-2xl mb-16 font-inter leading-relaxed text-gray-300"
         >
           At Arbab Pack Ltd, we take pride in our world-class facilities,
           internationally recognized certifications, and our commitment to
@@ -156,19 +156,19 @@ export default function Certification() {
               initial="initial"
               animate="animate"
               transition={{ delay: 0.1 * (index + 1) }}
-              className={`bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 ${
+              className={`bg-gray-800 rounded-lg p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-700 ${
                 cert.clickable ? "cursor-pointer" : ""
               }`}
               onClick={() => cert.clickable && setSelectedCert(cert)}
             >
-              <cert.icon className={`${cert.color} w-12 h-12 mb-4`} />
-              <h2 className="text-2xl font-semibold mb-4 text-indigo-600">
+              <cert.icon className={`${cert.color} w-16 h-16 mb-6`} />
+              <h2 className="text-3xl font-semibold mb-4 font-poppins bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
                 {cert.title}
               </h2>
-              <p className="text-gray-700">{cert.description}</p>
+              <p className="text-gray-300 font-inter">{cert.description}</p>
               {cert.clickable && (
-                <p className="text-indigo-600 mt-4 font-semibold">
-                  Click to view certificate
+                <p className="text-blue-400 mt-6 font-semibold font-poppins">
+                  Click to view certificate →
                 </p>
               )}
             </motion.div>
@@ -178,12 +178,12 @@ export default function Certification() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
-          className="mt-16 text-center"
+          className="mt-24 text-center"
         >
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <h2 className="text-5xl font-bold mb-6 font-poppins bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
             Our Commitment to Excellence
           </h2>
-          <p className="text-xl text-white">
+          <p className="text-2xl text-gray-300 font-inter leading-relaxed max-w-3xl mx-auto">
             We continuously strive to improve our processes, invest in
             cutting-edge technology, and uphold the highest standards in the
             packaging industry. Our certifications and capabilities reflect our
