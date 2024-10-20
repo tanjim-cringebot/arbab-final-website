@@ -1,16 +1,15 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { ArrowLeftIcon } from "@heroicons/react/24/solid"
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa"
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaPaperPlane } from "react-icons/fa"
 
-const GlassCard = ({ children, className = "" }) => (
+const ModernCard = ({ children, className = "" }) => (
   <motion.div
-    className={`bg-white bg-opacity-5 backdrop-filter backdrop-blur-lg rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 ${className}`}
-    whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(0, 255, 255, 0.3)" }}
-    whileTap={{ scale: 0.98 }}
+    className={`bg-white rounded-3xl p-8 shadow-xl transition-all duration-300 ${className}`}
+    whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(0, 0, 255, 0.1)" }}
   >
     {children}
   </motion.div>
@@ -18,13 +17,25 @@ const GlassCard = ({ children, className = "" }) => (
 
 const SectionTitle = ({ children, className = "" }) => (
   <motion.h2
-    initial={{ opacity: 0, y: -20 }}
-    animate={{ opacity: 1, y: 0 }}
+    initial={{ opacity: 0, y: -30 }}
+    whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
-    className={`text-4xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-600 ${className}`}
+    className={`text-5xl md:text-7xl font-bold mb-16 text-blue-900 ${className}`}
   >
     {children}
   </motion.h2>
+)
+
+const ContactInfo = ({ icon: Icon, text }) => (
+  <motion.div
+    className="flex items-center mb-6"
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    <Icon className="text-3xl text-blue-600 mr-4" />
+    <span className="text-xl text-blue-700">{text}</span>
+  </motion.div>
 )
 
 export default function Contact() {
@@ -45,61 +56,48 @@ export default function Contact() {
   }
 
   return (
-    <main className="bg-gradient-to-b from-gray-900 to-black text-gray-100 min-h-screen">
+    <main className="bg-gradient-to-br from-blue-50 to-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <Link href="/" className="text-teal-400 flex items-center mb-16 hover:text-teal-300 transition duration-300">
+        <Link href="/" className="text-blue-600 flex items-center mb-16 hover:text-blue-800 transition duration-300">
           <ArrowLeftIcon className="w-5 h-5 mr-2" /> Back to Home
         </Link>
         
         <motion.h1
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-6xl font-bold mb-16 text-center text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-600"
+          transition={{ duration: 0.5 }}
+          className="text-6xl font-bold mb-16 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-900"
         >
           Get in Touch
         </motion.h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <GlassCard>
-              <SectionTitle>Contact Information</SectionTitle>
-              <div className="space-y-6 mb-8">
-                {[
-                  { icon: FaPhone, text: "+1 (123) 456-7890" },
-                  { icon: FaEnvelope, text: "contact@arbabpack.com" },
-                  { icon: FaMapMarkerAlt, text: "123 Packaging St, Industry City, 12345" }
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
-                  >
-                    <item.icon className="text-2xl text-teal-400 mr-4" />
-                    <span className="text-emerald-200">{item.text}</span>
-                  </motion.div>
-                ))}
-              </div>
+            <ModernCard>
+              <SectionTitle className="text-4xl mb-8">Contact Information</SectionTitle>
+              <ContactInfo icon={FaPhone} text="+880 1844 454 0790" />
+              <ContactInfo icon={FaEnvelope} text="info@arbabpackltd.com" />
+              <ContactInfo icon={FaMapMarkerAlt} text="Shimrail, Demra Road, Siddhirganj, Narayanganj-1430, Bangladesh" />
 
-              <SectionTitle>Connect With Us</SectionTitle>
-              <div className="flex justify-center space-x-6">
-                {[FaFacebook, FaTwitter, FaLinkedin, FaInstagram].map((Icon, index) => (
-                  <motion.div
-                    key={index}
-                    whileHover={{ scale: 1.2, rotate: 5 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Icon className="text-3xl text-teal-400 hover:text-emerald-300 transition-colors duration-300 cursor-pointer" />
-                  </motion.div>
-                ))}
+              <div className="mt-12">
+                <h3 className="text-2xl font-semibold mb-4 text-blue-700">Connect With Us</h3>
+                <div className="flex space-x-6">
+                  {[FaFacebook, FaTwitter, FaLinkedin, FaInstagram].map((Icon, index) => (
+                    <motion.div
+                      key={index}
+                      whileHover={{ scale: 1.2, rotate: 5 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <Icon className="text-3xl text-blue-600 hover:text-blue-700 transition-colors duration-300 cursor-pointer" />
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-            </GlassCard>
+            </ModernCard>
           </motion.div>
 
           <motion.div
@@ -107,8 +105,8 @@ export default function Contact() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <GlassCard>
-              <SectionTitle>Send Us a Message</SectionTitle>
+            <ModernCard>
+              <SectionTitle className="text-4xl mb-8">Send Us a Message</SectionTitle>
               <form onSubmit={handleSubmit} className="space-y-6">
                 {[
                   { label: "Name", type: "text", name: "name" },
@@ -120,14 +118,14 @@ export default function Contact() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1, duration: 0.5 }}
                   >
-                    <label htmlFor={field.name} className="block text-sm font-medium text-teal-300 mb-2">{field.label}</label>
+                    <label htmlFor={field.name} className="block text-sm font-medium text-blue-700 mb-2">{field.label}</label>
                     <input 
                       type={field.type} 
                       id={field.name} 
                       name={field.name}
                       value={formState[field.name]}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg bg-white bg-opacity-10 border-transparent text-white placeholder-gray-400 focus:border-teal-500 focus:bg-opacity-20 focus:ring-0 transition-all duration-200" 
+                      className="w-full px-4 py-3 rounded-lg bg-blue-50 border-transparent text-blue-900 placeholder-blue-400 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 transition-all duration-200" 
                     />
                   </motion.div>
                 ))}
@@ -136,14 +134,14 @@ export default function Contact() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
                 >
-                  <label htmlFor="message" className="block text-sm font-medium text-teal-300 mb-2">Message</label>
+                  <label htmlFor="message" className="block text-sm font-medium text-blue-700 mb-2">Message</label>
                   <textarea 
                     id="message" 
                     name="message"
                     value={formState.message}
                     onChange={handleInputChange}
                     rows="5" 
-                    className="w-full px-4 py-3 rounded-lg bg-white bg-opacity-10 border-transparent text-white placeholder-gray-400 focus:border-teal-500 focus:bg-opacity-20 focus:ring-0 transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg bg-blue-50 border-transparent text-blue-900 placeholder-blue-400 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 transition-all duration-200"
                   ></textarea>
                 </motion.div>
                 <motion.div
@@ -153,17 +151,17 @@ export default function Contact() {
                 >
                   <button 
                     type="submit" 
-                    className="w-full py-3 px-6 rounded-lg text-lg font-semibold text-white bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all duration-200 shadow-lg"
+                    className="w-full py-3 px-6 rounded-lg text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-lg flex items-center justify-center"
                   >
+                    <FaPaperPlane className="mr-2" />
                     Send Message
                   </button>
                 </motion.div>
               </form>
-            </GlassCard>
+            </ModernCard>
           </motion.div>
         </div>
 
-        {/* Additional Section: FAQ or Quick Links */}
         <motion.section
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -184,10 +182,10 @@ export default function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
               >
-                <GlassCard>
-                  <h3 className="text-xl font-semibold mb-4 text-teal-300">{faq.question}</h3>
-                  <p className="text-emerald-200">{faq.answer}</p>
-                </GlassCard>
+                <ModernCard>
+                  <h3 className="text-xl font-semibold mb-4 text-blue-700">{faq.question}</h3>
+                  <p className="text-blue-600">{faq.answer}</p>
+                </ModernCard>
               </motion.div>
             ))}
           </div>

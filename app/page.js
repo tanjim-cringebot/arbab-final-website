@@ -1,360 +1,923 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useAnimation, useScroll, useTransform, useViewportScroll } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
-import {
-  FaLeaf,
-  FaPalette,
-  FaCog,
-  FaRecycle,
-  FaBoxOpen,
-  FaTruck,
-  FaChartLine,
-  FaGlobe,
-  FaIndustry,
-  FaUsers,
-} from "react-icons/fa";
+import Image from 'next/image';
+import { FaLeaf, FaBox, FaRecycle, FaLightbulb, FaIndustry, FaUsers, FaPhone, FaEnvelope, FaChevronDown, FaGlobe, FaWarehouse, FaCogs, FaBoxOpen, FaFlag, FaArrowRight, FaCertificate, FaChartLine, FaPlay, FaSolarPanel, FaRocket, FaEye, FaGlobeAmericas, FaHandshake, FaQuoteLeft } from "react-icons/fa";
+import ProductBackground from "../public/images/product background.jpg";
+import Hero from "../components/Hero";
+import Northend from "../public/images/northend_packet.png";
+import Noodles from "../public/images/noodles.png";
+import Tea from "../public/images/tea.png";
+import Jet from "../public/images/jet.png";
+import Milk from "../public/images/milk.png";
+import Chips from "../public/images/chips.png";
+import Moshla from "../public/images/moshla.png";
+import Bombay from "../public/images/bombay.png";
+import Nationwide from "../public/images/nationwide.jpg";
+import LoadingScreen from "../components/LoadingScreen";
+import { useInView } from "react-intersection-observer";
+import CountUp from 'react-countup';
+import dynamic from 'next/dynamic';
+import React from "react";
 
-const GlassCard = ({ children, className = "" }) => (
-  <div
-    className={`bg-white bg-opacity-5 backdrop-filter backdrop-blur-lg rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 ${className}`}
+import ZakirNezum from "../public/images/zakir_hossain_nezum.png";
+import KanizZehera from "../public/images/kaniz_zehera.png";
+import BabHossain from "../public/images/arbab_hossain.png";
+import AzmatHossain from "../public/images/azmat_hossain.png";
+import AdnanHossain from "../public/images/adnan_hossain.png";
+
+const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
+
+const ModernCard = ({ children, className = "" }) => (
+  <motion.div
+    whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)" }}
+    className={`bg-white rounded-2xl p-8 shadow-xl transition-all duration-300 ${className}`}
   >
     {children}
-  </div>
+  </motion.div>
 );
 
 const SectionTitle = ({ children, className = "" }) => (
-  <h2
-    className={`text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-600 ${className}`}
+  <motion.h2
+    initial={{ opacity: 0, y: -30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    className={`text-5xl md:text-7xl font-bold mb-16 text-blue-900 ${className}`}
   >
     {children}
-  </h2>
+  </motion.h2>
 );
 
-export default function Home() {
-  const [currentCategory, setCurrentCategory] = useState(0);
-  const categories = [
-    "Flexible Packaging",
-    "Rigid Packaging",
-    "Sustainable Solutions",
+const CapacityItem = ({ icon: Icon, title, value, unit, imageSrc }) => (
+  <motion.div
+    className="relative h-64 rounded-xl overflow-hidden group"
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    whileHover={{ scale: 1.05 }}
+  >
+    <motion.div
+      className="absolute inset-0 z-0"
+      initial={{ scale: 1 }}
+      whileHover={{ scale: 1.1 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Image
+        src={imageSrc}
+        layout="fill"
+        objectFit="cover"
+        alt={title}
+        className="transition-transform duration-300 group-hover:scale-110"
+      />
+    </motion.div>
+    <div className="absolute inset-0 bg-gradient-to-r from-blue-900 via-blue-900/70 to-transparent z-10 transition-opacity duration-300 group-hover:opacity-80"></div>
+    <div className="absolute inset-0 z-20 flex items-center p-6">
+      <div className="text-white">
+        <motion.div
+          className="text-4xl mb-2"
+          whileHover={{ rotate: 360, scale: 1.2 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Icon />
+        </motion.div>
+        <h3 className="text-2xl font-bold mb-2 transition-transform duration-300 group-hover:translate-x-2">{title}</h3>
+        <p className="text-4xl font-extrabold transition-transform duration-300 group-hover:translate-x-2">
+          <CountUp end={parseInt(value)} duration={2} /> {unit}
+        </p>
+      </div>
+    </div>
+  </motion.div>
+);
+
+const TimelineEvent = ({ year, title, description, isLeft }) => (
+  <motion.div
+    initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5 }}
+    className={`flex ${isLeft ? 'flex-row' : 'flex-row-reverse'} items-center mb-8`}
+  >
+    <div className={`w-1/2 ${isLeft ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+      <h4 className="text-2xl font-bold text-blue-700">{year}</h4>
+      <h5 className="text-xl font-semibold text-blue-600 mb-2">{title}</h5>
+      <p className="text-blue-500">{description}</p>
+    </div>
+    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+      <div className="w-4 h-4 bg-white rounded-full"></div>
+    </div>
+    <div className="w-1/2"></div>
+  </motion.div>
+);
+
+const ProductSlider = () => {
+  const products = [
+    { name: "Smart Packaging", image: Northend },
+    { name: "Eco-Friendly Boxes", image: Tea },
+    { name: "Custom Designs", image: Milk },
+    { name: "Protective Packaging", image: Chips },
+    { name: "Luxury Packaging", image: Noodles },
+    { name: "Food-Grade Containers", image: Jet },
+    { name: "Industrial Packaging", image: Moshla },
+    { name: "Retail Packaging", image: Bombay },
   ];
 
+  const controls = useAnimation();
+
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentCategory((prev) => (prev + 1) % categories.length);
-    }, 5000);
-    return () => clearInterval(timer);
+    controls.start({
+      x: [0, -1920],
+      transition: {
+        x: {
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: 20,
+          ease: "linear",
+        },
+      },
+    });
+  }, [controls]);
+
+  return (
+    <div className="overflow-hidden py-16 relative">
+      {/* Background Image */}
+      <Image
+        src={ProductBackground}
+        layout="fill"
+        objectFit="cover"
+        alt="Factory Background"
+        className="absolute inset-0"
+      />
+      {/* Conveyor Belt Animation */}
+      <div className="relative z-10">
+        <motion.div
+          className="flex space-x-16"
+          animate={controls}
+          style={{ width: "3840px" }} // Doubled width for seamless loop
+        >
+          {[...products, ...products].map((product, index) => (
+            <motion.div
+              key={index}
+              className="flex-shrink-0 w-64 h-64 relative rounded-2xl overflow-hidden"
+              whileHover={{ scale: 1.05, y: -10 }}
+            >
+              <Image
+                src={product.image}
+                layout="fill"
+                objectFit="cover"
+                alt={product.name}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+const InnovationFeature = ({ icon: Icon, title, description }) => (
+  <motion.div 
+    className="flex flex-col items-center text-center"
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    <motion.div
+      whileHover={{ scale: 1.1, rotate: 360 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Icon className="text-6xl text-blue-500 mb-4" />
+    </motion.div>
+    <h3 className="text-xl font-semibold mb-2 text-blue-700">{title}</h3>
+    <p className="text-blue-600">{description}</p>
+  </motion.div>
+);
+
+const ImpactStat = ({ icon: Icon, value, label }) => (
+  <motion.div
+    className="flex flex-col items-center"
+    initial={{ opacity: 0, scale: 0.5 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5 }}
+  >
+    <Icon className="text-4xl text-blue-500 mb-2" />
+    <motion.span 
+      className="text-3xl font-bold text-blue-700"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    >
+      {value}
+    </motion.span>
+    <span className="text-sm text-blue-600">{label}</span>
+  </motion.div>
+);
+
+const LeaderCard = ({ leader, isActive }) => (
+  <motion.div
+    initial={{ opacity: 0, x: 50 }}
+    animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : 50 }}
+    exit={{ opacity: 0, x: -50 }}
+    transition={{ duration: 0.5 }}
+    className={`flex flex-col md:flex-row items-center bg-white rounded-3xl shadow-xl overflow-hidden ${isActive ? 'z-10' : 'z-0'}`}
+  >
+    <div className="w-full md:w-1/2 relative h-[500px] md:h-[600px]">
+      <Image
+        src={leader.image}
+        layout="fill"
+        objectFit="cover"
+        alt={leader.name}
+      />
+    </div>
+    <div className="w-full md:w-1/2 p-12">
+      <h3 className="text-4xl font-bold text-blue-800 mb-4">{leader.name}</h3>
+      <p className="text-2xl text-blue-600 mb-6">{leader.position}</p>
+      <p className="text-blue-500 text-xl leading-relaxed">{leader.description}</p>
+    </div>
+  </motion.div>
+);
+
+const LeaderSlider = () => {
+  const leaders = [
+    {
+      name: "Zakir Hossain Nezum",
+      position: "Managing Director",
+      image: ZakirNezum,
+      description: "Visionary leader with 20+ years of experience in the packaging industry. Zakir has been instrumental in driving Arbab Pack's global expansion and sustainable initiatives."
+    },
+    {
+      name: "Kaniz Zehera",
+      position: "Chairman",
+      image: KanizZehera,
+      description: "Innovation expert driving our technological advancements in smart packaging. Kaniz's forward-thinking approach has revolutionized our product offerings."
+    },
+    {
+      name: "Arbab Hossain",
+      position: "Director",
+      image: BabHossain,
+      description: "Operations maestro ensuring efficiency across our global production facilities. Arbab's leadership has optimized our supply chain and manufacturing processes."
+    },
+    {
+      name: "M M Azmat Hossain",
+      position: "Director",
+      image: AzmatHossain,
+      description: "Marketing genius behind our brand's global recognition. Azmat has successfully positioned Arbab Pack as a leader in innovative and sustainable packaging solutions."
+    },
+    {
+      name: "M M Adnan Hossain",
+      position: "Director",
+      image: AdnanHossain,
+      description: "Financial strategist driving Arbab Pack's growth and profitability. Adnan's expertise has been crucial in our expansion into new markets and strategic acquisitions."
+    }
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextLeader = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % leaders.length);
+  };
+
+  const prevLeader = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + leaders.length) % leaders.length);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(nextLeader, 5000); // Auto-advance every 5 seconds
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <main className="bg-gray-900 text-gray-100">
-      {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/path-to-your-video.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+    <div className="relative">
+      <AnimatePresence mode="wait">
+        <LeaderCard key={currentIndex} leader={leaders[currentIndex]} isActive={true} />
+      </AnimatePresence>
+      <motion.button
+        className="absolute top-1/2 left-8 transform -translate-y-1/2 bg-white rounded-full p-4 shadow-lg"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={prevLeader}
+      >
+        <FaChevronDown className="text-blue-600 text-3xl transform rotate-90" />
+      </motion.button>
+      <motion.button
+        className="absolute top-1/2 right-8 transform -translate-y-1/2 bg-white rounded-full p-4 shadow-lg"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={nextLeader}
+      >
+        <FaChevronDown className="text-blue-600 text-3xl transform -rotate-90" />
+      </motion.button>
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4">
+        {leaders.map((_, index) => (
           <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="text-center"
-          >
-            <h1 className="text-7xl md:text-9xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-600">
-              Arbab Pack
-            </h1>
-            <p className="text-2xl md:text-3xl text-teal-200">
-              Redefining Packaging Excellence
-            </p>
-          </motion.div>
-        </div>
-      </section>
+            key={index}
+            className={`w-4 h-4 rounded-full ${index === currentIndex ? 'bg-blue-600' : 'bg-blue-200'}`}
+            whileHover={{ scale: 1.2 }}
+            onClick={() => setCurrentIndex(index)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const AnimatedNumber = ({ value, duration = 2 }) => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start({
+        scale: [1, 1.2, 1],
+        transition: { duration: 0.5 }
+      });
+    }
+  }, [controls, inView]);
+
+  return (
+    <motion.span ref={ref} animate={controls}>
+      <CountUp end={parseInt(value)} duration={duration} />
+    </motion.span>
+  );
+};
+
+const VisionFeature = ({ icon: Icon, title, description }) => (
+  <motion.div 
+    className="flex flex-col items-center text-center"
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    <motion.div
+      whileHover={{ scale: 1.1, rotate: 360 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Icon className="text-6xl text-blue-500 mb-4" />
+    </motion.div>
+    <h3 className="text-xl font-semibold mb-2 text-blue-700">{title}</h3>
+    <p className="text-blue-600">{description}</p>
+  </motion.div>
+);
+
+const ContactInfo = ({ icon: Icon, title, info }) => (
+  <motion.div
+    className="flex flex-col items-center"
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    <motion.div
+      className="bg-blue-100 rounded-full p-6 mb-4"
+      whileHover={{ scale: 1.1, rotate: 360 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Icon className="text-5xl text-blue-600" />
+    </motion.div>
+    <h4 className="text-2xl font-semibold mb-2 text-blue-700">{title}</h4>
+    <p className="text-xl text-blue-600">{info}</p>
+  </motion.div>
+);
+
+const CollaboratorLogo = ({ src, alt, index }) => {
+  return (
+    <motion.div
+      className="flex-1 flex items-center justify-center p-4"
+      whileHover={{ scale: 1.1 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={120}
+        height={120}
+        className="object-contain"
+      />
+    </motion.div>
+  );
+};
+
+export default function Home() {
+  const [loading, setLoading] = useState(true);
+
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const { scrollYProgress } = useViewportScroll();
+  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1.2]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000); // Adjust this time as needed
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
+  return (
+    <main className="bg-gradient-to-br from-blue-50 to-white text-blue-900">
+      {/* Hero Section */}
+      <Hero />
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left Column */}
-          <div className="space-y-20">
-            {/* What is Arbab Section */}
-            <section>
-              <SectionTitle>What is Arbab?</SectionTitle>
-              <GlassCard>
-                <p className="text-xl text-teal-200 leading-relaxed mb-6">
-                  Arbab Pack Ltd is a pioneering force in the packaging
-                  industry, blending cutting-edge technology with sustainable
-                  practices. We deliver innovative solutions that not only meet
-                  but exceed the evolving needs of our clients across various
-                  sectors.
-                </p>
-                <ul className="space-y-2 text-emerald-300">
-                  <li>• Industry-leading packaging solutions</li>
-                  <li>• Commitment to sustainability and innovation</li>
-                  <li>• Serving diverse sectors with tailored approaches</li>
-                  <li>• State-of-the-art manufacturing facilities</li>
-                </ul>
-              </GlassCard>
-            </section>
-
-            {/* Product Category Section */}
-            <section>
-              <SectionTitle>Our Product Categories</SectionTitle>
-              <motion.div
-                className="relative h-64 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-2xl overflow-hidden mb-8"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8 }}
-              >
-                <AnimatePresence mode="wait">
-                  {categories.map(
-                    (category, index) =>
-                      currentCategory === index && (
-                        <motion.div
-                          key={category}
-                          className="absolute inset-0 flex items-center justify-center"
-                          initial={{ opacity: 0, x: 50 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -50 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <h3 className="text-4xl font-bold text-white">
-                            {category}
-                          </h3>
-                        </motion.div>
-                      )
-                  )}
-                </AnimatePresence>
-              </motion.div>
-              <div className="space-y-6">
-                {categories.map((category, index) => (
-                  <motion.div
-                    key={category}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <GlassCard>
-                      <h4 className="text-2xl font-semibold mb-2 text-teal-300">
-                        {category}
-                      </h4>
-                      <p className="text-emerald-200 mb-4">
-                        Discover our range of {category.toLowerCase()} solutions
-                        designed to meet your specific needs.
-                      </p>
-                      <Link
-                        href={`/products/${category
-                          .toLowerCase()
-                          .replace(" ", "-")}`}
-                        className="text-teal-400 hover:text-teal-300 transition duration-300"
-                      >
-                        Learn more →
-                      </Link>
-                    </GlassCard>
-                  </motion.div>
-                ))}
-              </div>
-            </section>
-
-            {/* Vision Section */}
-            <section>
-              <SectionTitle>Our Vision</SectionTitle>
-              <GlassCard>
-                <p className="text-xl text-teal-200 mb-8">
-                  To revolutionize the packaging industry with sustainable
-                  innovations, setting new benchmarks for quality and
-                  environmental responsibility while delivering unparalleled
-                  value to our clients and stakeholders.
-                </p>
-                <Link
-                  href="/about"
-                  className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:from-teal-600 hover:to-emerald-600 transition duration-300 inline-block"
-                >
-                  Learn More About Us
-                </Link>
-              </GlassCard>
-            </section>
+      <div className="container mx-auto px-4 py-12">
+        {/* Meet the Leaders */}
+        <section className="mb-40">
+          <SectionTitle className="mb-24">Meet the Leaders</SectionTitle>
+          <div className="max-w-7xl mx-auto">
+            <LeaderSlider />
           </div>
-
-          {/* Right Column */}
-          <div className="space-y-20">
-            {/* Why Choose Arbab Section */}
-            <section>
-              <SectionTitle>Why Choose Arbab?</SectionTitle>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {[
-                  {
-                    icon: FaLeaf,
-                    title: "Sustainable",
-                    description: "Eco-friendly packaging solutions",
-                  },
-                  {
-                    icon: FaPalette,
-                    title: "Customizable",
-                    description: "Tailored to your brand identity",
-                  },
-                  {
-                    icon: FaCog,
-                    title: "Efficient",
-                    description: "Streamlined production process",
-                  },
-                  {
-                    icon: FaRecycle,
-                    title: "Recyclable",
-                    description: "Circular economy focused",
-                  },
-                  {
-                    icon: FaChartLine,
-                    title: "Innovative",
-                    description: "Cutting-edge market solutions",
-                  },
-                  {
-                    icon: FaGlobe,
-                    title: "Global Reach",
-                    description: "Worldwide client base",
-                  },
-                ].map((feature, index) => (
-                  <motion.div
-                    key={feature.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <GlassCard className="h-full">
-                      <feature.icon className="w-10 h-10 mb-4 text-teal-400" />
-                      <h3 className="text-xl font-semibold mb-2 text-emerald-300">
-                        {feature.title}
-                      </h3>
-                      <p className="text-teal-200">{feature.description}</p>
-                    </GlassCard>
-                  </motion.div>
-                ))}
-              </div>
-            </section>
-
-            {/* Production Capabilities Section */}
-            <section>
-              <SectionTitle>Production Capabilities</SectionTitle>
-              <div className="space-y-6">
-                {[
-                  {
-                    icon: FaIndustry,
-                    title: "State-of-the-art machinery",
-                    description:
-                      "Cutting-edge equipment for precision and efficiency",
-                  },
-                  {
-                    icon: FaChartLine,
-                    title: "High-volume production",
-                    description:
-                      "Capacity to handle large-scale orders with consistent quality",
-                  },
-                  {
-                    icon: FaCog,
-                    title: "Quality control measures",
-                    description:
-                      "Rigorous testing and inspection at every stage",
-                  },
-                  {
-                    icon: FaUsers,
-                    title: "Skilled workforce",
-                    description:
-                      "Experienced professionals dedicated to excellence",
-                  },
-                ].map((capability, index) => (
-                  <motion.div
-                    key={capability.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <GlassCard>
-                      <capability.icon className="w-10 h-10 mb-4 text-emerald-400" />
-                      <h3 className="text-xl font-semibold mb-2 text-teal-300">
-                        {capability.title}
-                      </h3>
-                      <p className="text-emerald-200">
-                        {capability.description}
-                      </p>
-                    </GlassCard>
-                  </motion.div>
-                ))}
-              </div>
-            </section>
-
-            {/* Collaborations Section */}
-            <section>
-              <SectionTitle>Our Collaborations</SectionTitle>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                {[1, 2, 3, 4, 5, 6].map((partner) => (
-                  <motion.div
-                    key={partner}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                    whileHover={{ scale: 1.05, rotate: 5 }}
-                  >
-                    <GlassCard className="h-32 flex items-center justify-center">
-                      <span className="text-teal-300 font-semibold">
-                        Partner {partner}
-                      </span>
-                    </GlassCard>
-                  </motion.div>
-                ))}
-              </div>
-            </section>
-          </div>
-        </div>
-
-        {/* Full Width Sections */}
-        {/* Get in Touch Section */}
-        <section className="mt-20">
-          <SectionTitle className="text-center">Get in Touch</SectionTitle>
-          <GlassCard className="text-center">
-            <p className="text-xl text-teal-200 mb-8">
-              Ready to elevate your packaging experience? Let's connect!
-            </p>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                href="/contact"
-                className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:from-teal-600 hover:to-emerald-600 transition duration-300 inline-block"
-              >
-                Contact Us
-              </Link>
-            </motion.div>
-          </GlassCard>
         </section>
 
-        {/* Photo Gallery Section */}
-        <section className="mt-20">
-          <SectionTitle className="text-center">Photo Gallery</SectionTitle>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((photo) => (
+        {/* Our Story */}
+        <section className="mb-32">
+          <SectionTitle>Our Story</SectionTitle>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+            <div className="space-y-8">
               <motion.div
-                key={photo}
-                className="aspect-square rounded-lg overflow-hidden"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
-                whileHover={{ scale: 1.05 }}
               >
-                {/* Replace with actual photos */}
-                <div className="w-full h-full bg-gradient-to-br from-teal-400 to-emerald-500" />
+                <h3 className="text-4xl font-bold mb-6 text-blue-700">A Legacy of Innovation</h3>
+                <p className="text-xl text-blue-600 mb-6">
+                  Since 1988, Arbab Pack Limited has been revolutionizing the packaging industry. Our journey is marked by continuous innovation, sustainable practices, and a commitment to excellence.
+                </p>
+                <Link
+                  href="/about-apl"
+                  className="text-2xl text-blue-500 hover:text-blue-700 transition duration-300 font-semibold inline-block mb-8"
+                >
+                  Discover Our Full Journey →
+                </Link>
               </motion.div>
-            ))}
+
+              {/* Video Player */}
+              <motion.div
+                ref={ref}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="aspect-w-16 aspect-h-9"
+              >
+                <ReactPlayer
+                  url="videos/discover.mp4"
+                  width="100%"
+                  height="100%"
+                  playing={inView}
+                  muted={true}
+                  loop={true}
+                  controls={false}
+                  playsinline={true}
+                />
+              </motion.div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-blue-300"></div>
+              <TimelineEvent
+                year="1988"
+                title="Foundation"
+                description="Arbab Pack Limited was established with a vision to revolutionize packaging."
+                isLeft={true}
+              />
+              <TimelineEvent
+                year="1995"
+                title="Expansion"
+                description="Opened our first international office, marking the beginning of global operations."
+                isLeft={false}
+              />
+              <TimelineEvent
+                year="2005"
+                title="Eco-Innovation"
+                description="Launched our first line of fully recyclable packaging solutions."
+                isLeft={true}
+              />
+              <TimelineEvent
+                year="2015"
+                title="Digital Integration"
+                description="Introduced smart packaging with integrated QR and NFC technologies."
+                isLeft={false}
+              />
+              <TimelineEvent
+                year="2023"
+                title="Sustainability Milestone"
+                description="Achieved carbon neutrality across all our production facilities."
+                isLeft={true}
+              />
+            </div>
           </div>
-          <div className="text-center mt-8">
+        </section>
+
+        {/* Our Solutions */}
+        <section className="mb-32">
+          <SectionTitle>Our Products</SectionTitle>
+          <div className="mb-12 text-center">
+            <p className="text-xl text-blue-600 mb-8">
+              Discover our wide range of innovative packaging solutions designed to meet your unique needs.
+            </p>
             <Link
-              href="/gallery"
-              className="text-teal-400 hover:text-teal-300 transition duration-300"
+              href="/product-portfolio"
+              className="inline-flex items-center text-2xl text-blue-500 hover:text-blue-700 transition duration-300 font-semibold"
             >
-              View Full Gallery
+              Explore All Products <FaArrowRight className="ml-2" />
             </Link>
+          </div>
+          <ProductSlider />
+        </section>
+
+        {/* Capacity Section */}
+        <section className="py-24 relative overflow-hidden">
+          <motion.div
+            className="absolute inset-0 z-0"
+            initial={{ opacity: 0, scale: 1.2 }}
+            whileInView={{ opacity: 0.1, scale: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <Image
+              src="/path-to-factory-image.jpg"
+              layout="fill"
+              objectFit="cover"
+              alt=""
+            />
+          </motion.div>
+          <div className="container mx-auto px-4 relative z-10">
+            <SectionTitle>Our Capacity</SectionTitle>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+              <CapacityItem 
+                icon={FaWarehouse} 
+                title="Factory Space" 
+                value="500000" 
+                unit="sq ft" 
+                imageSrc="/images/area.jpg"
+              />
+              <CapacityItem 
+                icon={FaUsers} 
+                title="Skilled Workers" 
+                value="4000" 
+                unit="+" 
+                imageSrc="/images/skilled.jpg"
+              />
+              <CapacityItem 
+                icon={FaCogs} 
+                title="Advanced Machines" 
+                value="200" 
+                unit="+" 
+                imageSrc="/images/advanced.jpg"
+              />
+              <CapacityItem 
+                icon={FaBoxOpen} 
+                title="Daily Production" 
+                value="1" 
+                unit="M+ units" 
+                imageSrc="/images/1m.jpg"
+              />
+            </div>
+
+            <motion.div
+              className="bg-gradient-to-r from-blue-900 to-indigo-900 text-white p-8 md:p-12 rounded-3xl shadow-2xl"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h3 className="text-3xl font-bold mb-6 text-center">Production Excellence</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {[
+                  { icon: FaIndustry, text: "State-of-the-art facilities" },
+                  { icon: FaCertificate, text: "ISO 9001:2015 Certified" },
+                  { icon: FaChartLine, text: "Continuous improvement" }
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    className="flex items-center"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    whileHover={{ x: 10 }}
+                  >
+                    <item.icon className="text-4xl mr-4 text-blue-300" />
+                    <p className="text-lg">{item.text}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="mt-16 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Link
+                href="/capacity-certification"
+                className="inline-block bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-700 hover:to-blue-900 transition duration-300"
+              >
+                Explore Our Full Capacity & Certifications
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Innovation Hub */}
+        <section className="py-24 relative overflow-hidden">
+          <motion.div
+            className="absolute inset-0 z-0"
+            initial={{ opacity: 0, scale: 1.2 }}
+            whileInView={{ opacity: 0.1, scale: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <Image
+              src="/path-to-innovation-pattern.jpg"
+              layout="fill"
+              objectFit="cover"
+              alt=""
+            />
+          </motion.div>
+          <div className="relative z-10 container mx-auto px-4">
+            <SectionTitle className="text-center">Innovation Hub</SectionTitle>
+            
+            <motion.div 
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-2xl text-blue-700">
+                At Arbab Pack, we're revolutionizing packaging through sustainable innovation.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <InnovationFeature 
+                icon={FaLeaf} 
+                title="Eco-Friendly Materials" 
+                description="Pioneering fully biodegradable packaging solutions."
+              />
+              <InnovationFeature 
+                icon={FaLightbulb} 
+                title="Smart Packaging" 
+                description="Integrating IoT and NFC for interactive experiences."
+              />
+              <InnovationFeature 
+                icon={FaRecycle} 
+                title="RePro-RP Initiative" 
+                description="Integrating recycled materials to reduce our footprint."
+              />
+            </div>
+
+            <motion.div 
+              className="mt-16 text-center"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <h3 className="text-3xl font-bold mb-8 text-blue-700">Our Impact</h3>
+              <div className="flex justify-center space-x-12">
+                <ImpactStat icon={FaLeaf} value="50%" label="Carbon Reduction" />
+                <ImpactStat icon={FaRecycle} value="75%" label="Recycled Materials" />
+                <ImpactStat icon={FaSolarPanel} value="60%" label="Renewable Energy" />
+              </div>
+            </motion.div>
+
+            <motion.div 
+              className="mt-16 text-center"
+              style={{ scale }}
+            >
+              <Link
+                href="/innovation-sustainability"
+                className="inline-flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition duration-300"
+              >
+                <span>Explore Our Innovations</span>
+                <FaRocket className="text-xl" />
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Vision */}
+        <section className="py-24 relative overflow-hidden">
+          <motion.div
+            className="absolute inset-0 z-0"
+            initial={{ opacity: 0, scale: 1.2 }}
+            whileInView={{ opacity: 0.05, scale: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <Image
+              src="/path-to-vision-pattern.jpg"
+              layout="fill"
+              objectFit="cover"
+              alt=""
+            />
+          </motion.div>
+          <div className="relative z-10 container mx-auto px-4">
+            <SectionTitle className="text-center">Our Vision</SectionTitle>
+            
+            <motion.div 
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-2xl text-blue-700">
+                Shaping a sustainable future through innovative packaging solutions.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <VisionFeature 
+                icon={FaEye} 
+                title="Forward-Thinking" 
+                description="Anticipating market needs and driving industry trends."
+              />
+              <VisionFeature 
+                icon={FaGlobeAmericas} 
+                title="Global Impact" 
+                description="Expanding our reach to serve diverse markets worldwide."
+              />
+              <VisionFeature 
+                icon={FaHandshake} 
+                title="Collaborative Growth" 
+                description="Fostering partnerships for mutual success and innovation."
+              />
+            </div>
+
+            <motion.div 
+              className="mt-16 text-center"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <h3 className="text-3xl font-bold mb-8 text-blue-700">Our Commitment</h3>
+              <p className="text-xl text-blue-600 max-w-3xl mx-auto">
+                We are dedicated to pushing the boundaries of packaging technology while maintaining our commitment to sustainability and customer satisfaction.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Nationwide Impact */}
+        <section className="mb-32">
+          <SectionTitle>Nationwide Impact</SectionTitle>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="relative w-full aspect-square md:aspect-[4/3] lg:aspect-[16/9]"
+            >
+              <Image
+                src={Nationwide}
+                layout="fill"
+                objectFit="cover"
+                alt="Nationwide Presence"
+                className="rounded-3xl shadow-2xl"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h3 className="text-4xl font-bold mb-6 text-blue-700">Reaching Every Corner</h3>
+              <p className="text-xl text-blue-600 mb-6">
+                With a strong presence across the country, we're providing innovative packaging solutions that benefit businesses and contribute to a more sustainable environment.
+              </p>
+              <ul className="text-xl text-blue-600 space-y-4">
+                <motion.li whileHover={{ x: 10 }} className="flex items-center">
+                  <FaGlobe className="text-blue-500 mr-4" /> 8 Divisions
+                </motion.li>
+                <motion.li whileHover={{ x: 10 }} className="flex items-center">
+                  <FaIndustry className="text-blue-500 mr-4" /> 15 Production Facilities
+                </motion.li>
+                <motion.li whileHover={{ x: 10 }} className="flex items-center">
+                  <FaUsers className="text-blue-500 mr-4" /> 5000+ Employees Nationwide
+                </motion.li>
+              </ul>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Our Collaborators */}
+        <section className="py-24 relative overflow-hidden">
+          <motion.div
+            className="absolute inset-0 z-0"
+            initial={{ opacity: 0, scale: 1.2 }}
+            whileInView={{ opacity: 0.05, scale: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <Image
+              src="/images/collaboration-bg.jpg"
+              layout="fill"
+              objectFit="cover"
+              alt=""
+            />
+          </motion.div>
+          <div className="relative z-10 container mx-auto px-4">
+            <SectionTitle className="text-center mb-16">Our Collaborators</SectionTitle>
+            
+            <motion.div 
+              className="flex flex-wrap justify-center items-center"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              {[
+                { src: '/images/bat.png', alt: 'Collaborator 1' },
+                { src: '/images/smc.png', alt: 'Collaborator 2' },
+                { src: '/images/pran.png', alt: 'Collaborator 3' },
+                { src: '/images/danish.png', alt: 'Collaborator 4' },
+                { src: '/images/nestle.png', alt: 'Collaborator 5' },
+                { src: '/images/akij.png', alt: 'Collaborator 6' },
+              ].map((collaborator, index) => (
+                <React.Fragment key={index}>
+                  {index > 0 && (
+                    <div className="h-16 w-px bg-blue-200 mx-4"></div>
+                  )}
+                  <CollaboratorLogo {...collaborator} index={index} />
+                </React.Fragment>
+              ))}
+            </motion.div>
+            
+            <motion.div 
+              className="text-center mt-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+            >
+              <Link
+                href="/about-apl#collaborators"
+                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition duration-300"
+              >
+                Learn More About Our Partnerships
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Let's Collaborate */}
+        <section className="mt-32 relative overflow-hidden py-24">
+          <motion.div
+            className="absolute inset-0 z-0"
+            initial={{ opacity: 0, scale: 1.2 }}
+            whileInView={{ opacity: 0.1, scale: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <Image
+              src="/images/collaboration.jpg"
+              layout="fill"
+              objectFit="cover"
+              alt=""
+            />
+          </motion.div>
+          <div className="relative z-10 container mx-auto px-4">
+            <SectionTitle className="text-center">Let's Collaborate</SectionTitle>
+            
+            <motion.div 
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h3 className="text-4xl font-bold mb-8 text-blue-700">Ready to Transform Your Packaging?</h3>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+              <ContactInfo
+                icon={FaPhone}
+                title="Give us a call"
+                info="+1234567890"
+              />
+              <ContactInfo
+                icon={FaEnvelope}
+                title="Send us an email"
+                info="contact@arbabpack.com"
+              />
+            </div>
+
+            <motion.div 
+              className="text-center"
+              style={{ scale }}
+            >
+              <Link
+                href="/contact"
+                className="inline-flex items-center space-x-2 bg-blue-600 text-white px-8 py-4 rounded-full text-2xl font-semibold hover:bg-blue-700 transition duration-300 group"
+              >
+                <span>Start the Conversation</span>
+                <motion.span
+                  className="inline-block"
+                  initial={{ x: 0 }}
+                  animate={{ x: 5 }}
+                  transition={{ repeat: Infinity, duration: 0.8, repeatType: "reverse" }}
+                >
+                  <FaArrowRight className="text-xl" />
+                </motion.span>
+              </Link>
+            </motion.div>
           </div>
         </section>
       </div>
