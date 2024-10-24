@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FaLinkedin, FaWhatsapp, FaFacebookF, FaYoutube, FaEnvelope, FaPhone } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -28,6 +29,26 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 border-t border-gray-700 pt-8 text-center">
+          <div className="flex justify-center space-x-6 mb-4">
+            <a href="#" className="text-gray-400 hover:text-white">
+              <FaLinkedin className="w-6 h-6" />
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white">
+              <FaWhatsapp className="w-6 h-6" />
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white">
+              <FaFacebookF className="w-6 h-6" />
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white">
+              <FaYoutube className="w-6 h-6" />
+            </a>
+            <a href="mailto:info@arbabpackltd.com" className="text-gray-400 hover:text-white">
+              <FaEnvelope className="w-6 h-6" />
+            </a>
+            <a href="tel:+8801844454079" className="text-gray-400 hover:text-white">
+              <FaPhone className="w-6 h-6" />
+            </a>
+          </div>
           <p className="text-sm">&copy; 2024 Arbab Pack Ltd. All rights reserved.</p>
         </div>
       </div>

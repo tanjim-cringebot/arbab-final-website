@@ -38,7 +38,18 @@ const Navbar = () => {
         { name: "What People Say", path: "/about-apl#testimonials" },
       ],
     },
-    { name: "Product Portfolio", path: "/product-portfolio" },
+    {
+      name: "Product Portfolio",
+      path: "/product-portfolio",
+      dropdown: [
+        { name: "Food Packaging", path: "/product-portfolio#food-packaging" },
+        { name: "Personal Care & Hygiene", path: "/product-portfolio#personal-care-hygiene" },
+        { name: "Beverages", path: "/product-portfolio#beverages" },
+        { name: "Pharmaceutical and Nutritional Products", path: "/product-portfolio#pharmaceutical-nutritional" },
+        { name: "Household Products", path: "/product-portfolio#household-products" },
+        { name: "Tobacco Industry Packaging", path: "/product-portfolio#tobacco-industry" },
+      ],
+    },
     {
       name: "Capacity & Certification",
       path: "/capacity-certification",
@@ -61,7 +72,19 @@ const Navbar = () => {
         { name: "Join", path: "/innovation-sustainability#join" },
       ],
     },
-    { name: "About AG", path: "/about-ag" },
+    {
+      name: "About AG",
+      path: "/about-ag",
+      dropdown: [
+        { name: "Arbab Group", path: "/about-ag#arbab-group" },
+        { name: "Arbab Pack Ltd.", path: "/about-ag#arbab-pack-ltd" },
+        { name: "ZK Foils Ltd.", path: "/about-ag#zk-foils-ltd" },
+        { name: "ZK Plastics Ltd", path: "/about-ag#zk-plastics-ltd" },
+        { name: "ZK Ink Ltd.", path: "/about-ag#zk-ink-ltd" },
+        { name: "ZK Healthcare", path: "/about-ag#zk-healthcare" },
+        { name: "Aant Cosmetics Ltd", path: "/about-ag#aant-cosmetics-ltd" },
+      ],
+    },
     { name: "Contact", path: "/contact" },
   ];
 
