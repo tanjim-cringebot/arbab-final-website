@@ -1,10 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-      unoptimized: true,
+        unoptimized: true, // Disable image optimization
     },
-    output: 'export', // Keep this if you want to export your app statically
-  };
-  
-  export default nextConfig;
-  
+    output: 'export', // Set output to export for static export
+};
+
+export default nextConfig;
