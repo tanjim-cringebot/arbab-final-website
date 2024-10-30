@@ -648,7 +648,7 @@ export default function Home() {
               transition={{ duration: 0.5 }}
             >
               <p className="text-2xl text-blue-700">
-                At Arbab Pack, we're revolutionizing packaging through sustainable innovation.
+                At Arbab Pack, we&apos;re revolutionizing packaging through sustainable innovation.
               </p>
             </motion.div>
 
@@ -785,7 +785,7 @@ export default function Home() {
             >
               <h3 className="text-4xl font-bold mb-6 text-blue-700">Reaching Every Corner</h3>
               <p className="text-xl text-blue-600 mb-6">
-                With a strong presence across the country, we're providing innovative packaging solutions that benefit businesses and contribute to a more sustainable environment.
+                With a strong presence across the country, we&apos;re providing innovative packaging solutions that benefit businesses and contribute to a more sustainable environment.
               </p>
               <ul className="text-xl text-blue-600 space-y-4">
                 <motion.li whileHover={{ x: 10 }} className="flex items-center">
@@ -875,7 +875,7 @@ export default function Home() {
             />
           </motion.div>
           <div className="relative z-10 container mx-auto px-4">
-            <SectionTitle className="text-center">Let's Collaborate</SectionTitle>
+            <SectionTitle className="text-center">Let&apos;s Collaborate</SectionTitle>
             
             <motion.div 
               className="text-center mb-16"

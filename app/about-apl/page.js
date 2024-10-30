@@ -80,7 +80,7 @@ export default function About() {
     }, 10000) // Change testimonial every 10 seconds
 
     return () => clearInterval(timer)
-  }, [])
+  }, [testimonials.length])
 
   return (
     <main className="bg-gradient-to-b from-white to-blue-50 min-h-screen">
@@ -313,7 +313,7 @@ export default function About() {
         >
           <SectionTitle className="text-center text-white">Ready to Revolutionize Your Packaging?</SectionTitle>
           <p className="text-2xl mb-10 text-blue-100">
-            Let's collaborate to create innovative and sustainable packaging solutions that will set your products apart.
+            Let&apos;s collaborate to create innovative and sustainable packaging solutions that will set your products apart.
           </p>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link

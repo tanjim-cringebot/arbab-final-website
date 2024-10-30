@@ -118,7 +118,7 @@ export default function InnovationSustainability() {
               className="text-xl text-blue-700 mb-16 max-w-3xl mx-auto text-center"
             >
               <p>
-                Innovation is at the heart of APL's commitment to sustainability. Through strategic initiatives, we 
+                Innovation is at the heart of APL&apos;s commitment to sustainability. Through strategic initiatives, we 
                 continuously evolve our processes and products to align with environmental goals.
               </p>
             </motion.div>
@@ -189,7 +189,7 @@ export default function InnovationSustainability() {
             >
               <p>
                 Our commitment to sustainability has led to significant improvements in our environmental footprint. 
-                Here's how we're making a difference:
+                Here&apos;s how we&apos;re making a difference:
               </p>
             </motion.div>
 
