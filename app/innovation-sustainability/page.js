@@ -8,8 +8,8 @@ import { FaLeaf, FaRecycle, FaSolarPanel, FaWater, FaTree, FaChartLine, FaLightb
 
 const ModernCard = ({ children, className = "" }) => (
   <motion.div
-    className={`bg-white backdrop-filter backdrop-blur-lg bg-opacity-80 rounded-3xl p-8 shadow-xl transition-all duration-300 ${className}`}
-    whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(0, 0, 255, 0.1)" }}
+    className={`bg-white rounded-3xl p-8 shadow-xl transition-all duration-300 ${className}`}
+    whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)" }}
   >
     {children}
   </motion.div>
@@ -62,6 +62,34 @@ const InnovationFeature = ({ icon: Icon, title, description }) => (
 
 export default function InnovationSustainability() {
   const controls = useAnimation();
+
+  const [sustainabilityMetrics, setSustainabilityMetrics] = useState({
+    packagingType: 'plastic',
+    monthlyVolume: 1000,
+    recycledContent: 0,
+    optimizedWeight: false,
+  });
+
+  const calculateEnvironmentalImpact = () => {
+    const baseEmission = {
+      plastic: 2.5,
+      biodegradable: 0.8,
+      paper: 1.2
+    }[sustainabilityMetrics.packagingType];
+
+    const volumeImpact = sustainabilityMetrics.monthlyVolume * baseEmission;
+    const recyclingReduction = (sustainabilityMetrics.recycledContent / 100) * 0.6;
+    const weightReduction = sustainabilityMetrics.optimizedWeight ? 0.2 : 0;
+    
+    const totalReduction = recyclingReduction + weightReduction;
+    const finalImpact = volumeImpact * (1 - totalReduction);
+
+    return {
+      carbonSaved: (volumeImpact - finalImpact).toFixed(1),
+      treesEquivalent: Math.round((volumeImpact - finalImpact) * 0.12),
+      waterSaved: Math.round((volumeImpact - finalImpact) * 1000),
+    };
+  };
 
   useEffect(() => {
     controls.start({
@@ -324,6 +352,187 @@ export default function InnovationSustainability() {
           >
             <FaRocket />
           </motion.div>
+        </section>
+
+        <section className="mb-32 relative">
+          <SectionTitle>Sustainability Calculator</SectionTitle>
+          
+          <ModernCard className="relative bg-white">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-12"
+            >
+              <h3 className="text-3xl font-bold text-blue-800 mb-4">
+                Calculate Your Environmental Impact
+              </h3>
+              <p className="text-xl text-blue-600">
+                See how your packaging choices affect the environment and discover ways to reduce your carbon footprint
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* Input Controls */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="space-y-8 bg-blue-50/50 p-8 rounded-2xl"
+              >
+                <div>
+                  <label className="block text-blue-800 font-semibold mb-2">
+                    Packaging Material
+                  </label>
+                  <select
+                    value={sustainabilityMetrics.packagingType}
+                    onChange={(e) => setSustainabilityMetrics(prev => ({
+                      ...prev,
+                      packagingType: e.target.value
+                    }))}
+                    className="w-full p-3 rounded-lg border border-blue-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="plastic">Traditional Plastic</option>
+                    <option value="biodegradable">Biodegradable Materials</option>
+                    <option value="paper">Paper-based Solutions</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-blue-800 font-semibold mb-2">
+                    Monthly Production Volume (units)
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={sustainabilityMetrics.monthlyVolume}
+                    onChange={(e) => setSustainabilityMetrics(prev => ({
+                      ...prev,
+                      monthlyVolume: parseInt(e.target.value) || 0
+                    }))}
+                    className="w-full p-3 rounded-lg border border-blue-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-blue-800 font-semibold mb-2">
+                    Recycled Content (%)
+                  </label>
+                  <motion.div
+                    className="relative"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={sustainabilityMetrics.recycledContent}
+                      onChange={(e) => setSustainabilityMetrics(prev => ({
+                        ...prev,
+                        recycledContent: parseInt(e.target.value)
+                      }))}
+                      className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer"
+                    />
+                    <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-2 py-1 rounded text-sm">
+                      {sustainabilityMetrics.recycledContent}%
+                    </span>
+                  </motion.div>
+                </div>
+
+                <div>
+                  <label className="flex items-center space-x-3">
+                    <input
+                      type="checkbox"
+                      checked={sustainabilityMetrics.optimizedWeight}
+                      onChange={(e) => setSustainabilityMetrics(prev => ({
+                        ...prev,
+                        optimizedWeight: e.target.checked
+                      }))}
+                      className="w-5 h-5 text-blue-600 border-blue-300 rounded focus:ring-blue-500"
+                    />
+                    <span className="text-blue-800 font-semibold">Weight Optimized Design</span>
+                  </label>
+                </div>
+              </motion.div>
+
+              {/* Results Display */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl shadow-lg border border-blue-100"
+              >
+                <h4 className="text-2xl font-bold text-blue-800 mb-8">Environmental Impact</h4>
+                
+                <div className="space-y-6">
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white p-6 rounded-xl shadow-sm border border-blue-50"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className="bg-green-50 p-3 rounded-full">
+                        <FaLeaf className="text-3xl text-green-500" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-blue-600">Carbon Footprint Reduction</p>
+                        <p className="text-3xl font-bold text-blue-800">
+                          {calculateEnvironmentalImpact().carbonSaved} tons CO₂/year
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white p-6 rounded-xl shadow-sm border border-blue-50"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className="bg-green-50 p-3 rounded-full">
+                        <FaTree className="text-3xl text-green-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-blue-600">Equivalent Trees Planted</p>
+                        <p className="text-3xl font-bold text-blue-800">
+                          {calculateEnvironmentalImpact().treesEquivalent} trees
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white p-6 rounded-xl shadow-sm border border-blue-50"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className="bg-blue-50 p-3 rounded-full">
+                        <FaWater className="text-3xl text-blue-500" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-blue-600">Water Conservation</p>
+                        <p className="text-3xl font-bold text-blue-800">
+                          {calculateEnvironmentalImpact().waterSaved} liters/year
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+
+                <motion.div
+                  className="mt-8 text-center"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center space-x-2 bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 transition duration-300 text-lg font-semibold"
+                  >
+                    <span>Get Detailed Report</span>
+                    <FaChartLine className="ml-2" />
+                  </Link>
+                </motion.div>
+              </motion.div>
+            </div>
+          </ModernCard>
         </section>
 
         <section className="mb-32 relative">
