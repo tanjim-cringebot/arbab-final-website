@@ -17,6 +17,7 @@ const Footer = () => {
               <li><Link href="/product-portfolio" className="text-sm hover:text-gray-300">Products</Link></li>
               <li><Link href="/capacity-certification" className="text-sm hover:text-gray-300">Capacity</Link></li>
               <li><Link href="/innovation-sustainability" className="text-sm hover:text-gray-300">Sustainability</Link></li>
+              <li><Link href="/news" className="text-sm hover:text-gray-300">News & Updates</Link></li>
               <li><Link href="/contact" className="text-sm hover:text-gray-300">Contact</Link></li>
             </ul>
           </div>

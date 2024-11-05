@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useAnimation, useScroll, useTransform, useViewportScroll } from "framer-motion";
 import Link from "next/link";
 import Image from 'next/image';
-import { FaLeaf, FaBox, FaRecycle, FaLightbulb, FaIndustry, FaUsers, FaPhone, FaEnvelope, FaChevronDown, FaGlobe, FaWarehouse, FaCogs, FaBoxOpen, FaFlag, FaArrowRight, FaCertificate, FaChartLine, FaPlay, FaSolarPanel, FaRocket, FaEye, FaGlobeAmericas, FaHandshake, FaQuoteLeft } from "react-icons/fa";
+import { FaLeaf, FaBox, FaRecycle, FaArrowRight, FaLightbulb, FaIndustry, FaUsers, FaPhone, FaEnvelope, FaChevronDown, FaGlobe, FaWarehouse, FaCogs, FaBoxOpen, FaFlag, FaCertificate, FaChartLine, FaPlay, FaSolarPanel, FaRocket, FaEye, FaGlobeAmericas, FaHandshake, FaQuoteLeft, FaCalendar, FaArrowLeft, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ProductBackground from "../public/images/product background.jpg";
 import Hero from "../components/Hero";
 import Northend from "../public/images/northend_packet.png";
@@ -396,6 +396,53 @@ const CollaboratorLogo = ({ src, alt, index }) => {
   );
 };
 
+const NewsCard = ({ title, date, category, excerpt, image, index, active }) => (
+  <motion.div
+    className={`absolute inset-0 transition-all duration-500 ${
+      active ? 'opacity-100 z-10' : 'opacity-0 z-0'
+    }`}
+    initial={{ opacity: 0, x: 100 }}
+    animate={{ opacity: active ? 1 : 0, x: active ? 0 : 100 }}
+    transition={{ duration: 0.5 }}
+  >
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+      <div className="relative h-full rounded-3xl overflow-hidden">
+        <Image
+          src={image}
+          layout="fill"
+          objectFit="cover"
+          alt={title}
+          className="transform hover:scale-110 transition-transform duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/50 to-transparent" />
+      </div>
+      <div className="flex flex-col justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <span className="inline-block bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+            {category}
+          </span>
+          <div className="flex items-center text-blue-500 mb-4">
+            <FaCalendar className="mr-2" />
+            <span>{date}</span>
+          </div>
+          <h3 className="text-3xl font-bold text-blue-900 mb-4">{title}</h3>
+          <p className="text-xl text-blue-600 mb-8">{excerpt}</p>
+          <motion.button
+            whileHover={{ x: 10 }}
+            className="inline-flex items-center text-blue-600 font-semibold text-lg"
+          >
+            Read Full Article <FaArrowRight className="ml-2" />
+          </motion.button>
+        </motion.div>
+      </div>
+    </div>
+  </motion.div>
+);
+
 export default function Home() {
   const [loading, setLoading] = useState(true);
 
@@ -406,6 +453,32 @@ export default function Home() {
 
   const { scrollYProgress } = useViewportScroll();
   const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1.2]);
+
+  const [currentNews, setCurrentNews] = useState(0);
+
+  const newsItems = [
+    {
+      title: "Revolutionary Biodegradable Packaging Solution Unveiled",
+      date: "March 15, 2024",
+      category: "Innovation",
+      excerpt: "Our latest breakthrough in sustainable packaging technology is changing the industry landscape with fully biodegradable materials.",
+      image: "/images/n1.jpg"
+    },
+    {
+      title: "Arbab Pack Wins Sustainability Excellence Award",
+      date: "March 10, 2024",
+      category: "Awards",
+      excerpt: "Our commitment to environmental stewardship has been recognized at the International Packaging Summit 2024.",
+      image: "/images/n2.png"
+    },
+    {
+      title: "New Smart Packaging Technology Launch",
+      date: "March 5, 2024",
+      category: "Technology",
+      excerpt: "Introducing our revolutionary smart packaging solution with integrated IoT capabilities for enhanced supply chain visibility.",
+      image: "/images/n3.png"
+    }
+  ];
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -854,6 +927,92 @@ export default function Home() {
                 className="inline-block bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition duration-300"
               >
                 Learn More About Our Partnerships
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* News Carousel */}
+        <section className="py-24 relative overflow-hidden">
+          <motion.div
+            className="absolute inset-0 z-0"
+            initial={{ opacity: 0, scale: 1.2 }}
+            whileInView={{ opacity: 0.05, scale: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-white" />
+          </motion.div>
+
+          <div className="relative z-10 container mx-auto px-4">
+            <SectionTitle className="text-center">Latest News</SectionTitle>
+
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-2xl text-blue-700">
+                Stay updated with our latest innovations and industry insights
+              </p>
+            </motion.div>
+
+            {/* News Carousel */}
+            <div className="relative h-[600px] mb-16">
+              {newsItems.map((news, index) => (
+                <NewsCard
+                  key={index}
+                  {...news}
+                  index={index}
+                  active={currentNews === index}
+                />
+              ))}
+
+              {/* Navigation Arrows */}
+              <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 flex items-center space-x-8">
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setCurrentNews((prev) => (prev === 0 ? newsItems.length - 1 : prev - 1))}
+                  className="bg-blue-600 text-white p-4 rounded-full hover:bg-blue-700 transition-colors"
+                >
+                  <FaChevronLeft className="text-xl" />
+                </motion.button>
+                <div className="flex space-x-2">
+                  {newsItems.map((_, index) => (
+                    <motion.button
+                      key={index}
+                      onClick={() => setCurrentNews(index)}
+                      className={`w-3 h-3 rounded-full transition-colors ${
+                        currentNews === index ? 'bg-blue-600' : 'bg-blue-200'
+                      }`}
+                      whileHover={{ scale: 1.2 }}
+                    />
+                  ))}
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setCurrentNews((prev) => (prev === newsItems.length - 1 ? 0 : prev + 1))}
+                  className="bg-blue-600 text-white p-4 rounded-full hover:bg-blue-700 transition-colors"
+                >
+                  <FaChevronRight className="text-xl" />
+                </motion.button>
+              </div>
+            </div>
+
+            <motion.div
+              className="text-center mt-24"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Link
+                href="/news"
+                className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-blue-700 hover:to-blue-900 transition duration-300"
+              >
+                <span>View More</span>
+                <FaArrowRight />
               </Link>
             </motion.div>
           </div>
