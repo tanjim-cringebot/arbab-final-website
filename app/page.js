@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useAnimation, useScroll, useTransform, useViewportScroll } from "framer-motion";
 import Link from "next/link";
 import Image from 'next/image';
-import { FaLeaf, FaBox, FaRecycle, FaArrowRight, FaLightbulb, FaIndustry, FaUsers, FaPhone, FaEnvelope, FaChevronDown, FaGlobe, FaWarehouse, FaCogs, FaBoxOpen, FaFlag, FaCertificate, FaChartLine, FaPlay, FaSolarPanel, FaRocket, FaEye, FaGlobeAmericas, FaHandshake, FaQuoteLeft, FaCalendar, FaArrowLeft, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaLeaf, FaBox, FaRecycle, FaArrowRight, FaLightbulb, FaIndustry, FaUsers, FaPhone, FaEnvelope, FaChevronDown, FaGlobe, FaWarehouse, FaCogs, FaBoxOpen, FaFlag, FaCertificate, FaChartLine, FaPlay, FaSolarPanel, FaRocket, FaEye, FaGlobeAmericas, FaHandshake, FaQuoteLeft, FaCalendar, FaArrowLeft, FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
 import ProductBackground from "../public/images/product background.jpg";
 import Hero from "../components/Hero";
 import Northend from "../public/images/northend_packet.png";
@@ -483,7 +483,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000); // Adjust this time as needed
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
