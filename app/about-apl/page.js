@@ -194,7 +194,7 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
         {/* APL Story Section */}
         <section className="mb-32 relative pt-16">
-          <SectionTitle className="text-center mb-20">Our Journey</SectionTitle>
+          <SectionTitle className="text-center mb-20">APL Journey</SectionTitle>
           <div className="absolute top-1/4 left-0 w-1/3 h-[300px] bg-blue-100 rounded-r-full z-0"></div>
           <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
             <motion.div 
@@ -213,7 +213,7 @@ export default function About() {
             >
               <h4 className="text-3xl font-semibold text-blue-800 mb-6">From Small Beginnings to Global Leadership</h4>
               <p className="text-blue-700 text-lg mb-4">
-                Founded in 1988, APL has grown from a small paper converting facility into a global leader in packaging solutions. With over 30 years of experience, we have earned a reputation for excellence and innovation, serving industries across the globe.
+                Founded in 1988, APL has grown from a small paper converting facility into a leader in packaging solutions. With over 37 years of experience, we have earned a reputation for excellence and innovation, serving industries across the nation.
               </p>
               <Link href="/news">
                 <motion.div 
