@@ -192,41 +192,6 @@ export default function About() {
       <CoverPhotoSection />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-        {/* Vision and Mission Section - Moved here */}
-        <section className="mb-32 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-3/4 h-full bg-blue-100 -skew-x-12 z-0"></div>
-          <div className="relative z-10">
-            <SectionTitle className="text-center">Vision & Mission</SectionTitle>
-            <div className="flex flex-col md:flex-row gap-16 items-stretch">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                className="flex-1"
-              >
-                <FaEye className="text-6xl text-blue-600 mb-6 mx-auto" />
-                <h3 className="text-3xl font-semibold mb-4 text-center text-blue-800">Our Vision</h3>
-                <p className="text-lg text-center text-blue-700">
-                  To become the global leader in sustainable packaging solutions through innovation, technology, and long-term partnerships.
-                </p>
-              </motion.div>
-              <div className="hidden md:block w-px bg-blue-300 self-stretch"></div>
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="flex-1"
-              >
-                <FaBullseye className="text-6xl text-blue-800 mb-6 mx-auto" />
-                <h3 className="text-3xl font-semibold mb-4 text-center text-blue-800">Our Mission</h3>
-                <p className="text-lg text-center text-blue-700">
-                  To provide innovative packaging solutions that meet the highest standards of quality, sustainability, and customer service.
-                </p>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
         {/* APL Story Section */}
         <section className="mb-32 relative pt-16">
           <div className="absolute top-0 left-0 w-1/2 h-full bg-blue-100 rounded-r-full z-0"></div>
@@ -310,7 +275,42 @@ export default function About() {
           </div>
         </section>
 
-        {/* Core Values Section */}
+        {/* Vision and Mission Section - Moved here */}
+        <section className="mb-32 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-3/4 h-full bg-blue-100 -skew-x-12 z-0"></div>
+          <div className="relative z-10">
+            <SectionTitle className="text-center">Vision & Mission</SectionTitle>
+            <div className="flex flex-col md:flex-row gap-16 items-stretch">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex-1"
+              >
+                <FaEye className="text-6xl text-blue-600 mb-6 mx-auto" />
+                <h3 className="text-3xl font-semibold mb-4 text-center text-blue-800">Our Vision</h3>
+                <p className="text-lg text-center text-blue-700">
+                  To become the global leader in sustainable packaging solutions through innovation, technology, and long-term partnerships.
+                </p>
+              </motion.div>
+              <div className="hidden md:block w-px bg-blue-300 self-stretch"></div>
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="flex-1"
+              >
+                <FaBullseye className="text-6xl text-blue-800 mb-6 mx-auto" />
+                <h3 className="text-3xl font-semibold mb-4 text-center text-blue-800">Our Mission</h3>
+                <p className="text-lg text-center text-blue-700">
+                  To provide innovative packaging solutions that meet the highest standards of quality, sustainability, and customer service.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Core Values Section (Essence of our Strength) */}
         <section className="mb-32 relative overflow-hidden">
           <SectionTitle className="text-center">Essence of our Strength</SectionTitle>
           <p className="text-xl text-blue-700 text-center mb-12 max-w-3xl mx-auto">
