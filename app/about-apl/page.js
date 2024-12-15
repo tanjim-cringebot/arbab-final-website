@@ -188,7 +188,7 @@ export default function About() {
   }, [testimonials.length])
 
   return (
-    <main className="bg-gradient-to-b from-white to-blue-50 min-h-screen">
+    <main className="bg-gradient-to-b from-white to-blue-50 min-h-screen pb-32">
       <CoverPhotoSection />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
@@ -403,7 +403,7 @@ export default function About() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center bg-blue-900 text-white py-16 px-8 rounded-3xl"
+          className="text-center bg-blue-900 text-white py-16 px-8 rounded-3xl mb-20"
         >
           <SectionTitle className="text-center text-white">Ready to Revolutionize Your Packaging?</SectionTitle>
           <p className="text-2xl mb-10 text-blue-100">
