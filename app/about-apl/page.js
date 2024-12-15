@@ -71,7 +71,6 @@ const CoreValueCard = ({ icon: Icon, title, description }) => {
 const CoverPhotoSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
-  const slideRef = useRef(null)
 
   const slides = [
     {
@@ -95,122 +94,95 @@ const CoverPhotoSection = () => {
     if (!isHovered) {
       const timer = setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % slides.length)
-      }, 5000)
+      }, 7000)
       return () => clearInterval(timer)
     }
   }, [isHovered, slides.length])
 
   return (
-    <>
-      {/* Title Section */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-center mb-16"
-      >
-        <h1 className="text-6xl font-bold text-blue-900 mb-4">
-          About <span className="text-blue-600">APL</span>
-        </h1>
-        <p className="text-xl text-blue-700 max-w-3xl mx-auto">
-          Pioneering sustainable packaging solutions with innovation and excellence since 1988
-        </p>
-      </motion.div>
-
-      {/* Full-width container */}
-      <div className="relative -mx-4 sm:-mx-6 lg:-mx-8">
-        <motion.div
-          className="relative h-[80vh] overflow-hidden"
-          onHoverStart={() => setIsHovered(true)}
-          onHoverEnd={() => setIsHovered(false)}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/90 z-10" />
-          
-          <div className="relative h-full">
-            {slides.map((slide, index) => (
-              <motion.div
-                key={index}
-                className="absolute inset-0"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: currentSlide === index ? 1 : 0,
-                  scale: currentSlide === index ? 1 : 1.1,
-                }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-              >
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  className="object-cover"
-                  priority={index === 0}
-                />
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="absolute inset-0 flex items-center justify-center z-20">
+    <div className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Image Slider */}
+      <AnimatePresence initial={false}>
+        {slides.map((slide, index) => (
+          index === currentSlide && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center text-white px-4"
+              key={index}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{
+                x: { type: "tween", duration: 1.5, ease: "easeInOut" },
+                opacity: { duration: 1 }
+              }}
+              className="absolute inset-0 z-10"
             >
-              <motion.h2
-                key={slides[currentSlide].title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.8 }}
-                className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg"
-              >
-                {slides[currentSlide].title}
-              </motion.h2>
-              <motion.p
-                key={slides[currentSlide].subtitle}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-2xl md:text-3xl drop-shadow-lg"
-              >
-                {slides[currentSlide].subtitle}
-              </motion.p>
-            </motion.div>
-          </div>
-
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
-            {slides.map((_, index) => (
-              <motion.button
-                key={index}
-                className={`w-3 h-3 rounded-full ${
-                  currentSlide === index ? "bg-white" : "bg-white/50"
-                }`}
-                onClick={() => setCurrentSlide(index)}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                fill
+                className="object-cover"
+                priority={index === 0}
               />
-            ))}
-          </div>
+            </motion.div>
+          )
+        ))}
+      </AnimatePresence>
 
-          <motion.div
-            className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-20"
-            animate={{
-              y: [0, 10, 0],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <div className="w-6 h-10 border-2 border-white rounded-full p-1">
-              <div className="w-1 h-2 bg-white rounded-full mx-auto" />
-            </div>
-          </motion.div>
-        </motion.div>
+      {/* Overlay */}
+      <div className="absolute z-20 w-full h-full bg-gradient-to-b from-black/50 to-black/70"></div>
+
+      {/* Content */}
+      <div className="relative z-30 text-white text-center px-4">
+        <motion.h1 
+          className="text-5xl md:text-7xl font-bold mb-4"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          About APL
+        </motion.h1>
+        <motion.p 
+          className="text-xl md:text-3xl mb-8"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        >
+          Pioneering sustainable packaging solutions with innovation and excellence since 1988
+        </motion.p>
       </div>
-    </>
+
+      {/* Slide Indicators */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
+        {slides.map((_, index) => (
+          <motion.button
+            key={index}
+            className={`w-3 h-3 rounded-full ${
+              currentSlide === index ? "bg-white" : "bg-white/50"
+            }`}
+            onClick={() => setCurrentSlide(index)}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+          />
+        ))}
+      </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-30"
+        animate={{
+          y: [0, 10, 0],
+        }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <div className="w-6 h-10 border-2 border-white rounded-full p-1">
+          <div className="w-1 h-2 bg-white rounded-full mx-auto" />
+        </div>
+      </motion.div>
+    </div>
   )
 }
 
@@ -234,12 +206,6 @@ export default function About() {
   return (
     <main className="bg-gradient-to-b from-white to-blue-50 min-h-screen">
       <div className="relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <Link href="/" className="text-blue-600 flex items-center mb-8 hover:text-blue-800 transition duration-300">
-            <FaArrowLeft className="w-5 h-5 mr-2" /> Back to Home
-          </Link>
-        </div>
-        
         <CoverPhotoSection />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-32">
