@@ -228,7 +228,7 @@ export default function About() {
 
         {/* Corporate Profile Section */}
         <section className="mb-32">
-          <SectionTitle className="text-center">Our Expertise</SectionTitle>
+          <SectionTitle className="text-center">APL Expertise</SectionTitle>
           <h3 className="text-3xl font-semibold text-blue-800 mb-6 text-center">World-Class Packaging Solutions</h3>
           <p className="text-blue-700 text-lg mb-16 text-center max-w-3xl mx-auto">
             APL is committed to delivering world-class packaging solutions that prioritize quality, sustainability, and customer satisfaction.
@@ -312,7 +312,7 @@ export default function About() {
 
         {/* Core Values Section (Essence of our Strength) */}
         <section className="mb-32 relative overflow-hidden">
-          <SectionTitle className="text-center">Essence of our Strength</SectionTitle>
+          <SectionTitle className="text-center">Essence of APL Strength</SectionTitle>
           <p className="text-xl text-blue-700 text-center mb-12 max-w-3xl mx-auto">
             We nurtured our belief to create the establishment of our success– aspiring diligence through thick & thin
           </p>
@@ -339,8 +339,8 @@ export default function About() {
         <section className="mb-32 relative">
           <div className="absolute bottom-0 left-0 w-3/4 h-3/4 bg-blue-100 rounded-tr-full z-0"></div>
           <div className="relative z-10">
-            <SectionTitle className="text-right">Why Choose APL?</SectionTitle>
-            <h3 className="text-3xl font-semibold text-blue-800 mb-6 text-center">Our Unique Selling Proposition</h3>
+            <SectionTitle className="text-center">Why Choose APL?</SectionTitle>
+            <h3 className="text-3xl font-semibold text-blue-800 mb-6 text-center">Unique Selling Proposition</h3>
             <p className="text-blue-700 text-xl mb-16 text-center max-w-3xl mx-auto">
               We offer unmatched quality, customization, and sustainable solutions, making us the preferred partner for companies worldwide.
             </p>
