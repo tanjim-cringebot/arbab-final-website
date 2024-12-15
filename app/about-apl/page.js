@@ -194,7 +194,7 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
         {/* APL Story Section */}
         <section className="mb-32 relative pt-16">
-          <SectionTitle className="text-center mb-20">Our Journey</SectionTitle>
+          <SectionTitle className="text-center mb-20">APL Journey</SectionTitle>
           <div className="absolute top-1/4 left-0 w-1/3 h-[300px] bg-blue-100 rounded-r-full z-0"></div>
           <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
             <motion.div 
@@ -220,7 +220,7 @@ export default function About() {
                 whileHover={{ x: 10 }}
               >
                 <FaHistory className="mr-2" />
-                <span>30+ Years of Excellence</span>
+                <span>37 Years of Excellence</span>
               </motion.div>
             </motion.div>
           </div>
