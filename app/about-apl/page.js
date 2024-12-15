@@ -191,7 +191,7 @@ export default function About() {
     <main className="bg-gradient-to-b from-white to-blue-50 min-h-screen">
       <CoverPhotoSection />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
         {/* Vision and Mission Section - Moved here */}
         <section className="mb-32 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-3/4 h-full bg-blue-100 -skew-x-12 z-0"></div>
