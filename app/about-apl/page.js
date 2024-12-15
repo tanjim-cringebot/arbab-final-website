@@ -194,13 +194,14 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
         {/* APL Story Section */}
         <section className="mb-32 relative pt-16">
-          <div className="absolute top-0 left-0 w-1/2 h-full bg-blue-100 rounded-r-full z-0"></div>
-          <div className="relative z-10 flex flex-col md:flex-row items-center">
+          <SectionTitle className="text-center mb-20">Our Journey</SectionTitle>
+          <div className="absolute top-1/4 left-0 w-1/3 h-[300px] bg-blue-100 rounded-r-full z-0"></div>
+          <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="w-full md:w-1/2 mb-8 md:mb-0"
+              className="w-full md:w-1/2"
             >
               <Image src={ArbabOffice} alt="APL History" width={500} height={300} className="rounded-lg shadow-lg" />
             </motion.div>
@@ -210,8 +211,7 @@ export default function About() {
               transition={{ duration: 0.5 }}
               className="w-full md:w-1/2 md:pl-12"
             >
-              <SectionTitle className="text-left">Our Journey</SectionTitle>
-              <h3 className="text-3xl font-semibold text-blue-800 mb-6">From Small Beginnings to Global Leadership</h3>
+              <h4 className="text-3xl font-semibold text-blue-800 mb-6">From Small Beginnings to Global Leadership</h4>
               <p className="text-blue-700 text-lg mb-4">
                 Founded in 1988, APL has grown from a small paper converting facility into a global leader in packaging solutions. With over 30 years of experience, we have earned a reputation for excellence and innovation, serving industries across the globe.
               </p>
