@@ -237,9 +237,21 @@ export default function About() {
           </p>
           <div className="space-y-24">
             {[
-              { icon: FaIndustry, text: "Advanced Production Facilities", image: productionFacility, alt: "Advanced production facility" },
-              { icon: FaUsers, text: "Dedicated Workforce", image: dedicatedWorkforce, alt: "Dedicated workforce" },
-              { icon: FaCog, text: "Continuous R&D Investment", image: researchDevelopment, alt: "Research and development" },
+              { icon: FaIndustry, text: "Cutting-edge Technology", image: productionFacility, alt: "Advanced production facility" },
+              { 
+                icon: FaUsers, 
+                text: "Decades of Expertise", 
+                image: dedicatedWorkforce, 
+                alt: "Dedicated workforce",
+                description: "With over 37 years of experience, APL combines knowledge and craftsmanship to provide reliable, high-quality packaging solutions tailored to diverse needs. This expertise allows APL to adapt to industry trends and consistently exceed customer expectations."
+              },
+              { 
+                icon: FaCog, 
+                text: "Deep Commitment to Sustainability", 
+                image: researchDevelopment, 
+                alt: "Research and development",
+                description: "APL leads the way in sustainable packaging practices, integrating a circular economy approach to reduce waste and minimize environmental impact. By prioritizing eco-friendly materials and processes, APL is driving positive change across the industry."
+              },
             ].map((item, index) => (
               <motion.div 
                 key={index}
@@ -269,7 +281,7 @@ export default function About() {
                     <h4 className="text-2xl font-semibold text-blue-800">{item.text}</h4>
                   </div>
                   <p className="text-blue-700">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    {item.description || "APL leverages advanced technology to deliver innovative and efficient packaging solutions, setting new benchmarks in the industry. Its state-of-the-art systems ensure precision, quality, and scalability for every project."}
                   </p>
                 </div>
               </motion.div>
