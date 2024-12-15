@@ -211,9 +211,9 @@ export default function About() {
               transition={{ duration: 0.5 }}
               className="w-full md:w-1/2 md:pl-12"
             >
-              <h4 className="text-3xl font-semibold text-blue-800 mb-6">From Small Beginnings to Global Leadership</h4>
+              <h4 className="text-3xl font-semibold text-blue-800 mb-6">From Modest Start to Touching Every Corner of the Country</h4>
               <p className="text-blue-700 text-lg mb-4">
-                Founded in 1988, APL has grown from a small paper converting facility into a global leader in packaging solutions. With over 30 years of experience, we have earned a reputation for excellence and innovation, serving industries across the globe.
+                Founded in 1988, APL has grown from a small paper converting facility into a global leader in packaging solutions. With over 37 years of experience, we have earned a reputation for excellence and innovation, serving industries across the globe.
               </p>
               <motion.div 
                 className="flex items-center text-blue-600"
