@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
@@ -10,6 +10,9 @@ import ArbabOffice from "../../public/images/arbab_office.JPG"
 import productionFacility from "../../public/images/advance_machine.jpg"
 import dedicatedWorkforce from "../../public/images/workforce.jpg"
 import researchDevelopment from "../../public/images/rnd.jpg"
+import coverPhoto1 from "../../public/images/cover1.jpg"
+import coverPhoto2 from "../../public/images/cover2.jpg"
+import coverPhoto3 from "../../public/images/cover3.jpg"
 
 const SectionTitle = ({ children, className = "" }) => (
   <motion.h2
@@ -65,6 +68,132 @@ const CoreValueCard = ({ icon: Icon, title, description }) => {
   );
 };
 
+const CoverPhotoSection = () => {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+  const slideRef = useRef(null)
+
+  const slides = [
+    {
+      image: coverPhoto1,
+      title: "Innovation in Packaging",
+      subtitle: "Leading the Future of Sustainable Solutions"
+    },
+    {
+      image: coverPhoto2,
+      title: "Global Excellence",
+      subtitle: "Serving Industries Worldwide"
+    },
+    {
+      image: coverPhoto3,
+      title: "Quality & Precision",
+      subtitle: "Setting New Industry Standards"
+    }
+  ]
+
+  useEffect(() => {
+    if (!isHovered) {
+      const timer = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length)
+      }, 5000)
+      return () => clearInterval(timer)
+    }
+  }, [isHovered, slides.length])
+
+  return (
+    <motion.div
+      className="relative h-[70vh] overflow-hidden mb-32"
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+    >
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/90 z-10" />
+      
+      <div className="relative h-full">
+        {slides.map((slide, index) => (
+          <motion.div
+            key={index}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: currentSlide === index ? 1 : 0,
+              scale: currentSlide === index ? 1 : 1.1,
+            }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+          >
+            <Image
+              src={slide.image}
+              alt={slide.title}
+              fill
+              className="object-cover"
+              priority={index === 0}
+            />
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="absolute inset-0 flex items-center justify-center z-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center text-white"
+        >
+          <motion.h1
+            key={slides[currentSlide].title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.8 }}
+            className="text-6xl font-bold mb-4 drop-shadow-lg"
+          >
+            {slides[currentSlide].title}
+          </motion.h1>
+          <motion.p
+            key={slides[currentSlide].subtitle}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-2xl drop-shadow-lg"
+          >
+            {slides[currentSlide].subtitle}
+          </motion.p>
+        </motion.div>
+      </div>
+
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
+        {slides.map((_, index) => (
+          <motion.button
+            key={index}
+            className={`w-3 h-3 rounded-full ${
+              currentSlide === index ? "bg-white" : "bg-white/50"
+            }`}
+            onClick={() => setCurrentSlide(index)}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+          />
+        ))}
+      </div>
+
+      <motion.div
+        className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-20"
+        animate={{
+          y: [0, 10, 0],
+        }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <div className="w-6 h-10 border-2 border-white rounded-full p-1">
+          <div className="w-1 h-2 bg-white rounded-full mx-auto" />
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
+
 export default function About() {
   const [activeTestimonial, setActiveTestimonial] = useState(0)
   const testimonials = [
@@ -85,21 +214,14 @@ export default function About() {
   return (
     <main className="bg-gradient-to-b from-white to-blue-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <Link href="/" className="text-blue-600 flex items-center mb-16 hover:text-blue-800 transition duration-300">
+        <Link href="/" className="text-blue-600 flex items-center mb-8 hover:text-blue-800 transition duration-300">
           <FaArrowLeft className="w-5 h-5 mr-2" /> Back to Home
         </Link>
         
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-6xl font-bold mb-24 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-900"
-        >
-          About Arbab Pack Ltd
-        </motion.h1>
+        <CoverPhotoSection />
 
-        {/* APL Story Section */}
-        <section className="mb-32 relative">
+        {/* APL Story Section - Added pt-16 for extra top padding */}
+        <section className="mb-32 relative pt-16">
           <div className="absolute top-0 left-0 w-1/2 h-full bg-blue-100 rounded-r-full z-0"></div>
           <div className="relative z-10 flex flex-col md:flex-row items-center">
             <motion.div 
