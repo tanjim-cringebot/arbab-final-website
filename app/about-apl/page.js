@@ -100,7 +100,7 @@ const CoverPhotoSection = () => {
   }, [isHovered, slides.length])
 
   return (
-    <div className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+    <div className="relative h-[50vh] flex items-center justify-center overflow-hidden">
       {/* Image Slider */}
       <AnimatePresence initial={false}>
         {slides.map((slide, index) => (
