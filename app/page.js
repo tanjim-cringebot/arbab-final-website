@@ -499,12 +499,21 @@ export default function Home() {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
-        {/* Meet the Leaders */}
-        <section className="mb-40">
-          <SectionTitle className="mb-24">Meet the Leaders</SectionTitle>
-          <div className="max-w-7xl mx-auto">
-            <LeaderSlider />
+        {/* Our Solutions/Products */}
+        <section className="mb-32">
+          <SectionTitle>Our Products</SectionTitle>
+          <div className="mb-12 text-center">
+            <p className="text-xl text-blue-600 mb-8">
+              Discover our wide range of innovative packaging solutions designed to meet your unique needs.
+            </p>
+            <Link
+              href="/product-portfolio"
+              className="inline-flex items-center text-2xl text-blue-500 hover:text-blue-700 transition duration-300 font-semibold"
+            >
+              Explore All Products <FaArrowRight className="ml-2" />
+            </Link>
           </div>
+          <ProductSlider />
         </section>
 
         {/* Our Story */}
@@ -586,41 +595,107 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Our Solutions */}
+        {/* Nationwide Impact (Reaching Every Corner) */}
         <section className="mb-32">
-          <SectionTitle>Our Products</SectionTitle>
-          <div className="mb-12 text-center">
-            <p className="text-xl text-blue-600 mb-8">
-              Discover our wide range of innovative packaging solutions designed to meet your unique needs.
-            </p>
-            <Link
-              href="/product-portfolio"
-              className="inline-flex items-center text-2xl text-blue-500 hover:text-blue-700 transition duration-300 font-semibold"
+          <SectionTitle>Nationwide Impact</SectionTitle>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="relative w-full aspect-square md:aspect-[4/3] lg:aspect-[16/9]"
             >
-              Explore All Products <FaArrowRight className="ml-2" />
-            </Link>
+              <Image
+                src={Nationwide}
+                layout="fill"
+                objectFit="cover"
+                alt="Nationwide Presence"
+                className="rounded-3xl shadow-2xl"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h3 className="text-4xl font-bold mb-6 text-blue-700">Reaching Every Corner</h3>
+              <p className="text-xl text-blue-600 mb-6">
+                With a strong presence across the country, we&apos;re providing innovative packaging solutions that benefit businesses and contribute to a more sustainable environment.
+              </p>
+              <ul className="text-xl text-blue-600 space-y-4">
+                <motion.li whileHover={{ x: 10 }} className="flex items-center">
+                  <FaGlobe className="text-blue-500 mr-4" /> 8 Divisions
+                </motion.li>
+                <motion.li whileHover={{ x: 10 }} className="flex items-center">
+                  <FaIndustry className="text-blue-500 mr-4" /> 15 Production Facilities
+                </motion.li>
+                <motion.li whileHover={{ x: 10 }} className="flex items-center">
+                  <FaUsers className="text-blue-500 mr-4" /> 5000+ Employees Nationwide
+                </motion.li>
+              </ul>
+            </motion.div>
           </div>
-          <ProductSlider />
+        </section>
+
+        {/* Vision */}
+        <section className="py-24 relative overflow-hidden">
+          <SectionTitle className="text-center">Our Vision</SectionTitle>
+          <div className="relative z-10 container mx-auto px-4">
+            <motion.div 
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-2xl text-blue-700">
+                Shaping a sustainable future through innovative packaging solutions.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <VisionFeature 
+                icon={FaEye} 
+                title="Forward-Thinking" 
+                description="Anticipating market needs and driving industry trends."
+              />
+              <VisionFeature 
+                icon={FaGlobeAmericas} 
+                title="Global Impact" 
+                description="Expanding our reach to serve diverse markets worldwide."
+              />
+              <VisionFeature 
+                icon={FaHandshake} 
+                title="Collaborative Growth" 
+                description="Fostering partnerships for mutual success and innovation."
+              />
+            </div>
+
+            <motion.div 
+              className="mt-16 text-center"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <h3 className="text-3xl font-bold mb-8 text-blue-700">Our Commitment</h3>
+              <p className="text-xl text-blue-600 max-w-3xl mx-auto">
+                We are dedicated to pushing the boundaries of packaging technology while maintaining our commitment to sustainability and customer satisfaction.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Meet the Leaders */}
+        <section className="mb-40">
+          <SectionTitle className="mb-24">Meet the Leaders</SectionTitle>
+          <div className="max-w-7xl mx-auto">
+            <LeaderSlider />
+          </div>
         </section>
 
         {/* Capacity Section */}
         <section className="py-24 relative overflow-hidden">
-          <motion.div
-            className="absolute inset-0 z-0"
-            initial={{ opacity: 0, scale: 1.2 }}
-            whileInView={{ opacity: 0.1, scale: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <Image
-              src="/path-to-factory-image.jpg"
-              layout="fill"
-              objectFit="cover"
-              alt=""
-            />
-          </motion.div>
+          <SectionTitle>Our Capacity</SectionTitle>
           <div className="container mx-auto px-4 relative z-10">
-            <SectionTitle>Our Capacity</SectionTitle>
-            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
               <CapacityItem 
                 icon={FaWarehouse} 
@@ -698,22 +773,8 @@ export default function Home() {
 
         {/* Innovation Hub */}
         <section className="py-24 relative overflow-hidden">
-          <motion.div
-            className="absolute inset-0 z-0"
-            initial={{ opacity: 0, scale: 1.2 }}
-            whileInView={{ opacity: 0.1, scale: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <Image
-              src="/path-to-innovation-pattern.jpg"
-              layout="fill"
-              objectFit="cover"
-              alt=""
-            />
-          </motion.div>
+          <SectionTitle className="text-center">Innovation Hub</SectionTitle>
           <div className="relative z-10 container mx-auto px-4">
-            <SectionTitle className="text-center">Innovation Hub</SectionTitle>
-            
             <motion.div 
               className="text-center mb-16"
               initial={{ opacity: 0, y: 50 }}
@@ -772,180 +833,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Vision */}
-        <section className="py-24 relative overflow-hidden">
-          <motion.div
-            className="absolute inset-0 z-0"
-            initial={{ opacity: 0, scale: 1.2 }}
-            whileInView={{ opacity: 0.05, scale: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <Image
-              src="/path-to-vision-pattern.jpg"
-              layout="fill"
-              objectFit="cover"
-              alt=""
-            />
-          </motion.div>
-          <div className="relative z-10 container mx-auto px-4">
-            <SectionTitle className="text-center">Our Vision</SectionTitle>
-            
-            <motion.div 
-              className="text-center mb-16"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <p className="text-2xl text-blue-700">
-                Shaping a sustainable future through innovative packaging solutions.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              <VisionFeature 
-                icon={FaEye} 
-                title="Forward-Thinking" 
-                description="Anticipating market needs and driving industry trends."
-              />
-              <VisionFeature 
-                icon={FaGlobeAmericas} 
-                title="Global Impact" 
-                description="Expanding our reach to serve diverse markets worldwide."
-              />
-              <VisionFeature 
-                icon={FaHandshake} 
-                title="Collaborative Growth" 
-                description="Fostering partnerships for mutual success and innovation."
-              />
-            </div>
-
-            <motion.div 
-              className="mt-16 text-center"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
-              <h3 className="text-3xl font-bold mb-8 text-blue-700">Our Commitment</h3>
-              <p className="text-xl text-blue-600 max-w-3xl mx-auto">
-                We are dedicated to pushing the boundaries of packaging technology while maintaining our commitment to sustainability and customer satisfaction.
-              </p>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Nationwide Impact */}
-        <section className="mb-32">
-          <SectionTitle>Nationwide Impact</SectionTitle>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="relative w-full aspect-square md:aspect-[4/3] lg:aspect-[16/9]"
-            >
-              <Image
-                src={Nationwide}
-                layout="fill"
-                objectFit="cover"
-                alt="Nationwide Presence"
-                className="rounded-3xl shadow-2xl"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h3 className="text-4xl font-bold mb-6 text-blue-700">Reaching Every Corner</h3>
-              <p className="text-xl text-blue-600 mb-6">
-                With a strong presence across the country, we&apos;re providing innovative packaging solutions that benefit businesses and contribute to a more sustainable environment.
-              </p>
-              <ul className="text-xl text-blue-600 space-y-4">
-                <motion.li whileHover={{ x: 10 }} className="flex items-center">
-                  <FaGlobe className="text-blue-500 mr-4" /> 8 Divisions
-                </motion.li>
-                <motion.li whileHover={{ x: 10 }} className="flex items-center">
-                  <FaIndustry className="text-blue-500 mr-4" /> 15 Production Facilities
-                </motion.li>
-                <motion.li whileHover={{ x: 10 }} className="flex items-center">
-                  <FaUsers className="text-blue-500 mr-4" /> 5000+ Employees Nationwide
-                </motion.li>
-              </ul>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Our Collaborators */}
-        <section className="py-24 relative overflow-hidden">
-          <motion.div
-            className="absolute inset-0 z-0"
-            initial={{ opacity: 0, scale: 1.2 }}
-            whileInView={{ opacity: 0.05, scale: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <Image
-              src="/images/collaboration-bg.jpg"
-              layout="fill"
-              objectFit="cover"
-              alt=""
-            />
-          </motion.div>
-          <div className="relative z-10 container mx-auto px-4">
-            <SectionTitle className="text-center mb-16">Our Collaborators</SectionTitle>
-            
-            <motion.div 
-              className="flex flex-wrap justify-center items-center"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              {[
-                { src: '/images/bat.png', alt: 'Collaborator 1' },
-                { src: '/images/smc.png', alt: 'Collaborator 2' },
-                { src: '/images/pran.png', alt: 'Collaborator 3' },
-                { src: '/images/danish.png', alt: 'Collaborator 4' },
-                { src: '/images/nestle.png', alt: 'Collaborator 5' },
-                { src: '/images/akij.png', alt: 'Collaborator 6' },
-              ].map((collaborator, index) => (
-                <React.Fragment key={index}>
-                  {index > 0 && (
-                    <div className="h-16 w-px bg-blue-200 mx-4"></div>
-                  )}
-                  <CollaboratorLogo {...collaborator} index={index} />
-                </React.Fragment>
-              ))}
-            </motion.div>
-            
-            <motion.div 
-              className="text-center mt-16"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-            >
-              <Link
-                href="/about-apl#collaborators"
-                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition duration-300"
-              >
-                Learn More About Our Partnerships
-              </Link>
-            </motion.div>
-          </div>
-        </section>
-
         {/* News Carousel */}
         <section className="py-24 relative overflow-hidden">
-          <motion.div
-            className="absolute inset-0 z-0"
-            initial={{ opacity: 0, scale: 1.2 }}
-            whileInView={{ opacity: 0.05, scale: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-white" />
-          </motion.div>
-
+          <SectionTitle className="text-center">Latest News</SectionTitle>
           <div className="relative z-10 container mx-auto px-4">
-            <SectionTitle className="text-center">Latest News</SectionTitle>
-
             <motion.div
               className="text-center mb-16"
               initial={{ opacity: 0, y: 50 }}
@@ -1018,24 +909,53 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Our Collaborators */}
+        <section className="py-24 relative overflow-hidden">
+          <SectionTitle className="text-center mb-16">Our Collaborators</SectionTitle>
+          <div className="relative z-10 container mx-auto px-4">
+            <motion.div 
+              className="flex flex-wrap justify-center items-center"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              {[
+                { src: '/images/bat.png', alt: 'Collaborator 1' },
+                { src: '/images/smc.png', alt: 'Collaborator 2' },
+                { src: '/images/pran.png', alt: 'Collaborator 3' },
+                { src: '/images/danish.png', alt: 'Collaborator 4' },
+                { src: '/images/nestle.png', alt: 'Collaborator 5' },
+                { src: '/images/akij.png', alt: 'Collaborator 6' },
+              ].map((collaborator, index) => (
+                <React.Fragment key={index}>
+                  {index > 0 && (
+                    <div className="h-16 w-px bg-blue-200 mx-4"></div>
+                  )}
+                  <CollaboratorLogo {...collaborator} index={index} />
+                </React.Fragment>
+              ))}
+            </motion.div>
+            
+            <motion.div 
+              className="text-center mt-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+            >
+              <Link
+                href="/about-apl#collaborators"
+                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition duration-300"
+              >
+                Learn More About Our Partnerships
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Let's Collaborate */}
         <section className="mt-32 relative overflow-hidden py-24">
-          <motion.div
-            className="absolute inset-0 z-0"
-            initial={{ opacity: 0, scale: 1.2 }}
-            whileInView={{ opacity: 0.1, scale: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <Image
-              src="/images/collaboration.jpg"
-              layout="fill"
-              objectFit="cover"
-              alt=""
-            />
-          </motion.div>
+          <SectionTitle className="text-center">Let&apos;s Collaborate</SectionTitle>
           <div className="relative z-10 container mx-auto px-4">
-            <SectionTitle className="text-center">Let&apos;s Collaborate</SectionTitle>
-            
             <motion.div 
               className="text-center mb-16"
               initial={{ opacity: 0, y: 50 }}

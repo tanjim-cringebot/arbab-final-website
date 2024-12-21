@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
-    "@heroicons/react": "^2.1.5",
+    "@heroicons/react": "^2.2.0",
     "framer-motion": "^11.11.8",
     "lottie": "^0.0.1",
     "lottie-react": "^2.4.0",
