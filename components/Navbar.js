@@ -148,9 +148,9 @@ const Navbar = () => {
                 <Image
                   src={arbab_logo}
                   alt="Arbab Pack Ltd"
-                  width={300}
-                  height={150}
-                  className="h-16 sm:h-20 lg:h-24 w-auto"
+                  width={200}
+                  height={100}
+                  className="h-12 sm:h-16 lg:h-20 w-auto"
                 />
               </Link>
               <div className="ml-2 sm:ml-4 hidden sm:block">
