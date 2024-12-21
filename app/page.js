@@ -501,9 +501,9 @@ export default function Home() {
       <div className="container mx-auto px-4 py-12">
         {/* Our Solutions/Products */}
         <section className="mb-32">
-          <SectionTitle>Our Products</SectionTitle>
+          <SectionTitle>APL Products</SectionTitle>
           <div className="mb-12 text-center">
-            <p className="text-xl text-blue-600 mb-8">
+            <p className="text-3xl text-blue-600 mb-8">
               Discover our wide range of innovative packaging solutions designed to meet your unique needs.
             </p>
             <Link
