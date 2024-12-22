@@ -112,14 +112,46 @@ const TimelineEvent = ({ year, title, description, isLeft }) => (
 
 const ProductSlider = () => {
   const products = [
-    { name: "Smart Packaging", image: Northend },
-    { name: "Eco-Friendly Boxes", image: Tea },
-    { name: "Custom Designs", image: Milk },
-    { name: "Protective Packaging", image: Chips },
-    { name: "Luxury Packaging", image: Noodles },
-    { name: "Food-Grade Containers", image: Jet },
-    { name: "Industrial Packaging", image: Moshla },
-    { name: "Retail Packaging", image: Bombay },
+    { 
+      name: "Smart Packaging", 
+      image: Northend,
+      link: "/product-portfolio#smart-packaging"
+    },
+    { 
+      name: "Eco-Friendly Boxes", 
+      image: Tea,
+      link: "/product-portfolio#eco-friendly"
+    },
+    { 
+      name: "Custom Designs", 
+      image: Milk,
+      link: "/product-portfolio#custom-designs"
+    },
+    { 
+      name: "Protective Packaging", 
+      image: Chips,
+      link: "/product-portfolio#protective"
+    },
+    { 
+      name: "Luxury Packaging", 
+      image: Noodles,
+      link: "/product-portfolio#luxury"
+    },
+    { 
+      name: "Food-Grade Containers", 
+      image: Jet,
+      link: "/product-portfolio#food-grade"
+    },
+    { 
+      name: "Industrial Packaging", 
+      image: Moshla,
+      link: "/product-portfolio#industrial"
+    },
+    { 
+      name: "Retail Packaging", 
+      image: Bombay,
+      link: "/product-portfolio#retail"
+    }
   ];
 
   const controls = useAnimation();
@@ -139,35 +171,47 @@ const ProductSlider = () => {
   }, [controls]);
 
   return (
-    <div className="overflow-hidden py-16 relative">
+    <div className="relative w-screen overflow-hidden -mx-[50vw] left-[50%] right-[50%] ml-[-50vw] mr-[-50vw]">
       {/* Background Image */}
       <Image
         src={ProductBackground}
         layout="fill"
         objectFit="cover"
         alt="Factory Background"
-        className="absolute inset-0"
+        className="absolute inset-0 w-full"
       />
       {/* Conveyor Belt Animation */}
-      <div className="relative z-10">
+      <div className="relative z-10 py-20">
         <motion.div
-          className="flex space-x-16"
+          className="flex space-x-8"
           animate={controls}
-          style={{ width: "3840px" }} // Doubled width for seamless loop
+          style={{ width: "3840px" }}
         >
           {[...products, ...products].map((product, index) => (
-            <motion.div
+            <Link 
               key={index}
-              className="flex-shrink-0 w-64 h-64 relative rounded-2xl overflow-hidden"
-              whileHover={{ scale: 1.05, y: -10 }}
+              href={product.link}
+              className="group relative"
             >
-              <Image
-                src={product.image}
-                layout="fill"
-                objectFit="cover"
-                alt={product.name}
-              />
-            </motion.div>
+              <motion.div
+                className="flex-shrink-0 w-72 h-72 relative rounded-2xl overflow-hidden group-hover:shadow-2xl transition-shadow duration-300"
+                whileHover={{ scale: 1.05, y: -10 }}
+              >
+                <Image
+                  src={product.image}
+                  layout="fill"
+                  objectFit="cover"
+                  alt={product.name}
+                  className="transition-transform duration-300 group-hover:scale-110"
+                />
+                {/* Overlay with product name */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
+                  <span className="text-white text-xl font-semibold text-center">
+                    {product.name}
+                  </span>
+                </div>
+              </motion.div>
+            </Link>
           ))}
         </motion.div>
       </div>
@@ -443,6 +487,46 @@ const NewsCard = ({ title, date, category, excerpt, image, index, active }) => (
   </motion.div>
 );
 
+const AnimatedProductTitle = () => {
+  const titles = [
+    "APL Products",
+    "Food Packaging",
+    "Personal Care & Hygiene",
+    "Household Products",
+    "Beverage Packaging",
+    "Pharmaceutical Packaging",
+    "Tobacco Packaging"
+  ];
+
+  const [currentTitle, setCurrentTitle] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTitle((prev) => (prev + 1) % titles.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative h-24 overflow-hidden mb-16">
+      <AnimatePresence mode="wait">
+        <motion.h2
+          key={currentTitle}
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -50, opacity: 0 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="text-5xl md:text-7xl font-bold text-blue-900 text-center absolute w-full"
+        >
+          {titles[currentTitle]}
+        </motion.h2>
+      </AnimatePresence>
+    </div>
+  );
+};
+
+
 export default function Home() {
   const [loading, setLoading] = useState(true);
 
@@ -493,32 +577,105 @@ export default function Home() {
   }
 
   return (
-    <main className="bg-gradient-to-br from-blue-50 to-white text-blue-900">
+    <main className="bg-gradient-to-b from-white to-blue-50">
       {/* Hero Section */}
       <Hero />
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
-        {/* Our Solutions/Products */}
+        {/* APL Products - Changed back from APL Packaging Solutions */}
         <section className="mb-32">
-          <SectionTitle>APL Products</SectionTitle>
-          <div className="mb-12 text-center">
-            <p className="text-3xl text-blue-600 mb-8">
+          <div className="container mx-auto px-4">
+            <AnimatedProductTitle />
+            <p className="text-3xl text-blue-600 text-center mb-4">
               Discover our wide range of innovative packaging solutions designed to meet your unique needs.
             </p>
-            <Link
-              href="/product-portfolio"
-              className="inline-flex items-center text-2xl text-blue-500 hover:text-blue-700 transition duration-300 font-semibold"
-            >
-              Explore All Products <FaArrowRight className="ml-2" />
-            </Link>
           </div>
           <ProductSlider />
         </section>
 
-        {/* Our Story */}
+        {/* APL Capacity - Moved here */}
         <section className="mb-32">
-          <SectionTitle>Our Story</SectionTitle>
+          <SectionTitle>APL Capacity</SectionTitle>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+              <CapacityItem 
+                icon={FaWarehouse} 
+                title="Factory Space" 
+                value="500000" 
+                unit="sq ft" 
+                imageSrc="/images/area.jpg"
+              />
+              <CapacityItem 
+                icon={FaUsers} 
+                title="Skilled Workers" 
+                value="4000" 
+                unit="+" 
+                imageSrc="/images/skilled.jpg"
+              />
+              <CapacityItem 
+                icon={FaCogs} 
+                title="Advanced Machines" 
+                value="200" 
+                unit="+" 
+                imageSrc="/images/advanced.jpg"
+              />
+              <CapacityItem 
+                icon={FaBoxOpen} 
+                title="Daily Production" 
+                value="1" 
+                unit="M+ units" 
+                imageSrc="/images/1m.jpg"
+              />
+            </div>
+
+            <motion.div
+              className="bg-gradient-to-r from-blue-900 to-indigo-900 text-white p-8 md:p-12 rounded-3xl shadow-2xl"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h3 className="text-3xl font-bold mb-6 text-center">Production Excellence</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {[
+                  { icon: FaIndustry, text: "State-of-the-art facilities" },
+                  { icon: FaCertificate, text: "ISO 9001:2015 Certified" },
+                  { icon: FaChartLine, text: "Continuous improvement" }
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    className="flex items-center"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    whileHover={{ x: 10 }}
+                  >
+                    <item.icon className="text-4xl mr-4 text-blue-300" />
+                    <p className="text-lg">{item.text}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="mt-16 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Link
+                href="/capacity-certification"
+                className="inline-block bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-700 hover:to-blue-900 transition duration-300"
+              >
+                Explore Our Full Capacity & Certifications
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* APL Story - Changed from Our Story */}
+        <section className="mb-32">
+          <SectionTitle>APL Story</SectionTitle>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
             <div className="space-y-8">
               <motion.div
@@ -637,9 +794,9 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Vision */}
+        {/* Vision Section - Changed from Our Vision to APL Vision */}
         <section className="py-24 relative overflow-hidden">
-          <SectionTitle className="text-center">Our Vision</SectionTitle>
+          <SectionTitle className="text-center">APL Vision</SectionTitle>
           <div className="relative z-10 container mx-auto px-4">
             <motion.div 
               className="text-center mb-16"
@@ -676,7 +833,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              <h3 className="text-3xl font-bold mb-8 text-blue-700">Our Commitment</h3>
+              <h3 className="text-3xl font-bold mb-8 text-blue-700">APL Commitment</h3>
               <p className="text-xl text-blue-600 max-w-3xl mx-auto">
                 We are dedicated to pushing the boundaries of packaging technology while maintaining our commitment to sustainability and customer satisfaction.
               </p>
@@ -689,85 +846,6 @@ export default function Home() {
           <SectionTitle className="mb-24">Meet the Leaders</SectionTitle>
           <div className="max-w-7xl mx-auto">
             <LeaderSlider />
-          </div>
-        </section>
-
-        {/* Capacity Section */}
-        <section className="py-24 relative overflow-hidden">
-          <SectionTitle>Our Capacity</SectionTitle>
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              <CapacityItem 
-                icon={FaWarehouse} 
-                title="Factory Space" 
-                value="500000" 
-                unit="sq ft" 
-                imageSrc="/images/area.jpg"
-              />
-              <CapacityItem 
-                icon={FaUsers} 
-                title="Skilled Workers" 
-                value="4000" 
-                unit="+" 
-                imageSrc="/images/skilled.jpg"
-              />
-              <CapacityItem 
-                icon={FaCogs} 
-                title="Advanced Machines" 
-                value="200" 
-                unit="+" 
-                imageSrc="/images/advanced.jpg"
-              />
-              <CapacityItem 
-                icon={FaBoxOpen} 
-                title="Daily Production" 
-                value="1" 
-                unit="M+ units" 
-                imageSrc="/images/1m.jpg"
-              />
-            </div>
-
-            <motion.div
-              className="bg-gradient-to-r from-blue-900 to-indigo-900 text-white p-8 md:p-12 rounded-3xl shadow-2xl"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h3 className="text-3xl font-bold mb-6 text-center">Production Excellence</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {[
-                  { icon: FaIndustry, text: "State-of-the-art facilities" },
-                  { icon: FaCertificate, text: "ISO 9001:2015 Certified" },
-                  { icon: FaChartLine, text: "Continuous improvement" }
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-center"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ x: 10 }}
-                  >
-                    <item.icon className="text-4xl mr-4 text-blue-300" />
-                    <p className="text-lg">{item.text}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="mt-16 text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Link
-                href="/capacity-certification"
-                className="inline-block bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-700 hover:to-blue-900 transition duration-300"
-              >
-                Explore Our Full Capacity & Certifications
-              </Link>
-            </motion.div>
           </div>
         </section>
 
@@ -909,9 +987,9 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Our Collaborators */}
+        {/* Collaborators Section */}
         <section className="py-24 relative overflow-hidden">
-          <SectionTitle className="text-center mb-16">Our Collaborators</SectionTitle>
+          <SectionTitle className="text-center mb-16">APL Collaborators</SectionTitle>
           <div className="relative z-10 container mx-auto px-4">
             <motion.div 
               className="flex flex-wrap justify-center items-center"
