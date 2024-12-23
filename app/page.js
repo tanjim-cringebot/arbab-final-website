@@ -328,7 +328,7 @@ const LeaderSlider = () => {
   useEffect(() => {
     const interval = setInterval(nextLeader, 5000); // Auto-advance every 5 seconds
     return () => clearInterval(interval);
-  }, []);
+  }, [nextLeader]);
 
   return (
     <div className="relative">

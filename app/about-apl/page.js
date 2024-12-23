@@ -460,7 +460,7 @@ const VisionSection = () => {
           className="mt-16 text-center"
         >
           <blockquote className="text-2xl text-blue-900 italic">
-            "Our vision is to be the global leader in innovative and sustainable packaging solutions."
+          &quot;Our vision is to be the global leader in innovative and sustainable packaging solutions.&quot;
           </blockquote>
         </motion.div>
       </div>
@@ -548,7 +548,7 @@ const TestimonialsSection = () => {
               <div className="relative mt-6">
                 <FaQuoteLeft className="absolute -left-2 -top-2 text-4xl text-blue-100" />
                 <p className="text-gray-600 mb-6 italic relative z-10 pt-4">
-                  "{testimonial.quote}"
+                &quot;{testimonial.quote}&quot;
                 </p>
 
                 <div className="flex justify-center mb-4">
@@ -632,7 +632,7 @@ const CTASection = () => {
           <h2 className="text-4xl md:text-5xl font-bold">Ready to Transform Your Packaging?</h2>
           <p className="text-xl text-blue-200 max-w-2xl mx-auto">
             Join the countless businesses that trust APL for their packaging needs. 
-            Let's create sustainable solutions together.
+            Let&apos;s create sustainable solutions together.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
