@@ -6,10 +6,11 @@ const HeroSection = dynamic(() => import('@/components/about/HeroSection'), {
 const LeadershipShowcase = dynamic(() => import('@/components/about/LeadershipShowcase'), {
   loading: () => <div>Loading...</div>
 });
-/*const GroupStructure = dynamic(() => import('@/components/about/GroupStructure'), {
+const GroupStructure = dynamic(() => import('@/components/about/GroupStructure'), {
   loading: () => <div>Loading...</div>
-});*/
-const SustainabilitySection = dynamic(() => import('@/components/about/SustainabilitySection'), {
+});
+
+/*const SustainabilitySection = dynamic(() => import('@/components/about/GroupStructure'), {
   loading: () => <div>Loading...</div>
 });
 /*const RoadmapSection = dynamic(() => import('@/components/about/RoadmapSection'), {
@@ -21,8 +22,8 @@ export default function AboutPage() {
     <main className="overflow-hidden">
       <HeroSection />
       <LeadershipShowcase />
-      {/*<GroupStructure />*/}
-      <SustainabilitySection />
+      <GroupStructure />
+      {/*<SustainabilitySection />*/}
       {/*<RoadmapSection />*/}
     </main>
   );

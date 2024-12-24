@@ -1,47 +1,48 @@
 'use client';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function GroupStructure() {
   const companies = [
     {
       name: "Arbab Pack Ltd.",
-      icon: "🏭",
+      logo: "/images/arbab_logo.png",
       color: "from-blue-500 to-blue-600",
       angle: 0
     },
     {
-      name: "ZK Foils Ltd.",
-      icon: "⚡",
+      name: "ZK Foils Ltd.", 
+      logo: "/images/zkFoil.png",
       color: "from-purple-500 to-purple-600",
       angle: 51.43
     },
     {
       name: "ZK Plastic Ltd.",
-      icon: "🔄",
+      logo: "/images/zkPlastic.png", 
       color: "from-green-500 to-green-600",
       angle: 102.86
     },
     {
       name: "ZK Ink & Chemical Ltd.",
-      icon: "⚗️",
-      color: "from-red-500 to-red-600",
+      logo: "/images/zkicl.png",
+      color: "from-red-500 to-red-600", 
       angle: 154.29
     },
     {
       name: "ZK Health Care Ltd.",
-      icon: "💊",
+      logo: "/images/zkHealth.png",
       color: "from-teal-500 to-teal-600",
       angle: 205.71
     },
     {
       name: "AANT Cosmetics Ltd.",
-      icon: "✨",
+      logo: "/images/aant.png",
       color: "from-pink-500 to-pink-600",
       angle: 257.14
     },
     {
       name: "RePro",
-      icon: "♻️",
+      logo: "/images/repro.png",
       color: "from-emerald-500 to-emerald-600",
       angle: 308.57
     }
@@ -81,24 +82,34 @@ export default function GroupStructure() {
               stiffness: 100,
               damping: 20
             }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 
-                     bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center 
-                     justify-center shadow-xl z-20"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 
+                     bg-white/5 backdrop-blur-md rounded-full flex items-center 
+                     justify-center z-20 overflow-hidden
+                     border-2 border-white/20 shadow-[0_0_30px_rgba(59,130,246,0.2)]
+                     before:content-[''] before:absolute before:inset-0 
+                     before:bg-gradient-to-r before:from-blue-500/10 before:to-purple-500/10
+                     before:rounded-full before:animate-pulse"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5, duration: 0.5 }}
-              className="text-center text-white"
+              className="relative w-44 h-44 p-4 rounded-full 
+                       bg-gradient-to-br from-white/10 to-transparent"
             >
-              <div className="text-4xl font-bold">AG</div>
-              <div className="text-base">Group</div>
+              <Image
+                src="/images/arbabGroup.png"
+                alt="AG Group"
+                fill
+                className="object-contain p-2"
+                priority
+              />
             </motion.div>
           </motion.div>
 
           {/* Company Cards */}
           {companies.map((company, index) => {
-            const radius = 300;
+            const radius = 340;
             const angle = (index * (360 / companies.length)) * (Math.PI / 180);
             const x = radius * Math.cos(angle);
             const y = radius * Math.sin(angle);
@@ -129,12 +140,19 @@ export default function GroupStructure() {
                 <div className="relative group">
                   <div className={`absolute inset-0 bg-gradient-to-r ${company.color} rounded-2xl opacity-0 
                                group-hover:opacity-100 transition-opacity duration-500`} />
-                  <div className="relative bg-white/10 backdrop-blur-md rounded-2xl p-4 shadow-lg 
+                  <div className="relative bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-lg 
                                border border-white/10 group-hover:border-transparent transition-all duration-500
                                w-52">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-3xl">{company.icon}</span>
-                      <h3 className="text-base font-bold text-white">
+                    <div className="flex flex-col items-center space-y-3">
+                      <div className="w-16 h-16 relative">
+                        <Image
+                          src={company.logo}
+                          alt={company.name}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                      <h3 className="text-base font-bold text-white text-center">
                         {company.name}
                       </h3>
                     </div>

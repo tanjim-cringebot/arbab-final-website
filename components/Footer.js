@@ -3,7 +3,7 @@ import { FaLinkedin, FaWhatsapp, FaFacebookF, FaYoutube, FaEnvelope, FaPhone } f
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white">
+    <footer className="bg-gray-800 text-white relative">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -52,6 +52,24 @@ const Footer = () => {
           </div>
           <p className="text-sm">&copy; 2024 Arbab Pack Ltd. All rights reserved.</p>
         </div>
+      </div>
+
+      <div className="absolute bottom-4 right-4 flex items-center space-x-2">
+        <span className="text-gray-400 text-sm">Developed by</span>
+        <a 
+          href="https://sompor.co" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="group relative"
+        >
+          <span className="font-['Brush_Script_MT'] text-lg bg-gradient-to-r from-blue-400 to-purple-400 
+                        bg-clip-text text-transparent hover:from-blue-300 hover:to-purple-300 
+                        transition-all duration-300">
+            SomporCo
+          </span>
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 
+                        group-hover:w-full transition-all duration-300"></span>
+        </a>
       </div>
     </footer>
   );

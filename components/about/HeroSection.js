@@ -1,6 +1,8 @@
 'use client';
 import { motion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
+import Image from 'next/image';
+
 
 export default function HeroSection() {
   return (
@@ -94,6 +96,14 @@ export default function HeroSection() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="relative h-[600px] w-full hidden lg:block"
           >
+            <Image
+                src="/images/zakir_hossain_nezum.png"
+                alt="Zakir Hossain"
+                fill
+                style={{ objectFit: 'cover' }}
+                className="rounded-2xl"
+                priority
+            />    
             {/* Add your image here */}
           </motion.div>
         </div>

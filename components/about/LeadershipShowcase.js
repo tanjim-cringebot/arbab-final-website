@@ -10,7 +10,7 @@ export default function LeadershipShowcase() {
     {
       name: "Kaniz Zehera",
       title: "Chairman",
-      image: "/images/chairman.jpg",
+      image: "/images/kaniz_zehera.png",
       description: "Innovation expert driving our technological advancements in smart packaging. Kaniz's forward-thinking approach has revolutionized our product offerings.",
       strengths: [
         { icon: FaChartLine, text: "Innovation Leadership" },
@@ -22,7 +22,7 @@ export default function LeadershipShowcase() {
     {
       name: "M M Azmat Hossain",
       title: "Director",
-      image: "/images/director-azmat.jpg",
+      image: "/images/azmat_hossain.png",
       description: "Marketing genius behind our brand's global recognition. Azmat has successfully positioned Arbab Pack as a leader in innovative and sustainable packaging solutions.",
       strengths: [
         { icon: FaChartLine, text: "Market Strategy" },
@@ -34,7 +34,7 @@ export default function LeadershipShowcase() {
     {
       name: "Arbab Hossain",
       title: "Director",
-      image: "/images/director-arbab.jpg",
+      image: "/images/arbab_hossain.png",
       description: "Visionary leader spearheading our expansion into new markets. Arbab's strategic insight has been instrumental in our continuous growth and innovation.",
       strengths: [
         { icon: FaLightbulb, text: "Strategic Vision" },

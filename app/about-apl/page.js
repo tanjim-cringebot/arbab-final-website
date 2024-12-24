@@ -58,7 +58,7 @@ const HeroSection = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/hero-bg.jpg"
+          src="/images/arbab_office.jpg"
           alt="APL Factory"
           fill
           style={{ objectFit: 'cover' }}
