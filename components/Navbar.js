@@ -13,9 +13,56 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { FaFacebookF } from 'react-icons/fa';
 import { FaYoutube } from 'react-icons/fa';
 
+const productCategories = [
+  {
+    name: "Food Packaging",
+    items: [
+      "Dairy Products",
+      "Snacks",
+      "Condiments",
+      "Instant Foods"
+    ]
+  },
+  {
+    name: "Personal Care & Hygiene",
+    items: [
+      "Diapers",
+      "Sanitary Products",
+      "Soaps"
+    ]
+  },
+  {
+    name: "Beverages",
+    items: [
+      "Tea and Coffee",
+      "Soft Drinks",
+    ]
+  },
+  {
+    name: "Pharmaceutical",
+    items: [
+      "Nutritional Supplements"
+    ]
+  },
+  {
+    name: "Household Products",
+    items: [
+      "Cleaning Supplies",
+      "Paper Products"
+    ]
+  },
+  {
+    name: "Tobacco Industry",
+    items: [
+      "Cigarette Packaging",
+    ]
+  }
+];
+
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [activeSubDropdown, setActiveSubDropdown] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const dropdownRef = useRef(null);
@@ -41,6 +88,14 @@ const Navbar = () => {
     setActiveDropdown(null);
   };
 
+  const handleCategoryMouseEnter = (categoryName) => {
+    setActiveSubDropdown(categoryName);
+  };
+
+  const handleCategoryMouseLeave = () => {
+    setActiveSubDropdown(null);
+  };
+
   const navItems = [
     {
       name: "APL",
@@ -57,14 +112,11 @@ const Navbar = () => {
     {
       name: "Products",
       path: "/product-portfolio",
-      dropdown: [
-        { name: "Food Packaging", path: "/product-portfolio#food-packaging" },
-        { name: "Personal Care & Hygiene", path: "/product-portfolio#personal-care-hygiene" },
-        { name: "Beverages", path: "/product-portfolio#beverages" },
-        { name: "Pharmaceutical and Nutritional Products", path: "/product-portfolio#pharmaceutical-nutritional" },
-        { name: "Household Products", path: "/product-portfolio#household-products" },
-        { name: "Tobacco Industry Packaging", path: "/product-portfolio#tobacco-industry" },
-      ],
+      dropdown: productCategories.map(category => ({
+        name: category.name,
+        items: category.items,
+        path: `/product-portfolio#${category.name.toLowerCase().replace(/\s+/g, '-')}`
+      }))
     },
     {
       name: "About Group",
@@ -200,39 +252,84 @@ const Navbar = () => {
                   >
                     <Link
                       href={item.path}
-                      className={`px-4 py-2 rounded-md text-sm font-semibold transition-all duration-300 flex items-center group whitespace-nowrap
-                        ${(isScrolled || isHovered || mobileMenuOpen)
-                          ? 'text-gray-800 hover:bg-blue-50 hover:text-blue-600'
-                          : 'text-white hover:bg-white/10'
-                        }`}
+                      className={`px-4 py-2 rounded-md text-sm font-semibold transition-all duration-300 
+                                flex items-center group whitespace-nowrap
+                                ${(isScrolled || isHovered || mobileMenuOpen)
+                                  ? 'text-gray-800 hover:bg-blue-50 hover:text-blue-600'
+                                  : 'text-white hover:bg-white/10'
+                                }`}
                     >
                       {item.name}
                     </Link>
-                    {item.dropdown && (
-                      <AnimatePresence>
-                        {activeDropdown === index && (
-                          <motion.div
-                            ref={dropdownRef}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.2 }}
-                            className="absolute left-0 mt-2 w-64 rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden"
-                          >
-                            <div className="py-2">
-                              {item.dropdown.map((subItem) => (
-                                <Link
-                                  key={subItem.name}
-                                  href={subItem.path}
-                                  className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                    {item.dropdown && activeDropdown === index && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute left-0 mt-2 w-64 rounded-xl shadow-lg 
+                                 bg-gradient-to-br from-gray-900 via-blue-900 to-black
+                                 focus:outline-none overflow-visible z-50"
+                      >
+                        <div className="py-2">
+                          {item.name === "Products" && (
+                            <>
+                              {item.dropdown.map((category) => (
+                                <div 
+                                  key={category.name} 
+                                  className="relative group"
+                                  onMouseEnter={() => handleCategoryMouseEnter(category.name)}
+                                  onMouseLeave={handleCategoryMouseLeave}
                                 >
-                                  {subItem.name}
-                                </Link>
+                                  <Link
+                                    href={category.path}
+                                    className="block px-4 py-3 text-sm text-white/90 
+                                             hover:bg-white/10 font-medium transition-all duration-200
+                                             flex items-center justify-between group-hover:text-blue-300"
+                                  >
+                                    <span>{category.name}</span>
+                                  </Link>
+                                  
+                                  <div 
+                                    className={`absolute left-full top-0 w-56 rounded-xl shadow-lg 
+                                              bg-gradient-to-br from-gray-900 via-blue-900 to-black
+                                              focus:outline-none overflow-hidden ml-0.5 
+                                              transition-opacity duration-150
+                                              ${activeSubDropdown === category.name ? 'opacity-100 visible' : 'opacity-0 invisible'}
+                                              `}
+                                    style={{ marginTop: '0px' }}
+                                  >
+                                    <div className="py-2">
+                                      {category.items.map((item) => (
+                                        <Link
+                                          key={item}
+                                          href={`${category.path}/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                                          className="block px-4 py-2 text-sm text-white/80 
+                                                   hover:bg-white/10 hover:text-blue-300 
+                                                   transition-all duration-200"
+                                        >
+                                          {item}
+                                        </Link>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
                               ))}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                            </>
+                          )}
+                          {item.name !== "Products" && item.dropdown.map((subItem) => (
+                            <Link
+                              key={subItem.name}
+                              href={subItem.path}
+                              className="block px-4 py-3 text-sm text-white/90 
+                                       hover:bg-white/10 hover:text-blue-300 
+                                       transition-all duration-200"
+                            >
+                              {subItem.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
                     )}
                   </div>
                 ))}
