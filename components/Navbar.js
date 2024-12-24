@@ -177,7 +177,11 @@ const Navbar = () => {
                 />
               </Link>
               <div className="ml-2 hidden sm:block">
-                <h1 className="text-base sm:text-lg lg:text-xl font-extrabold text-blue-900 tracking-wide whitespace-nowrap">
+                <h1 className={`text-base sm:text-lg lg:text-xl font-extrabold tracking-wide whitespace-nowrap ${
+                  (isScrolled || isHovered || mobileMenuOpen) 
+                    ? 'text-blue-900' 
+                    : 'text-white'
+                }`}>
                   ARBAB PACK LTD.
                 </h1>
               </div>
@@ -196,7 +200,11 @@ const Navbar = () => {
                   >
                     <Link
                       href={item.path}
-                      className="px-4 py-2 rounded-md text-sm font-semibold text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 flex items-center group whitespace-nowrap"
+                      className={`px-4 py-2 rounded-md text-sm font-semibold transition-all duration-300 flex items-center group whitespace-nowrap
+                        ${(isScrolled || isHovered || mobileMenuOpen)
+                          ? 'text-gray-800 hover:bg-blue-50 hover:text-blue-600'
+                          : 'text-white hover:bg-white/10'
+                        }`}
                     >
                       {item.name}
                     </Link>
@@ -233,51 +241,41 @@ const Navbar = () => {
 
             <div className="hidden lg:flex items-center">
               <div className="flex items-center border-l border-gray-200 pl-8">
-                <ContactButton />
+                <Link href="/contact">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`flex items-center gap-1 px-4 py-1.5 
+                      ${(isScrolled || isHovered || mobileMenuOpen)
+                        ? 'bg-transparent text-blue-600 border-2 border-gray-900'
+                        : 'bg-white text-blue-600 border-2 border-white'
+                      }
+                      rounded-full text-sm font-medium shadow-sm
+                      transition-all duration-300 ease-out
+                      hover:bg-blue-600 hover:text-white hover:border-blue-600
+                      group`}
+                  >
+                    <EnvelopeIcon className="w-4 h-4 transition-colors duration-300" />
+                    <span className="font-semibold">Contact Us</span>
+                  </motion.button>
+                </Link>
+                
                 <div className="border-l border-gray-200 pl-6 ml-6">
                   <div className="grid grid-cols-3 gap-2">
-                    <motion.a 
-                      href="#" 
-                      whileHover={{ scale: 1.1 }}
-                      className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                    >
-                      <FaLinkedin className="w-3 h-3" />
-                    </motion.a>
-                    <motion.a 
-                      href="#" 
-                      whileHover={{ scale: 1.1 }}
-                      className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                    >
-                      <FaWhatsapp className="w-3 h-3" />
-                    </motion.a>
-                    <motion.a 
-                      href="#" 
-                      whileHover={{ scale: 1.1 }}
-                      className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                    >
-                      <FaFacebookF className="w-3 h-3" />
-                    </motion.a>
-                    <motion.a 
-                      href="mailto:info@arbabpackltd.com" 
-                      whileHover={{ scale: 1.1 }}
-                      className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                    >
-                      <FaEnvelope className="w-3 h-3" />
-                    </motion.a>
-                    <motion.a 
-                      href="tel:+8801844454079" 
-                      whileHover={{ scale: 1.1 }}
-                      className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                    >
-                      <FaPhone className="w-3 h-3" />
-                    </motion.a>
-                    <motion.a 
-                      href="#" 
-                      whileHover={{ scale: 1.1 }}
-                      className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                    >
-                      <FaYoutube className="w-3 h-3" />
-                    </motion.a>
+                    {[FaLinkedin, FaWhatsapp, FaFacebookF, FaEnvelope, FaPhone, FaYoutube].map((Icon, index) => (
+                      <motion.a 
+                        key={index}
+                        href="#" 
+                        whileHover={{ scale: 1.1 }}
+                        className={`transition-colors duration-200 ${
+                          (isScrolled || isHovered || mobileMenuOpen)
+                            ? 'text-blue-600 hover:text-blue-800'
+                            : 'text-white hover:text-blue-200'
+                        }`}
+                      >
+                        <Icon className="w-3 h-3" />
+                      </motion.a>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -287,7 +285,11 @@ const Navbar = () => {
               <ContactButton />
               <button
                 onClick={toggleMobileMenu}
-                className="inline-flex items-center justify-center p-2 rounded-md text-black hover:bg-blue-50 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
+                className={`inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 ${
+                  (isScrolled || isHovered || mobileMenuOpen)
+                    ? 'text-black hover:bg-blue-50 hover:text-blue-600'
+                    : 'text-white hover:bg-white/10'
+                }`}
               >
                 <span className="sr-only">Open main menu</span>
                 <svg
