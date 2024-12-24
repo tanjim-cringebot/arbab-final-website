@@ -51,119 +51,120 @@ import {
 } from "react-icons/fa";
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
 
-// Hero Section Component
+const InfoOption = ({ icon: Icon, title, link, gradientFrom, gradientTo, hoverFrom, hoverTo }) => (
+  <motion.div
+    whileHover={{ 
+      scale: 1.02,
+      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+    }}
+    whileTap={{ scale: 0.98 }}
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+  >
+    <Link 
+      href={link} 
+      className="block bg-white/5 backdrop-blur-sm rounded-lg p-4 
+                 hover:bg-white/10 transition-all duration-300 relative overflow-hidden group
+                 border border-white/10"
+    >
+      <div className="flex flex-col items-center text-center relative z-10">
+        <motion.div
+          whileHover={{ rotate: 180 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className={`w-10 h-10 bg-gradient-to-br ${gradientFrom} ${gradientTo}
+                   rounded-lg flex items-center justify-center mb-3 
+                   shadow-md transform group-hover:scale-105 
+                   group-hover:from-${hoverFrom} group-hover:to-${hoverTo}
+                   transition-all duration-300`}
+        >
+          <Icon className="text-sm text-white" />
+        </motion.div>
+        
+        <h3 className={`text-sm font-medium text-white/90
+                     group-hover:text-${hoverFrom} transition-colors duration-300`}>
+          {title}
+        </h3>
+      </div>
+      
+      <div className={`absolute inset-0 bg-gradient-to-br from-${hoverFrom}/10 to-transparent 
+                    opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+    </Link>
+  </motion.div>
+);
+
+const infoOptions = [
+  {
+    icon: FaIndustry,
+    title: "APL USP",
+    link: "#usp-section",
+    gradientFrom: "from-blue-500",
+    gradientTo: "to-blue-600",
+    hoverFrom: "blue-600",
+    hoverTo: "blue-700"
+  },
+  {
+    icon: FaRecycle,
+    title: "Circular Economy Practice",
+    link: "#circular-economy",
+    gradientFrom: "from-emerald-500",
+    gradientTo: "to-emerald-600",
+    hoverFrom: "emerald-600",
+    hoverTo: "emerald-700"
+  },
+  {
+    icon: FaNewspaper,
+    title: "APL News",
+    link: "#news-section",
+    gradientFrom: "from-purple-500",
+    gradientTo: "to-purple-600",
+    hoverFrom: "purple-600",
+    hoverTo: "purple-700"
+  }
+];
+
 const HeroSection = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+    <section className="relative min-h-screen flex flex-col items-center justify-center py-20">
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/arbab_office.jpg"
-          alt="APL Factory"
+          alt="APL Background"
           fill
           style={{ objectFit: 'cover' }}
           priority
         />
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/90 via-black/80 to-black/90" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-5xl md:text-7xl font-bold mb-6"
-        >
-          Leading Innovation in Packaging Solutions
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl md:text-2xl mb-8"
-        >
-          Delivering excellence through sustainable and customized packaging solutions
-        </motion.p>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
+        {/* Header Content */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-center mb-20"
         >
-          <Link
-            href="#quick-nav"
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 
-                     text-white px-6 py-3 rounded-full transition-colors duration-300"
-          >
-            Explore Our Solutions
-            <FaArrowRight />
-          </Link>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 
+                       bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+            Arbab Pack Limited
+          </h1>
+          <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-8">
+            Leading the way in innovative packaging solutions with sustainable practices 
+            and cutting-edge technology.
+          </p>
         </motion.div>
-      </div>
 
-      {/* Quick Navigation Bar */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent">
-        <div className="max-w-5xl mx-auto px-4 py-6">
-          <div className="grid grid-cols-3 gap-4">
-            {/* APL USP */}
+        {/* Info Options Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-10">
+          {infoOptions.map((option, index) => (
             <motion.div
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
+              transition={{ delay: index * 0.2 }}
             >
-              <Link 
-                href="#usp-section" 
-                className="flex flex-col items-center group p-4 rounded-xl 
-                         hover:bg-white/10 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-full bg-blue-600/20 flex items-center justify-center 
-                            group-hover:bg-blue-600 transition-colors duration-300">
-                  <FaLeaf className="text-2xl text-blue-400 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <span className="mt-2 text-white/80 group-hover:text-white text-sm font-medium">APL USP</span>
-              </Link>
+              <InfoOption {...option} />
             </motion.div>
-
-            {/* Circular Economy */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.4 }}
-            >
-              <Link 
-                href="#circular-economy" 
-                className="flex flex-col items-center group p-4 rounded-xl 
-                         hover:bg-white/10 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-full bg-green-600/20 flex items-center justify-center 
-                            group-hover:bg-green-600 transition-colors duration-300">
-                  <FaRecycle className="text-2xl text-green-400 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <span className="mt-2 text-white/80 group-hover:text-white text-sm font-medium">
-                  Circular Economy
-                </span>
-              </Link>
-            </motion.div>
-
-            {/* APL News */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.6 }}
-            >
-              <Link 
-                href="#news-section" 
-                className="flex flex-col items-center group p-4 rounded-xl 
-                         hover:bg-white/10 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-full bg-amber-600/20 flex items-center justify-center 
-                            group-hover:bg-amber-600 transition-colors duration-300">
-                  <FaNewspaper className="text-2xl text-amber-400 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <span className="mt-2 text-white/80 group-hover:text-white text-sm font-medium">APL News</span>
-              </Link>
-            </motion.div>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -171,12 +172,24 @@ const HeroSection = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-32 left-1/2 -translate-x-1/2 text-white"
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <div className="animate-bounce">
-          <FaChevronDown className="text-2xl" />
-        </div>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="text-white text-center"
+        >
+          <div className="w-6 h-10 border-2 border-white/50 rounded-full mx-auto mb-2 
+                       flex items-start justify-center p-1">
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-1 h-3 bg-white/70 rounded-full"
+            />
+          </div>
+          <span className="text-sm font-medium text-white/70">Scroll to explore</span>
+        </motion.div>
       </motion.div>
     </section>
   );
