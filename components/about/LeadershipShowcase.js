@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Image from 'next/image';
 import { FaChevronLeft, FaChevronRight, FaChartLine, FaRecycle, FaLightbulb, FaHandshake } from 'react-icons/fa';
 
 export default function LeadershipShowcase() {
