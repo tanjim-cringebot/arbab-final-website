@@ -334,11 +334,11 @@ const AboutPage = () => {
     <main>
       <HeroSection />
       <MilestonesSection />
-      <VisionSection />
-      <GroupStructureSection />
+      {/* <VisionSection /> */}
+      {/* <GroupStructureSection /> */}
       <SustainabilitySection />
-      <TeamSection />
-      <ContactSection />
+      {/* <TeamSection /> */}
+      {/* <ContactSection /> */}
     </main>
   );
 };

@@ -54,7 +54,7 @@ const PartnershipForm = () => {
             <h1 className="text-3xl font-bold text-white mb-4">Sustainable Partnership</h1>
             <p className="text-emerald-100/80 max-w-2xl mx-auto">
               We are committed to designing eco-friendly packaging solutions that align with global sustainability goals. 
-              If you're in an industry seeking to minimize waste and contribute to a greener future, let's work together.
+              If you&apos;re in an industry seeking to minimize waste and contribute to a greener future, let&apos;s work together.
             </p>
           </div>
 
