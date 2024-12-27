@@ -2,9 +2,8 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FaShoppingCart } from 'react-icons/fa'
 
-export default function OrderForm() {
+const OrderForm = () => {
   const [formData, setFormData] = useState({
     businessName: '',
     email: '',
@@ -18,224 +17,198 @@ export default function OrderForm() {
   })
 
   const productLines = [
-    "Food Packaging",
-    "Personal Care & Hygiene",
-    "Beverages",
-    "Pharmaceutical Products",
-    "Household Products",
-    "Tobacco Industry Packaging"
+    'Food Packaging',
+    'Hygiene Packaging',
+    'Beverage Packaging',
+    'Industrial Packaging',
+    'Other'
   ]
 
   const handleSubmit = (e) => {
     e.preventDefault()
     // Handle form submission
-    console.log(formData)
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-4xl mx-auto"
-      >
-        {/* Header */}
-        <div className="text-center mb-12">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6"
-          >
-            <FaShoppingCart className="text-3xl text-white" />
-          </motion.div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Place an Order</h1>
-          <p className="text-lg text-gray-600">
-            We offer a range of packaging solutions tailored to your needs. 
-            Please provide the following details to process your order.
-          </p>
-        </div>
-
-        {/* Form */}
-        <motion.form
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          onSubmit={handleSubmit}
-          className="bg-white rounded-2xl shadow-xl p-8 space-y-6"
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900/90 to-gray-900">
+      <div className="max-w-4xl mx-auto px-4 py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white/[0.02] backdrop-blur-md rounded-2xl p-8 border border-white/[0.05]
+                   shadow-[0_8px_16px_rgba(0,0,0,0.2)]"
         >
-          {/* Business Information */}
-          <div className="space-y-6">
-            <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">
-              Business Information
-            </h2>
-            
+          <h1 className="text-3xl font-bold text-white mb-2">Place Your Order</h1>
+          <p className="text-blue-100/80 mb-8">
+            We offer a range of packaging solutions tailored to your needs. To place an order, please provide the following details:
+          </p>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Business Name
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">
+                  Name/Business Name
                 </label>
                 <input
                   type="text"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                           focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
-                  placeholder="Your company name"
+                  className="w-full px-4 py-2 rounded-lg bg-white/[0.05] border border-white/[0.1]
+                           text-white placeholder-white/40 focus:outline-none focus:border-blue-500
+                           transition-colors duration-300"
+                  placeholder="Enter your business name"
                   value={formData.businessName}
                   onChange={(e) => setFormData({...formData, businessName: e.target.value})}
                 />
+                <p className="text-xs text-white/50">Identify yourself or your company for our records</p>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">
+                  Email Address
                 </label>
                 <input
                   type="email"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                           focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
+                  className="w-full px-4 py-2 rounded-lg bg-white/[0.05] border border-white/[0.1]
+                           text-white placeholder-white/40 focus:outline-none focus:border-blue-500
+                           transition-colors duration-300"
                   placeholder="your@email.com"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
                 />
+                <p className="text-xs text-white/50">Your contact email for updates and communication</p>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">
                   Phone Number
                 </label>
                 <input
                   type="tel"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                           focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
-                  placeholder="Your contact number"
+                  className="w-full px-4 py-2 rounded-lg bg-white/[0.05] border border-white/[0.1]
+                           text-white placeholder-white/40 focus:outline-none focus:border-blue-500
+                           transition-colors duration-300"
+                  placeholder="+1 (234) 567-8900"
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
                 />
+                <p className="text-xs text-white/50">A valid number for real-time support if needed</p>
               </div>
-            </div>
-          </div>
 
-          {/* Product Details */}
-          <div className="space-y-6">
-            <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">
-              Product Details
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">
                   Product Line
                 </label>
                 <select
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                           focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
+                  className="w-full px-4 py-2 rounded-lg bg-white/[0.05] border border-white/[0.1]
+                           text-white focus:outline-none focus:border-blue-500
+                           transition-colors duration-300"
                   value={formData.productLine}
                   onChange={(e) => setFormData({...formData, productLine: e.target.value})}
                 >
-                  <option value="">Select a product line</option>
+                  <option value="" className="bg-gray-900">Select a product line</option>
                   {productLines.map((line) => (
-                    <option key={line} value={line}>{line}</option>
+                    <option key={line} value={line} className="bg-gray-900">
+                      {line}
+                    </option>
                   ))}
                 </select>
+                <p className="text-xs text-white/50">Choose from our offerings (e.g., food packaging, hygiene packaging, etc.)</p>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">
                   Product Type
                 </label>
                 <input
                   type="text"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                           focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
+                  className="w-full px-4 py-2 rounded-lg bg-white/[0.05] border border-white/[0.1]
+                           text-white placeholder-white/40 focus:outline-none focus:border-blue-500
+                           transition-colors duration-300"
                   placeholder="e.g., milk powder packaging"
                   value={formData.productType}
                   onChange={(e) => setFormData({...formData, productType: e.target.value})}
                 />
+                <p className="text-xs text-white/50">Specify the exact product(s) (e.g., milk powder packaging, detergent packaging)</p>
               </div>
 
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Customization Details
-                </label>
-                <textarea
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                           focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
-                  rows="3"
-                  placeholder="Specify material, size, or design requirements"
-                  value={formData.customization}
-                  onChange={(e) => setFormData({...formData, customization: e.target.value})}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">
                   Quantity Required
                 </label>
                 <input
-                  type="number"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                           focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
+                  type="text"
+                  className="w-full px-4 py-2 rounded-lg bg-white/[0.05] border border-white/[0.1]
+                           text-white placeholder-white/40 focus:outline-none focus:border-blue-500
+                           transition-colors duration-300"
                   placeholder="Enter quantity"
                   value={formData.quantity}
                   onChange={(e) => setFormData({...formData, quantity: e.target.value})}
                 />
+                <p className="text-xs text-white/50">Provide the order quantity for better accuracy in processing</p>
               </div>
             </div>
-          </div>
 
-          {/* Delivery Information */}
-          <div className="space-y-6">
-            <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">
-              Delivery Information
-            </h2>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Delivery Address
-              </label>
-              <textarea
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                         focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
-                rows="3"
-                placeholder="Enter your complete delivery address"
-                value={formData.address}
-                onChange={(e) => setFormData({...formData, address: e.target.value})}
-              />
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">
+                  Customization Details
+                </label>
+                <textarea
+                  className="w-full px-4 py-2 rounded-lg bg-white/[0.05] border border-white/[0.1]
+                           text-white placeholder-white/40 focus:outline-none focus:border-blue-500
+                           transition-colors duration-300 min-h-[100px]"
+                  placeholder="Enter your customization requirements"
+                  value={formData.customization}
+                  onChange={(e) => setFormData({...formData, customization: e.target.value})}
+                />
+                <p className="text-xs text-white/50">Mention special requests such as material, size, or design specifications</p>
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">
+                  Delivery Address
+                </label>
+                <textarea
+                  className="w-full px-4 py-2 rounded-lg bg-white/[0.05] border border-white/[0.1]
+                           text-white placeholder-white/40 focus:outline-none focus:border-blue-500
+                           transition-colors duration-300"
+                  placeholder="Enter delivery address"
+                  value={formData.address}
+                  onChange={(e) => setFormData({...formData, address: e.target.value})}
+                />
+                <p className="text-xs text-white/50">Mention your preferred delivery location</p>
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">
+                  Additional Notes
+                </label>
+                <textarea
+                  className="w-full px-4 py-2 rounded-lg bg-white/[0.05] border border-white/[0.1]
+                           text-white placeholder-white/40 focus:outline-none focus:border-blue-500
+                           transition-colors duration-300"
+                  placeholder="Any additional instructions or requirements"
+                  value={formData.notes}
+                  onChange={(e) => setFormData({...formData, notes: e.target.value})}
+                />
+                <p className="text-xs text-white/50">Add any other instructions or requirements</p>
+              </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Additional Notes
-              </label>
-              <textarea
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                         focus:ring-blue-500 focus:border-blue-500 transition-colors duration-300"
-                rows="3"
-                placeholder="Any other instructions or requirements"
-                value={formData.notes}
-                onChange={(e) => setFormData({...formData, notes: e.target.value})}
-              />
-            </div>
-          </div>
-
-          {/* Submit Button */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold
-                     hover:bg-blue-700 transition-colors duration-300"
-          >
-            Submit Order Request
-          </motion.button>
-        </motion.form>
-      </motion.div>
+            <motion.button
+              type="submit"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600
+                       text-white font-medium hover:from-blue-600 hover:to-blue-700
+                       transition-all duration-300 shadow-lg"
+            >
+              Submit Order Request
+            </motion.button>
+          </form>
+        </motion.div>
+      </div>
     </div>
   )
-} 
+}
+
+export default OrderForm 
