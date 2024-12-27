@@ -102,8 +102,8 @@ const HeroSection = () => {
             Get in Touch
           </h1>
           <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-8">
-            Choose how you'd like to connect with us. Whether it's for orders, 
-            partnerships, or our CSR initiatives, we're here to help.
+            Choose how you&apos;d like to connect with us. Whether it&apos;s for orders, 
+            partnerships, or our CSR initiatives, we&apos;re here to help.
           </p>
         </motion.div>
 

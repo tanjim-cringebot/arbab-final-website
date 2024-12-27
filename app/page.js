@@ -317,9 +317,9 @@ const LeaderSlider = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const nextLeader = () => {
+  const nextLeader = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % leaders.length);
-  };
+  }, [leaders.length]);
 
   const prevLeader = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + leaders.length) % leaders.length);
@@ -506,7 +506,7 @@ const AnimatedProductTitle = () => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [titles.length]);
 
   return (
     <div className="relative h-24 overflow-hidden mb-16">
