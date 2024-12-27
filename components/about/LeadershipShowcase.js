@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Image from 'next/image';
 import { FaChevronLeft, FaChevronRight, FaChartLine, FaRecycle, FaLightbulb, FaHandshake } from 'react-icons/fa';
 
 export default function LeadershipShowcase() {
@@ -102,7 +103,7 @@ export default function LeadershipShowcase() {
             {/* Image */}
             <div className="relative h-[400px] lg:h-[600px] rounded-2xl overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
-              <img
+              <Image
                 src={leaders[currentIndex].image}
                 alt={leaders[currentIndex].name}
                 className="w-full h-full object-cover"
@@ -141,7 +142,7 @@ export default function LeadershipShowcase() {
                 className="relative"
               >
                 <div className="text-xl text-blue-300 italic">
-                  "{leaders[currentIndex].quote}"
+                &quot;{leaders[currentIndex].quote}&quot;
                 </div>
                 <footer className="mt-2 text-blue-400 font-medium">
                   {leaders[currentIndex].name}

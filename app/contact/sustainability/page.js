@@ -66,7 +66,7 @@ export default function SustainabilityForm() {
           </h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Join us in fostering a sustainable future through eco-friendly practices and innovative solutions. 
-            Whether you're a startup, university, or organization, let's collaborate for a greener tomorrow.
+            Whether you&apos;re a startup, university, or organization, let&apos;s collaborate for a greener tomorrow.
           </p>
         </div>
 

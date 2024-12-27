@@ -44,7 +44,7 @@ export default function CollaborationForm() {
           </h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             We are committed to designing eco-friendly packaging solutions that align with global 
-            sustainability goals. Let's work together to create a greener future.
+            sustainability goals. Let&apos;s work together to create a greener future.
           </p>
         </div>
 

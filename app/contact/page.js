@@ -64,11 +64,41 @@ const ContactBox = ({ icon: Icon, title, link, gradientFrom, gradientTo }) => (
                          transition-transform duration-300" />
           </motion.div>
 
+<<<<<<< HEAD
           {/* Enhanced Title */}
           <h3 className="text-xl font-semibold text-white text-center
                       group-hover:text-blue-200 transition-colors duration-300">
             {title}
           </h3>
+=======
+      <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-20"
+        >
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 
+                       bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+            Get in Touch
+          </h1>
+          <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-8">
+            Choose how you&apos;d like to connect with us. Whether it&apos;s for orders, 
+            partnerships, or our CSR initiatives, we&apos;re here to help.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-10">
+          {contactOptions.map((option, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2 }}
+            >
+              <ContactOption {...option} />
+            </motion.div>
+          ))}
+>>>>>>> a90d2d52af06f5da22e914b01acb49b64973efc8
         </div>
       </div>
     </Link>
