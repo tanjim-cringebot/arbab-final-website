@@ -211,7 +211,7 @@ export default function APLVision() {
             <p className="text-xl text-blue-200 max-w-4xl mx-auto">
               As a leading Paper Converting & Flexible Packaging material manufacturer in Bangladesh, 
               APL is committed to pioneering a new era of packaging that prioritizes sustainability, 
-              innovation, and responsibility through its "APL 20-50: Towards Sustainability" program.
+              innovation, and responsibility through its &quot;APL 20-50: Towards Sustainability&quot; program.
             </p>
           </motion.div>
 

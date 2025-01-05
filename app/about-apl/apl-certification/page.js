@@ -164,7 +164,7 @@ export default function APLCertification() {
           <div className="mb-32">
             <h2 className="text-3xl font-bold text-white mb-6 text-center">Certifications of Excellence</h2>
             <p className="text-xl text-blue-200 max-w-3xl mx-auto mb-12 text-center">
-              APL's dedication to upholding global standards and ensuring excellence across our operations
+              APL&apos;s dedication to upholding global standards and ensuring excellence across our operations
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {currentCertifications.map((cert, index) => (

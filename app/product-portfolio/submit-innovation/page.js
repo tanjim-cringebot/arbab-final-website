@@ -310,7 +310,7 @@ export default function SubmitInnovation() {
                 <ul className="list-disc list-inside text-blue-300 space-y-2 ml-4">
                   <li>I am submitting non-confidential information.</li>
                   <li>ARBAB PACK Ltd. may require a confidentiality agreement if the idea progresses to further stages.</li>
-                  <li>My submission aligns with ARBAB PACK Ltd.'s areas of interest and excludes unrelated ideas or categories.</li>
+                  <li>My submission aligns with ARBAB PACK Ltd.&apos;s areas of interest and excludes unrelated ideas or categories.</li>
                 </ul>
                 <div className="flex items-center mt-4">
                   <input
