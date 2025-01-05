@@ -1,0 +1,32 @@
+{
+  "name": "arbab-animated-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
+    "framer-motion": "^11.11.8",
+    "lottie": "^0.0.1",
+    "lottie-react": "^2.4.0",
+    "next": "14.2.15",
+    "react": "^18",
+    "react-countup": "^6.5.3",
+    "react-dom": "^18",
+    "react-icons": "^5.4.0",
+    "react-intersection-observer": "^9.13.1",
+    "react-player": "^2.16.0",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "eslint": "^8",
+    "eslint-config-next": "14.2.15",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  }
+}
