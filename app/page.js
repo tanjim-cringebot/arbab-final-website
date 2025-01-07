@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence, useAnimation, useScroll, useTransform, useViewportScroll } from "framer-motion";
+import { motion, AnimatePresence, useAnimation, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import Image from 'next/image';
 import { FaLeaf, FaBox, FaRecycle, FaArrowRight, FaLightbulb, FaIndustry, FaUsers, FaPhone, FaEnvelope, FaChevronDown, FaGlobe, FaWarehouse, FaCogs, FaBoxOpen, FaFlag, FaCertificate, FaChartLine, FaPlay, FaSolarPanel, FaRocket, FaEye, FaGlobeAmericas, FaHandshake, FaQuoteLeft, FaCalendar, FaArrowLeft, FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
@@ -535,7 +535,7 @@ export default function Home() {
     threshold: 0.1,
   });
 
-  const { scrollYProgress } = useViewportScroll();
+  const { scrollYProgress } = useScroll();
   const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1.2]);
 
   const [currentNews, setCurrentNews] = useState(0);

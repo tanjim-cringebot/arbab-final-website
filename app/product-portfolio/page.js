@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence, useAnimation } from 'framer-motion'
+import { useState, useCallback, useMemo } from 'react'
+import { motion, AnimatePresence, useAnimation, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { 
@@ -60,6 +60,7 @@ export default function ProductPortfolio() {
   const [flippedCards, setFlippedCards] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+  const { scrollY } = useScroll();
 
   const customizationControls = useAnimation();
 
@@ -390,21 +391,48 @@ export default function ProductPortfolio() {
     }
   ];
 
+  // Memoize static data
+  const steps = useMemo(() => [
+    {
+      step: "Step 1",
+      title: "Submission",
+      description: "Review our Areas of Interest and complete the Submission Form with your innovative idea.",
+      icon: FaPaperPlane
+    },
+    {
+      step: "Step 2",
+      title: "Assessment",
+      description: "Our Technology and Innovation teams will review your submission based on relevance and potential.",
+      icon: FaSearch
+    },
+    {
+      step: "Step 3",
+      title: "Response",
+      description: "We aim to evaluate and respond to your submission within 30 days.",
+      icon: FaCheckCircle
+    }
+  ], []);
+
+  // Optimize animations
+  const fadeUpVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  // Card flip handler
+  const handleCardFlip = useCallback((index, isFlipped) => {
+    setFlippedCards(prev => ({ ...prev, [index]: isFlipped }));
+  }, []);
+
   return (
     <main className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-black">
       {/* Background Effects */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.2, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[120px]"
-      />
+      <div className="absolute w-[800px] h-[800px] bg-gradient-to-br from-blue-500/10 to-transparent" />
 
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
         <Link href="/" className="text-blue-300 flex items-center mb-16 hover:text-blue-100 transition duration-300">
@@ -887,31 +915,14 @@ export default function ProductPortfolio() {
 
             <h3 className="text-3xl font-bold mb-6 text-white">Submission Process</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-              {[
-                {
-                  step: "Step 1",
-                  title: "Submission",
-                  description: "Review our Areas of Interest and complete the Submission Form with your innovative idea.",
-                  icon: FaPaperPlane
-                },
-                {
-                  step: "Step 2",
-                  title: "Assessment",
-                  description: "Our Technology and Innovation teams will review your submission based on relevance and potential.",
-                  icon: FaSearch
-                },
-                {
-                  step: "Step 3",
-                  title: "Response",
-                  description: "We aim to evaluate and respond to your submission within 30 days.",
-                  icon: FaCheckCircle
-                }
-              ].map((step, index) => (
+              {steps.map((step, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  variants={fadeUpVariants}
+                  initial="hidden"
+                  whileInView="visible"
                   transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
                   className="bg-white/10 rounded-xl p-6 backdrop-blur-sm border border-blue-400/20 relative overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -mr-16 -mt-16 backdrop-blur-sm" />

@@ -304,7 +304,7 @@ const CapacitySection = () => {
   ];
 
   return (
-    <section id="capacity" className="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-blue-900 to-black">
+    <section id="capacity" className="pt-0 pb-0 bg-gradient-to-br from-gray-900 via-blue-900 to-black">
       {/* Stats section */}
       <div className="bg-gradient-to-br from-blue-900/50 to-blue-800/50 backdrop-blur-sm text-white py-16">
         <div className="max-w-6xl mx-auto px-4">
@@ -325,7 +325,7 @@ const CapacitySection = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 hover:bg-white/10 transition-all duration-300"
+                className="bg-gray-900/90 rounded-2xl p-8 border border-blue-900/20"
               >
                 <item.icon className="text-4xl text-blue-300 mb-4" />
                 <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
@@ -359,10 +359,10 @@ const CapacitySection = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-6 hover:bg-white/10 transition-all duration-300"
+              className="bg-gray-900/90 rounded-2xl p-8 border border-blue-900/20"
             >
-              <item.icon className="text-3xl text-blue-400 mb-4" />
-              <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
+              <item.icon className="text-4xl text-blue-400 mb-4" />
+              <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
               <ul className="space-y-2">
                 {item.features.map((feature, i) => (
                   <li key={i} className="flex items-center text-blue-200">
@@ -578,6 +578,41 @@ export default function AboutAPL() {
     }
   ];
 
+  // Replace the current useEffect with this new scroll handler
+  const handleSmoothScroll = (e) => {
+    // Only handle links with hash
+    if (e.target.hash) {
+      e.preventDefault();
+      const targetId = e.target.hash.replace('#', '');
+      const element = document.getElementById(targetId);
+      
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+        
+        // Optional: Update URL
+        window.history.pushState(null, '', e.target.hash);
+      }
+    }
+  };
+
+  useEffect(() => {
+    // Add click event listeners to all internal links
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+      link.addEventListener('click', handleSmoothScroll);
+    });
+
+    // Cleanup
+    return () => {
+      links.forEach(link => {
+        link.removeEventListener('click', handleSmoothScroll);
+      });
+    };
+  }, []);
+
   return (
     <main className="bg-gradient-to-br from-gray-900 via-blue-900 to-black min-h-screen">
       <Navbar />
@@ -586,7 +621,7 @@ export default function AboutAPL() {
       <HeroSection />
 
       {/* APL Journey Section */}
-      <section className="py-20 relative overflow-hidden mt-32">
+      <section className="py-20 relative overflow-hidden mt-32 mb-0">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -619,9 +654,10 @@ export default function AboutAPL() {
               {milestones.map((milestone, index) => (
                 <motion.div
                   key={milestone.year}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.2 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  viewport={{ once: true }}
                   className={`flex items-center mb-20 ${
                     index % 2 === 0 ? "flex-row" : "flex-row-reverse"
                   }`}
