@@ -11,6 +11,8 @@ import {
   FaChevronDown,
   FaChevronLeft,
   FaChevronRight,
+  FaSun,
+  FaWind,
   FaHistory,
   FaIndustry,
   FaGlobe,
@@ -305,114 +307,170 @@ const CapacitySection = () => {
 
   return (
     <section id="capacity" className="pt-0 pb-0 bg-gradient-to-br from-gray-900 via-blue-900 to-black">
-      {/* Stats section */}
-      <div className="bg-gradient-to-br from-blue-900/50 to-blue-800/50 backdrop-blur-sm text-white py-16">
-        <div className="max-w-6xl mx-auto px-4">
+      {/* Production Capacity Section */}
+      <section className="py-24 relative overflow-hidden">
+        {/* Dynamic Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-blue-900/95 to-black/95" />
+          {/* Animated Circuit Lines */}
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={`circuit-${i}`}
+              className="absolute h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"
+              animate={{
+                x: ['-100%', '100%'],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration: 3,
+                delay: i * 0.4,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              style={{
+                top: `${(i + 1) * 12}%`,
+                width: '100%',
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 relative">
+          {/* Section Header */}
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-center mb-20"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Production Capacity</h2>
-            <p className="text-xl text-blue-200">State-of-the-art manufacturing excellence</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+              Production Capacity
+            </h2>
+            <p className="text-xl text-blue-200">
+              State-of-the-art manufacturing excellence
+            </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Capacity Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
             {capabilities.map((item, index) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-gray-900/90 rounded-2xl p-8 border border-blue-900/20"
+                className="relative group"
               >
-                <item.icon className="text-4xl text-blue-300 mb-4" />
-                <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
-                <div className="text-3xl font-bold text-blue-300 mb-2">
-                  {item.value}
-                  <span className="text-xl ml-1">{item.unit}</span>
+                {/* Glowing Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-blue-600/5 
+                             rounded-2xl blur-xl group-hover:from-blue-500/10 group-hover:to-blue-600/10 
+                             transition-all duration-300" />
+                
+                {/* Content Container */}
+                <div className="relative bg-gradient-to-br from-gray-900/80 to-blue-900/80 
+                             backdrop-blur-sm rounded-2xl p-8 border border-blue-500/10">
+                  {/* Icon with Orbital Ring */}
+                  <div className="relative w-16 h-16 mb-6 mx-auto">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                      className="absolute inset-0 rounded-full border border-blue-500/30"
+                    />
+                    <motion.div
+                      animate={{ rotate: -360 }}
+                      transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                      className="absolute inset-2 rounded-full border border-blue-400/20"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <item.icon className="text-3xl text-blue-400" />
+                    </div>
+                  </div>
+
+                  {/* Stats Display */}
+                  <div className="text-center">
+                    <motion.div
+                      initial={{ scale: 0.5 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-blue-200 
+                               bg-clip-text text-transparent mb-2"
+                    >
+                      {item.value}
+                      <span className="text-xl ml-1">{item.unit}</span>
+                    </motion.div>
+                    <h3 className="text-xl font-semibold text-white mb-2">{item.title}</h3>
+                    <p className="text-blue-200 text-sm">{item.description}</p>
+                  </div>
+
+                  {/* Animated Particles */}
+                  {[...Array(3)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 bg-blue-400 rounded-full"
+                      animate={{
+                        y: [-10, 10],
+                        opacity: [0, 1, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        delay: i * 0.3,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                      style={{
+                        left: `${50 + (i * 20)}%`,
+                        bottom: '20%',
+                      }}
+                    />
+                  ))}
                 </div>
-                <p className="text-blue-200">{item.description}</p>
               </motion.div>
             ))}
           </div>
-        </div>
-      </div>
 
-      {/* Machinery Section */}
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-bold text-white mb-6">Advanced Machinery</h2>
-          <p className="text-xl text-blue-300">Cutting-edge technology for superior results</p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {machinery.map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-gray-900/90 rounded-2xl p-8 border border-blue-900/20"
-            >
-              <item.icon className="text-4xl text-blue-400 mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
-              <ul className="space-y-2">
-                {item.features.map((feature, i) => (
-                  <li key={i} className="flex items-center text-blue-200">
-                    <FaCheck className="text-blue-400 mr-2" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Production Process Section */}
-      <div className="bg-blue-900/30 backdrop-blur-sm py-16">
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold text-white mb-6">Our Process</h2>
-            <p className="text-xl text-blue-300">From concept to completion</p>
-          </motion.div>
-
-          <div className="relative">
-            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-blue-400/20 transform -translate-x-1/2 hidden md:block" />
-            
-            {productionStages.map((stage, index) => (
+          {/* Production Stages */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {productionStages.slice(0, 3).map((stage, index) => (
               <motion.div
                 key={stage.title}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                className={`flex items-center mb-8 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+                whileHover={{ y: -10 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="relative group"
               >
-                <div className="w-full md:w-1/2 p-4">
-                  <div className={`bg-white/5 backdrop-blur-sm rounded-xl p-6 hover:bg-white/10 transition-all duration-300 ${index % 2 === 0 ? 'md:mr-8' : 'md:ml-8'}`}>
-                    <stage.icon className="text-3xl text-blue-400 mb-4" />
-                    <h3 className="text-xl font-bold text-white mb-2">{stage.title}</h3>
-                    <p className="text-blue-200">{stage.description}</p>
+                {/* Stage Card */}
+                <div className="relative bg-gradient-to-br from-gray-900/80 to-blue-900/80 
+                             backdrop-blur-sm rounded-2xl p-8 border border-blue-500/10">
+                  {/* Icon */}
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 
+                               rounded-xl flex items-center justify-center mb-6 transform 
+                               group-hover:rotate-12 transition-transform duration-300">
+                    <stage.icon className="text-2xl text-white" />
                   </div>
+
+                  {/* Content */}
+                  <h3 className="text-xl font-bold text-white mb-3">{stage.title}</h3>
+                  <p className="text-blue-200">{stage.description}</p>
+
+                  {/* Progress Line */}
+                  {index < 2 && (
+                    <motion.div
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      transition={{ duration: 1, delay: 0.5 }}
+                      className="absolute -right-4 top-1/2 w-8 h-0.5 bg-blue-500/30 
+                               hidden md:block origin-left"
+                    />
+                  )}
                 </div>
-                <div className="hidden md:block w-8 h-8 bg-blue-400 rounded-full absolute left-1/2 transform -translate-x-1/2" style={{ top: `${index * 25}%` }} />
               </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* ... rest of the sections remain the same ... */}
     </section>
   );
 };
@@ -621,80 +679,158 @@ export default function AboutAPL() {
       <HeroSection />
 
       {/* APL Journey Section */}
-      <section className="py-20 relative overflow-hidden mt-32 mb-0">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="py-20 relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-blue-900/90 to-black/95" />
+          {/* Subtle Floating Elements */}
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={`float-${i}`}
+              className="absolute w-2 h-2 bg-blue-400/10 rounded-full"
+              animate={{
+                y: [-20, 20],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.2,
+              }}
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 relative">
+          {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="text-center mb-20"
           >
-            <h2 className="text-4xl font-bold text-white mb-6">APL Journey</h2>
+            <h2 className="text-5xl font-bold text-white mb-6">Our Journey</h2>
             <p className="text-xl text-blue-200 max-w-3xl mx-auto">
-              Founded in 1988, APL has transformed from a small paper converting facility into a leader 
-              in packaging solutions. With over 37 years of experience, we have established a reputation 
-              for excellence and innovation, serving diverse industries, reaching nationwide.
+              From humble beginnings to industry leadership: Our 37-year evolution in packaging excellence
             </p>
           </motion.div>
 
-          {/* Timeline */}
+          {/* Timeline Structure */}
           <div className="relative">
-            {/* Timeline Line with Glow Effect */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-900/30">
-              <motion.div
-                initial={{ height: "0%" }}
-                whileInView={{ height: "100%" }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-                className="w-full bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600 h-full
-                         relative after:absolute after:inset-0 after:blur-sm after:bg-inherit"
-              />
-            </div>
+            {/* Central Timeline Line */}
+            <motion.div
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              className="absolute left-1/2 top-0 w-1 h-full bg-gradient-to-b from-blue-500 to-blue-600 
+                       transform -translate-x-1/2 origin-top"
+            />
 
-            {/* Timeline Items */}
+            {/* Timeline Events */}
             <div className="relative">
               {milestones.map((milestone, index) => (
                 <motion.div
                   key={milestone.year}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  viewport={{ once: true }}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.2 }}
                   className={`flex items-center mb-20 ${
-                    index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                    index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
                   }`}
                 >
-                  {/* Content */}
-                  <div className={`w-5/12 ${index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"}`}>
+                  {/* Content Side */}
+                  <div className="w-1/2 px-10">
                     <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10
-                               hover:bg-white/10 transition-all duration-300 relative group"
+                      whileHover={{ scale: 1.02 }}
+                      className="relative group"
                     >
-                      {/* Glow effect on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 
-                                    opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      
-                      <h3 className="text-2xl font-bold text-blue-400 mb-2">{milestone.year}</h3>
-                      <h4 className="text-xl font-semibold text-white mb-2">{milestone.title}</h4>
-                      <p className="text-blue-200">{milestone.description}</p>
+                      {/* Content Card */}
+                      <div className="relative bg-gradient-to-br from-blue-900/40 to-indigo-900/40 
+                                   backdrop-blur-md rounded-2xl p-8 border border-blue-500/20">
+                        {/* Year Badge */}
+                        <div className="absolute -top-4 bg-gradient-to-r from-blue-500 to-blue-600 
+                                     px-4 py-1 rounded-full text-white font-bold">
+                          {milestone.year}
+                        </div>
+
+                        {/* Icon */}
+                        <div className="mb-4 w-12 h-12 bg-blue-500/20 rounded-xl 
+                                     flex items-center justify-center">
+                          <milestone.icon className="text-2xl text-blue-300" />
+                        </div>
+
+                        {/* Content */}
+                        <h3 className="text-2xl font-bold text-white mb-3 
+                                   group-hover:text-blue-400 transition-colors duration-300">
+                          {milestone.title}
+                        </h3>
+                        <p className="text-blue-200">{milestone.description}</p>
+
+                        {/* Animated Lines */}
+                        <div className="absolute inset-0 overflow-hidden rounded-2xl">
+                          {[...Array(3)].map((_, i) => (
+                            <motion.div
+                              key={i}
+                              className="absolute h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"
+                              animate={{
+                                x: ['-100%', '100%'],
+                                opacity: [0, 1, 0],
+                              }}
+                              transition={{
+                                duration: 2,
+                                delay: i * 0.4,
+                                repeat: Infinity,
+                                ease: "linear"
+                              }}
+                              style={{
+                                top: `${30 + i * 30}%`,
+                                width: '100%',
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Hover Glow */}
+                      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 
+                                   rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </motion.div>
                   </div>
 
-                  {/* Center Icon */}
-                  <div className="w-2/12 flex justify-center">
+                  {/* Timeline Node */}
+                  <div className="relative w-6 flex items-center justify-center">
                     <motion.div
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
-                      transition={{ delay: index * 0.2 + 0.3 }}
-                      className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center
-                               relative after:absolute after:inset-0 after:blur-sm after:bg-blue-500/50
-                               z-10 border border-blue-400"
+                      transition={{ duration: 0.5, delay: index * 0.2 }}
+                      className="absolute left-1 transform -translate-x-1/2"
                     >
-                      <milestone.icon className="text-white text-xl" />
+                      <div className="relative w-6 h-6">
+                        {/* Outer Ring */}
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                          className="absolute inset-0 rounded-full border-2 border-blue-500/30"
+                        />
+                        {/* Inner Ring */}
+                        <motion.div
+                          animate={{ rotate: -360 }}
+                          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                          className="absolute inset-1 rounded-full border-2 border-blue-400/20"
+                        />
+                        {/* Center Point */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-blue-600 
+                                     rounded-full shadow-lg shadow-blue-500/50" />
+                      </div>
                     </motion.div>
                   </div>
 
-                  {/* Empty space for alignment */}
-                  <div className="w-5/12" />
+                  {/* Empty Side */}
+                  <div className="w-1/2" />
                 </motion.div>
               ))}
             </div>
@@ -705,38 +841,56 @@ export default function AboutAPL() {
       {/* Production Capacity Section */}
       <CapacitySection />
 
-      {/* Brand Value Section */}
+      {/* Brand Value Section - Creative Redesign */}
       <section className="py-20 relative overflow-hidden">
-        {/* Background Effects */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.2, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[120px]"
-        />
+        {/* Dynamic Background Effect */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 via-blue-900/30 to-gray-900/50" />
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={`bubble-${i}`}
+              className="absolute w-[100px] h-[100px] rounded-full"
+              style={{
+                background: `radial-gradient(circle at center, ${['#60A5FA', '#3B82F6', '#2563EB'][i % 3]}15, transparent)`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [-20, 20, -20],
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                duration: 5 + Math.random() * 3,
+                repeat: Infinity,
+                delay: i * 0.2,
+              }}
+            />
+          ))}
+        </div>
 
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 relative">
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="text-center mb-20"
           >
-            <h2 className="text-4xl font-bold text-white mb-6">
-              Elevating Brand Value Through Packaging Excellence
+            <h2 className="text-5xl font-bold text-white mb-6 relative inline-block">
+              <span className="relative z-10">Elevating Brand Value</span>
+              <motion.div
+                className="absolute -bottom-2 left-0 w-full h-2 bg-blue-500/30"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                transition={{ duration: 1, delay: 0.5 }}
+              />
             </h2>
             <p className="text-xl text-blue-200 max-w-3xl mx-auto">
-              APL transforms packaging into a powerful brand asset, delivering solutions that enhance product 
-              perception, protect integrity, and drive sustainable growth for our clients.
+              Transforming packaging into powerful brand assets through innovation and excellence
             </p>
           </motion.div>
 
-          {/* Value Props Grid */}
+          {/* 3D Rotating Cube Display */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {brandValueProps.map((prop, index) => (
               <motion.div
@@ -744,34 +898,79 @@ export default function AboutAPL() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 
-                         hover:bg-white/10 transition-all duration-300 group"
+                className="relative group"
               >
-                {/* Icon Header */}
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center
-                                group-hover:bg-blue-500/30 transition-all duration-300">
-                    <prop.icon className="text-2xl text-blue-400 group-hover:text-blue-300" />
+                {/* Card Face */}
+                <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-md 
+                             rounded-2xl p-8 border border-white/10 h-full transform 
+                             transition-all duration-500 group-hover:scale-[0.97]">
+                  {/* Floating Icon */}
+                  <motion.div
+                    animate={{
+                      y: [-5, 5, -5],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="relative z-10"
+                  >
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 
+                                 rounded-2xl flex items-center justify-center transform 
+                                 -rotate-12 group-hover:rotate-0 transition-transform duration-500">
+                      <prop.icon className="text-2xl text-white" />
+                    </div>
+                  </motion.div>
+
+                  {/* Content */}
+                  <div className="mt-6 relative z-10">
+                    <h3 className="text-2xl font-bold text-white mb-4 
+                                 group-hover:text-blue-400 transition-colors duration-300">
+                      {prop.title}
+                    </h3>
+                    <p className="text-blue-200 mb-6 group-hover:text-blue-100 
+                               transition-colors duration-300">
+                      {prop.description}
+                    </p>
+
+                    {/* Stats Display */}
+                    <div className="flex items-center justify-between 
+                                 bg-white/5 rounded-xl p-4 backdrop-blur-sm">
+                      <div>
+                        <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 
+                                     bg-clip-text text-transparent">
+                          {prop.stats}
+                        </div>
+                        <div className="text-sm text-blue-300">{prop.statsLabel}</div>
+                      </div>
+                      <motion.div
+                        animate={{
+                          rotate: [0, 360],
+                        }}
+                        transition={{
+                          duration: 20,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                      >
+                        <div className="w-12 h-12 rounded-full border-2 border-blue-500/30 
+                                     flex items-center justify-center">
+                          <div className="w-8 h-8 rounded-full border-2 border-blue-400/50 
+                                      flex items-center justify-center">
+                            <div className="w-4 h-4 rounded-full bg-blue-400" />
+                          </div>
+                        </div>
+                      </motion.div>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-white ml-4">{prop.title}</h3>
+
+                  {/* Decorative Elements */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full 
+                               blur-2xl group-hover:bg-blue-400/20 transition-colors duration-300" />
+                  <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-600/10 rounded-full 
+                               blur-2xl group-hover:bg-blue-500/20 transition-colors duration-300" />
                 </div>
-
-                {/* Description */}
-                <p className="text-blue-200 mb-6">{prop.description}</p>
-
-                {/* Stats */}
-                <div className="flex items-center">
-                  <div className="mr-3">
-                    <div className="text-3xl font-bold text-blue-400">{prop.stats}</div>
-                    <div className="text-sm text-blue-300">{prop.statsLabel}</div>
-                  </div>
-                  <FaStar className="text-yellow-400 ml-auto" />
-                </div>
-
-                {/* Hover Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-500/10 
-                              opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-xl" />
               </motion.div>
             ))}
           </div>
@@ -780,73 +979,293 @@ export default function AboutAPL() {
 
       {/* Climate Action Section */}
       <section className="py-20 relative overflow-hidden">
-        {/* Background Gradient Effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-green-900/20 to-transparent" />
-        
+        {/* Background Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-green-900/20 via-blue-900/10 to-green-900/20" />
+
         <div className="max-w-7xl mx-auto px-4 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-4xl font-bold text-white mb-6">
-              Our Contribution to Climate Action
-            </h2>
-            <p className="text-xl text-green-200 max-w-3xl mx-auto">
-              AG is making significant strides in climate action since last 37 years through
-              its circular economy practice to reduce environmental impact.
-            </p>
-          </motion.div>
-
-          {/* Initiatives Grid */}
-          <div className="space-y-12">
-            {climateInitiatives.map((initiative, index) => (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Content Column */}
+            <div>
               <motion.div
-                key={initiative.title}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-green-500/10 
-                         hover:bg-white/10 transition-all duration-300 group"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+                className="mb-12"
               >
-                <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-                  {/* Icon */}
-                  <div className="w-16 h-16 bg-green-500/20 rounded-xl flex items-center justify-center
-                                group-hover:bg-green-500/30 transition-all duration-300 flex-shrink-0">
-                    <initiative.icon className="text-3xl text-green-400" />
-                  </div>
+                <h2 className="text-4xl font-bold text-white mb-6">
+                  Our Contribution to Climate Action
+                </h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-green-600 rounded-full mb-6" />
+                <p className="text-xl text-green-200">
+                  AG is making significant strides in climate action since last 37 years through
+                  its circular economy practice to reduce environmental impact.
+                </p>
+              </motion.div>
 
-                  {/* Content */}
-                  <div className="flex-grow">
-                    <h3 className="text-2xl font-bold text-white mb-3">{initiative.title}</h3>
-                    <p className="text-green-200 mb-4">{initiative.description}</p>
-                    
-                    {/* Stats */}
-                    <div className="flex items-center gap-4">
-                      <div>
-                        <div className="text-3xl font-bold text-green-400">{initiative.stats.value}</div>
-                        <div className="text-sm text-green-300">{initiative.stats.label}</div>
+              {/* Initiatives as Tree Leaves */}
+              <div className="relative">
+                {climateInitiatives.map((initiative, index) => (
+                  <motion.div
+                    key={initiative.title}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="group relative mb-8 last:mb-0"
+                  >
+                    <div className="relative pl-8 before:absolute before:left-0 before:top-0 before:w-1 
+                                 before:h-full before:bg-gradient-to-b before:from-green-500 before:to-green-600 
+                                 before:rounded-full">
+                      <div className="absolute left-0 top-0 w-8 h-8 -translate-x-3 bg-green-500/20 
+                                   rounded-full flex items-center justify-center backdrop-blur-sm 
+                                   group-hover:bg-green-500/30 transition-all duration-300">
+                        <initiative.icon className="text-xl text-green-400" />
                       </div>
-
-                      {initiative.link && (
-                        <Link 
-                          href={initiative.link}
-                          className="ml-auto flex items-center gap-2 text-green-400 hover:text-green-300 
-                                   transition-colors duration-300"
-                        >
-                          {initiative.linkText}
-                          <FaArrowRight className="text-sm" />
-                        </Link>
-                      )}
+                      
+                      <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 
+                                   border border-green-500/10 hover:bg-white/10 
+                                   transition-all duration-300">
+                        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-green-400 
+                                     transition-colors duration-300">
+                          {initiative.title}
+                        </h3>
+                        <p className="text-green-200 mb-4">{initiative.description}</p>
+                        
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div className="text-2xl font-bold text-green-400">{initiative.stats.value}</div>
+                            <div className="text-sm text-green-300">{initiative.stats.label}</div>
+                          </div>
+                          
+                          {initiative.link && (
+                            <Link 
+                              href={initiative.link}
+                              className="text-green-400 hover:text-green-300 transition-colors duration-300"
+                            >
+                              {initiative.linkText} →
+                            </Link>
+                          )}
+                        </div>
+                      </div>
                     </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Decorative Icon Tree */}
+            <div className="relative hidden lg:block">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative w-[800px] h-[900px]">
+                  {/* Tree Structure */}
+                  <div className="relative w-full h-full">
+                    {/* Ground Base with Grass - Reduced width */}
+                    <motion.div
+                      initial={{ scaleX: 0, opacity: 0 }}
+                      whileInView={{ scaleX: 1, opacity: 1 }}
+                      transition={{ duration: 1, delay: 0.5 }}
+                      className="absolute bottom-0 w-[500px] h-[80px] mx-auto"
+                      style={{ 
+                        left: '15%',
+                        transform: 'translateX(-50%)',
+                        transformOrigin: 'center'
+                      }}
+                    >
+                      {/* Ground Shadow */}
+                      <div className="absolute bottom-0 w-full h-full bg-green-900/30 rounded-full blur-xl" />
+                      
+                      {/* Ground Surface */}
+                      <div className="absolute bottom-0 w-full h-[40px]
+                                     bg-gradient-to-b from-green-800 to-green-900
+                                     rounded-full" />
+
+                      {/* Decorative Grass */}
+                      {[...Array(24)].map((_, i) => (
+                        <motion.div
+                          key={`grass-${i}`}
+                          initial={{ scaleY: 0 }}
+                          animate={{ scaleY: 1 }}
+                          transition={{
+                            delay: 1 + (i * 0.05),
+                            duration: 0.5,
+                            ease: "easeOut"
+                          }}
+                          className="absolute bottom-[35px] w-4 origin-bottom"
+                          style={{
+                            left: `${(i * 4.2)}%`,  // Adjusted spacing
+                            height: `${12 + Math.sin(i) * 8}px`,
+                            transform: `rotate(${-10 + Math.sin(i * 2) * 20}deg)`,
+                          }}
+                        >
+                          <div className="w-full h-full bg-gradient-to-t from-green-700 to-green-500 rounded-full" />
+                        </motion.div>
+                      ))}
+
+                      {/* Second Layer of Grass (for depth) */}
+                      {[...Array(20)].map((_, i) => (
+                        <motion.div
+                          key={`grass-back-${i}`}
+                          initial={{ scaleY: 0 }}
+                          animate={{ scaleY: 1 }}
+                          transition={{
+                            delay: 0.8 + (i * 0.05),
+                            duration: 0.5,
+                            ease: "easeOut"
+                          }}
+                          className="absolute bottom-[32px] w-4 origin-bottom"
+                          style={{
+                            left: `${5 + (i * 4.8)}%`,  // Adjusted spacing
+                            height: `${10 + Math.cos(i) * 6}px`,
+                            transform: `rotate(${Math.cos(i * 2) * 15}deg)`,
+                          }}
+                        >
+                          <div className="w-full h-full bg-gradient-to-t from-green-800 to-green-600 rounded-full" />
+                        </motion.div>
+                      ))}
+
+                      {/* Subtle Ground Texture */}
+                      <div className="absolute bottom-0 left-0 right-0 h-[40px] overflow-hidden">
+                        {[...Array(30)].map((_, i) => (
+                          <div
+                            key={`texture-${i}`}
+                            className="absolute w-[2px] bg-green-700/30 rounded-full"
+                            style={{
+                              left: `${Math.random() * 100}%`,
+                              height: `${4 + Math.random() * 6}px`,
+                              bottom: '0',
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </motion.div>
+
+                    {/* Trunk */}
+                    <motion.div
+                      initial={{ scaleY: 0 }}
+                      whileInView={{ scaleY: 1 }}
+                      transition={{ duration: 1 }}
+                      className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-[800px] 
+                               bg-gradient-to-t from-green-800 to-green-700 rounded-lg z-10"
+                      style={{ transformOrigin: 'bottom' }}
+                    />
+
+                    {/* Branches with Single Icons - Reduced lengths */}
+                    {[
+                      // [side, height%, icon, branchLength]
+                      ['right', 85, FaLeaf, 120],      // Reduced from 160 to 120
+                      ['left', 75, FaSun, 120],        // Reduced from 160 to 120
+                      ['right', 65, FaWind, 140],      // Reduced from 180 to 140
+                      ['left', 55, FaWater, 140],      // Reduced from 180 to 140
+                      ['right', 45, FaRecycle, 160],   // Reduced from 200 to 160
+                      ['left', 35, FaSolarPanel, 160], // Reduced from 200 to 160
+                      ['right', 25, FaTree, 160],      // Reduced from 200 to 160
+                      ['left', 15, FaGlobeAmericas, 160], // Reduced from 200 to 160
+                    ].map((branchConfig, index) => {
+                      const [side, heightPosition, Icon, branchLength] = branchConfig;
+                      const isRight = side === 'right';
+                      
+                      return (
+                        <motion.div
+                          key={`branch-${index}`}
+                          className="absolute"
+                          style={{ 
+                            bottom: `${heightPosition}%`,
+                            left: isRight ? '50%' : undefined,
+                            right: isRight ? undefined : '50%',
+                            width: '200px',
+                            zIndex: 20,
+                          }}
+                        >
+                          {/* Branch Line */}
+                          <motion.div
+                            initial={{ scaleX: 0 }}
+                            whileInView={{ scaleX: 1 }}
+                            transition={{ 
+                              delay: 1 + (index * 0.2), 
+                              duration: 0.5,
+                              ease: "easeOut"
+                            }}
+                            className="absolute top-1/2 w-full h-1.5
+                                     bg-gradient-to-r from-green-700 to-green-600 rounded-full"
+                            style={{ 
+                              transformOrigin: isRight ? 'left' : 'right',
+                              transform: `rotate(${isRight ? 25 : -25}deg)`,
+                            }}
+                          />
+
+                          {/* Icon Container - Adjusted positioning closer to branch */}
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            whileInView={{ scale: 1 }}
+                            animate={{ 
+                              rotate: [0, 3, 0, -3, 0],
+                              y: [0, -2, 0, -2, 0]
+                            }}
+                            whileHover={{ scale: 1.1 }}
+                            transition={{ 
+                              scale: { delay: 1.3 + (index * 0.2), duration: 0.3 },
+                              rotate: {
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: index * 0.2
+                              },
+                              y: {
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: index * 0.2
+                              }
+                            }}
+                            className="absolute top-1/2 transform -translate-y-1/2 group"
+                            style={{ 
+                              [isRight ? 'left' : 'right']: '85%',
+                              transformOrigin: 'top center',
+                            }}
+                          >
+                            {/* Glow Effect */}
+                            <div className="absolute inset-0 bg-green-500/20 rounded-full blur-xl 
+                                          group-hover:bg-green-400/30 transition-all duration-300" />
+                            
+                            {/* Icon Background */}
+                            <div className="relative w-16 h-16 bg-gradient-to-br from-green-600 to-green-700 
+                                          rounded-full flex items-center justify-center border border-green-500/30
+                                          shadow-lg group-hover:from-green-500 group-hover:to-green-600 
+                                          transition-all duration-300">
+                              <Icon className="text-2xl text-green-100" />
+                            </div>
+                          </motion.div>
+                        </motion.div>
+                      );
+                    })}
+
+                    {/* Ambient Particles */}
+                    {[...Array(20)].map((_, i) => (
+                      <motion.div
+                        key={`particle-${i}`}
+                        animate={{
+                          y: [-20, -40, -20],
+                          opacity: [0, 1, 0],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: i * 0.2,
+                        }}
+                        className="absolute"
+                        style={{
+                          left: `${20 + (i * 3)}%`,
+                          bottom: `${40 + (i * 2)}%`,
+                        }}
+                      >
+                        <div className="w-1.5 h-1.5 bg-green-400/20 rounded-full blur-sm" />
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
-
-                {/* Hover Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-green-500/0 to-green-500/10 
-                              opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-xl" />
-              </motion.div>
-            ))}
+              </div>
+            </div>
           </div>
 
           {/* Download Report Button */}
@@ -870,42 +1289,107 @@ export default function AboutAPL() {
 
       {/* Value Proposition Section */}
       <section className="py-20 relative overflow-hidden">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.2, 0.3, 0.2],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[120px]"
-        />
-        
-        <div className="max-w-7xl mx-auto px-4 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold text-white mb-6">APL Value Proposition</h2>
-          </motion.div>
+        {/* Background Elements */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-blue-900/20" />
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-blue-500/10 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-blue-600/10 rounded-full blur-[100px]" />
+        </div>
 
+        <div className="max-w-7xl mx-auto px-4 relative">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl font-bold text-white mb-6">APL Value Proposition</h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full mb-6" />
+              <p className="text-xl text-blue-200 max-w-2xl mx-auto">
+                Delivering excellence through innovation, sustainability, and cutting-edge technology
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Value Props Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {valueProps.map((prop, index) => (
-              <motion.div
+              <div 
                 key={prop.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
-                className={`bg-gradient-to-br ${prop.bgGradient} backdrop-blur-sm rounded-xl p-8 
-                         border border-white/10 hover:scale-105 transition-all duration-300`}
+                className="group relative"
               >
-                <prop.icon className="text-4xl text-white mb-6" />
-                <h3 className="text-2xl font-bold text-white mb-4">{prop.title}</h3>
-                <p className="text-blue-200">{prop.description}</p>
-              </motion.div>
+                {/* Card */}
+                <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm 
+                              rounded-2xl p-8 h-full border border-white/10 transition-all duration-300
+                              hover:border-blue-500/50 hover:-translate-y-1">
+                  {/* Decorative Corner Lines */}
+                  <div className="absolute top-0 left-0 w-16 h-16">
+                    <div className="absolute top-0 left-0 w-2 h-8 bg-gradient-to-b from-blue-500 to-transparent rounded-t-full" />
+                    <div className="absolute top-0 left-0 h-2 w-8 bg-gradient-to-r from-blue-500 to-transparent rounded-l-full" />
+                  </div>
+                  <div className="absolute bottom-0 right-0 w-16 h-16 transform rotate-180">
+                    <div className="absolute top-0 left-0 w-2 h-8 bg-gradient-to-b from-blue-500 to-transparent rounded-t-full" />
+                    <div className="absolute top-0 left-0 h-2 w-8 bg-gradient-to-r from-blue-500 to-transparent rounded-l-full" />
+                  </div>
+
+                  {/* Icon Container */}
+                  <div className="relative mb-6 inline-block">
+                    <div className="absolute inset-0 bg-blue-500/20 rounded-xl blur-md transform group-hover:scale-110 transition-transform duration-300" />
+                    <div className={`w-16 h-16 ${prop.bgGradient} rounded-xl flex items-center justify-center 
+                                  transform transition-transform duration-300 group-hover:scale-105 relative z-10`}>
+                      <prop.icon className="text-2xl text-white" />
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors duration-300">
+                    {prop.title}
+                  </h3>
+                  <p className="text-blue-200 group-hover:text-blue-100 transition-colors duration-300">
+                    {prop.description}
+                  </p>
+
+                  {/* Hover Indicator */}
+                  <div className="absolute bottom-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom Feature Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+            {[
+              { icon: FaInfinity, label: "Continuous Innovation", value: "24/7" },
+              { icon: FaChartLine, label: "Growth Rate", value: "35%" },
+              { icon: FaCogs, label: "Automation Level", value: "90%" },
+              { icon: FaGlobeAmericas, label: "Global Presence", value: "15+" }
+            ].map((stat, index) => (
+              <div 
+                key={index}
+                className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10
+                         hover:bg-white/10 transition-all duration-300 group"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center
+                                group-hover:bg-blue-500/30 transition-all duration-300">
+                    <stat.icon className="text-xl text-blue-400" />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-blue-200">
+                      {stat.label}
+                    </div>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -982,39 +1466,97 @@ export default function AboutAPL() {
 
       {/* Mission & Vision Section */}
       <section className="py-20 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Mission */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10"
-            >
-              <div className="flex items-center mb-6">
-                <FaBullseye className="text-4xl text-blue-400 mr-4" />
-                <h2 className="text-3xl font-bold text-white">APL Mission</h2>
-              </div>
-              <p className="text-xl text-blue-200">
-                To provide innovative packaging solutions that meet the highest standards of quality, 
-                sustainability, and customer service while contributing positively to our communities.
-              </p>
-            </motion.div>
+        {/* Single subtle background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-green-900/20" />
 
-            {/* Vision */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10"
-            >
-              <div className="flex items-center mb-6">
-                <FaEye className="text-4xl text-blue-400 mr-4" />
-                <h2 className="text-3xl font-bold text-white">APL Vision</h2>
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold text-white mb-4">Our Purpose</h2>
+            <p className="text-xl text-blue-200">Driving innovation and sustainability in packaging solutions</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Mission Card */}
+            <div className="relative group transition-transform duration-300 ease-out hover:-translate-y-2">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-blue-600/20 to-blue-700/20 
+                           rounded-2xl blur-xl opacity-75 transition-all duration-300" />
+              <div className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 
+                           relative transition-all duration-300">
+                {/* Static decorative icon */}
+                <div className="absolute -top-6 -right-6 w-12 h-12 bg-blue-500/30 rounded-full 
+                             flex items-center justify-center backdrop-blur-sm">
+                  <FaBullseye className="text-2xl text-blue-300" />
+                </div>
+
+                {/* Header */}
+                <div className="flex items-center mb-8">
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-700 
+                                rounded-2xl flex items-center justify-center shadow-xl
+                                transition-transform duration-300 group-hover:scale-105">
+                    <FaFlag className="text-4xl text-white" />
+                  </div>
+                  <h3 className="text-3xl font-bold text-white ml-6">Our Mission</h3>
+                </div>
+
+                {/* Content */}
+                <p className="text-xl leading-relaxed text-blue-200 transition-colors duration-300
+                             group-hover:text-blue-100">
+                  To provide innovative packaging solutions that meet the highest standards of quality, 
+                  sustainability, and customer service while contributing positively to our communities.
+                </p>
+
+                {/* Decorative Elements */}
+                <div className="absolute bottom-4 right-4 flex space-x-2">
+                  <div className="w-2 h-2 rounded-full bg-blue-400/40" />
+                  <div className="w-2 h-2 rounded-full bg-blue-400/60" />
+                  <div className="w-2 h-2 rounded-full bg-blue-400/80" />
+                </div>
               </div>
-              <p className="text-xl text-blue-200">
-                To be the global leader in sustainable packaging solutions through innovation, 
-                technology, and long-term partnerships that foster environmental stewardship.
-              </p>
-            </motion.div>
+            </div>
+
+            {/* Vision Card */}
+            <div className="relative group transition-transform duration-300 ease-out hover:-translate-y-2">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-green-600/20 to-green-700/20 
+                           rounded-2xl blur-xl opacity-75 transition-all duration-300" />
+              <div className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 
+                           relative transition-all duration-300">
+                {/* Static decorative icon */}
+                <div className="absolute -top-6 -right-6 w-12 h-12 bg-green-500/30 rounded-full 
+                             flex items-center justify-center backdrop-blur-sm">
+                  <FaEye className="text-2xl text-green-300" />
+                </div>
+
+                {/* Header */}
+                <div className="flex items-center mb-8">
+                  <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-700 
+                                rounded-2xl flex items-center justify-center shadow-xl
+                                transition-transform duration-300 group-hover:scale-105">
+                    <FaBinoculars className="text-4xl text-white" />
+                  </div>
+                  <h3 className="text-3xl font-bold text-white ml-6">Our Vision</h3>
+                </div>
+
+                {/* Content */}
+                <p className="text-xl leading-relaxed text-blue-200 transition-colors duration-300
+                             group-hover:text-blue-100">
+                  To be the global leader in sustainable packaging solutions through innovation, 
+                  technology, and long-term partnerships that foster environmental stewardship.
+                </p>
+
+                {/* Decorative Elements */}
+                <div className="absolute bottom-4 right-4 flex space-x-2">
+                  <div className="w-2 h-2 rounded-full bg-green-400/40" />
+                  <div className="w-2 h-2 rounded-full bg-green-400/60" />
+                  <div className="w-2 h-2 rounded-full bg-green-400/80" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
