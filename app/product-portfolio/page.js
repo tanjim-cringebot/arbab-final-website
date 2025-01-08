@@ -23,9 +23,12 @@ import {
   FaPaperPlane, 
   FaSearch, 
   FaCheckCircle, 
-  FaInfoCircle, 
-  FaTruck, 
-  FaCalendar 
+  FaLeaf, 
+  FaPencilRuler, 
+  FaCogs, 
+  FaAtom,
+  FaLightbulb,
+  FaCalendar
 } from 'react-icons/fa'
 import ProductPortfolioBG from '../../public/images/product_bg.jpg'
 
@@ -46,6 +49,74 @@ const CategoryIcon = ({ icon: Icon }) => (
   </div>
 );
 
+const areas = [
+  {
+    title: "Sustainable Materials",
+    description: "Eco-friendly packaging solutions that reduce environmental impact",
+    icon: FaLeaf,
+    details: [
+      "Biodegradable materials",
+      "Recycled content optimization",
+      "Carbon footprint reduction"
+    ]
+  },
+  {
+    title: "Smart Packaging",
+    description: "Intelligent solutions that enhance user experience and product protection",
+    icon: FaMicrochip,
+    details: [
+      "IoT integration",
+      "Active packaging systems",
+      "Smart indicators"
+    ]
+  },
+  {
+    title: "Design Innovation",
+    description: "Creative solutions that combine functionality with aesthetic appeal",
+    icon: FaPencilRuler,
+    details: [
+      "Structural innovations",
+      "User-centric design",
+      "Brand enhancement"
+    ]
+  },
+  {
+    title: "Manufacturing Efficiency",
+    description: "Processes that optimize production and reduce waste",
+    icon: FaCogs,
+    details: [
+      "Process optimization",
+      "Waste reduction",
+      "Cost effectiveness"
+    ]
+  },
+  {
+    title: "Material Science",
+    description: "Advanced materials that enhance packaging performance",
+    icon: FaAtom,
+    details: [
+      "Barrier properties",
+      "Material strength",
+      "Novel composites"
+    ]
+  }
+];
+
+// Add this new loading animation component
+const LoadingSubcategory = () => (
+  <motion.div 
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    className="h-full p-6 rounded-2xl bg-white/5"
+  >
+    <div className="h-7 w-48 bg-white/10 rounded-lg mb-4 animate-pulse" />
+    <div className="space-y-3">
+      <div className="h-4 w-full bg-white/10 rounded animate-pulse" />
+      <div className="h-4 w-3/4 bg-white/10 rounded animate-pulse" />
+    </div>
+  </motion.div>
+);
+
 export default function ProductPortfolio() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
@@ -61,14 +132,21 @@ export default function ProductPortfolio() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const { scrollY } = useScroll();
+  const [isLoading, setIsLoading] = useState(false);
 
   const customizationControls = useAnimation();
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = useCallback(async (category) => {
+    setIsLoading(true);
     setSelectedCategory(category);
     setSelectedSubcategory(null);
     setSelectedProduct(null);
-  };
+    
+    // Simulate data loading (remove this in production)
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    setIsLoading(false);
+  }, []);
 
   const handleSubcategoryClick = (subcategory) => {
     setSelectedSubcategory(subcategory);
@@ -429,6 +507,22 @@ export default function ProductPortfolio() {
     setFlippedCards(prev => ({ ...prev, [index]: isFlipped }));
   }, []);
 
+  // Add these new animations
+  const productCardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
   return (
     <main className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-black">
       {/* Background Effects */}
@@ -455,56 +549,119 @@ export default function ProductPortfolio() {
           />
 
           <div className="relative z-10 p-4 sm:p-6 lg:p-8">
-            <div className="flex flex-col md:flex-row gap-8">
-              <motion.div 
-                className="w-full md:w-1/4"
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                {categories.map((category, index) => (
-                  <motion.button
-                    key={index}
-                    onClick={() => handleCategoryClick(category)}
-                    className={`flex items-center w-full p-4 mb-4 rounded-lg transition-colors ${
-                      selectedCategory === category 
-                        ? 'bg-blue-600 text-white' 
-                        : 'bg-white/10 text-blue-100 hover:bg-white/20'
-                    }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <CategoryIcon icon={category.icon} />
-                    <span className="ml-4 text-lg font-semibold">{category.title}</span>
-                  </motion.button>
-                ))}
+            {/* New Modern Product Navigation */}
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-col lg:flex-row gap-8"
+            >
+              {/* Category Sidebar */}
+              <motion.div className="lg:w-1/4">
+                <div className="sticky top-8 space-y-4">
+                  {categories.map((category, index) => (
+                    <motion.button
+                      key={index}
+                      variants={productCardVariants}
+                      onClick={() => handleCategoryClick(category)}
+                      className={`group w-full p-6 rounded-2xl transition-all duration-300 ${
+                        selectedCategory === category 
+                          ? 'bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg shadow-blue-500/25' 
+                          : 'bg-white/5 hover:bg-white/10'
+                      }`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className={`p-3 rounded-xl transition-all duration-300 ${
+                          selectedCategory === category 
+                            ? 'bg-white/20' 
+                            : 'bg-white/5 group-hover:bg-white/10'
+                        }`}>
+                          <category.icon className={`w-6 h-6 ${
+                            selectedCategory === category 
+                              ? 'text-white' 
+                              : 'text-blue-300 group-hover:text-blue-200'
+                          }`} />
+                        </div>
+                        <div className="flex-1 text-left">
+                          <h3 className={`font-semibold transition-colors ${
+                            selectedCategory === category 
+                              ? 'text-white' 
+                              : 'text-blue-300 group-hover:text-blue-200'
+                          }`}>
+                            {category.title}
+                          </h3>
+                          <p className={`text-sm transition-colors ${
+                            selectedCategory === category 
+                              ? 'text-blue-100' 
+                              : 'text-blue-400'
+                          }`}>
+                            {category.subcategories.length} subcategories
+                          </p>
+                        </div>
+                      </div>
+                    </motion.button>
+                  ))}
+                </div>
               </motion.div>
 
-              <div className="w-full md:w-3/4">
+              {/* Content Area */}
+              <div className="lg:w-3/4">
                 <AnimatePresence mode="wait">
                   {selectedCategory && !selectedSubcategory && !selectedProduct && (
                     <motion.div
-                      key="category"
-                      initial={{ opacity: 0, y: 50 }}
+                      key="category-view"
+                      initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -50 }}
-                      transition={{ duration: 0.5 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      className="space-y-8"
                     >
-                      <h3 className="text-3xl font-bold mb-8 text-white">{selectedCategory.title}</h3>
-                      <p className="text-xl mb-8 text-blue-300">{selectedCategory.description}</p>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {selectedCategory.subcategories.map((subcategory, index) => (
-                          <motion.button
-                            key={index}
-                            onClick={() => handleSubcategoryClick(subcategory)}
-                            className="bg-white/10 p-6 rounded-lg shadow-lg hover:bg-white/20 transition-all"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <h4 className="text-2xl font-semibold mb-4 text-white">{subcategory.name}</h4>
-                            <p className="text-blue-300">{subcategory.items.length} products</p>
-                          </motion.button>
-                        ))}
+                      <div className="p-8 rounded-2xl bg-gradient-to-br from-blue-600/20 to-blue-900/20 backdrop-blur-sm">
+                        <h2 className="text-4xl font-bold text-white mb-4">{selectedCategory.title}</h2>
+                        <p className="text-blue-300 text-lg">{selectedCategory.description}</p>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {isLoading ? (
+                          // Show loading skeletons while loading
+                          Array(4).fill(0).map((_, index) => (
+                            <LoadingSubcategory key={index} />
+                          ))
+                        ) : (
+                          selectedCategory.subcategories.map((subcategory, index) => (
+                            <motion.div
+                              key={index}
+                              variants={productCardVariants}
+                              whileHover={{ scale: 1.02 }}
+                              className="group cursor-pointer"
+                              onClick={() => handleSubcategoryClick(subcategory)}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: index * 0.1 }}
+                            >
+                              <div className="h-full p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-all duration-300
+                                            border border-white/10 hover:border-blue-500/50">
+                                <h3 className="text-2xl font-semibold text-white mb-3">{subcategory.name}</h3>
+                                <div className="space-y-2">
+                                  {subcategory.items.slice(0, 2).map((item, idx) => (
+                                    <div key={idx} className="flex items-center gap-3">
+                                      <div className="w-2 h-2 rounded-full bg-blue-400"></div>
+                                      <p className="text-blue-300 text-sm">{item.title}</p>
+                                    </div>
+                                  ))}
+                                  {subcategory.items.length > 2 && (
+                                    <p className="text-blue-400 text-sm">
+                                      +{subcategory.items.length - 2} more items
+                                    </p>
+                                  )}
+                                </div>
+                                <div className="mt-4 flex items-center text-blue-400 group-hover:text-blue-300">
+                                  <span className="text-sm">View Details</span>
+                                  <FaArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                                </div>
+                              </div>
+                            </motion.div>
+                          ))
+                        )}
                       </div>
                     </motion.div>
                   )}
@@ -517,34 +674,94 @@ export default function ProductPortfolio() {
                       exit={{ opacity: 0, y: -50 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <button onClick={handleBack} className="mb-8 text-blue-300 flex items-center hover:text-blue-100">
-                        <FaChevronLeft className="mr-2" /> Back to {selectedCategory.title}
-                      </button>
-                      <h3 className="text-3xl font-bold mb-8 text-white">{selectedSubcategory.name}</h3>
+                      <div className="flex items-center justify-between mb-8">
+                        <button 
+                          onClick={handleBack} 
+                          className="flex items-center space-x-2 text-blue-300 hover:text-blue-100 transition-colors"
+                        >
+                          <FaChevronLeft className="w-4 h-4" />
+                          <span>Back to {selectedCategory.title}</span>
+                        </button>
+                        
+                        <div className="flex items-center space-x-2">
+                          <span className="text-blue-300">{selectedSubcategory.items.length} Products</span>
+                          <div className="h-4 w-[1px] bg-blue-300/30"></div>
+                          <span className="text-blue-300">{selectedSubcategory.name}</span>
+                        </div>
+                      </div>
+
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {selectedSubcategory.items.map((product, index) => (
                           <motion.div
                             key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
                             onClick={() => handleProductClick(product)}
-                            className="bg-white/10 rounded-lg shadow-lg hover:bg-white/20 transition-all cursor-pointer overflow-hidden flex flex-col"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            className="group relative bg-gradient-to-br from-white/10 to-white/5 rounded-2xl overflow-hidden cursor-pointer"
                           >
-                            <div className="relative h-40 md:h-48 lg:h-56">
+                            {/* Glass Morphism Effect */}
+                            <div className="absolute inset-0 backdrop-blur-sm" />
+                            
+                            {/* Product Image Container */}
+                            <div className="relative h-48 overflow-hidden">
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
                               <Image
                                 src={product.image || '/images/default-product.jpg'}
                                 alt={product.title}
                                 layout="fill"
                                 objectFit="cover"
+                                className="transform group-hover:scale-110 transition-transform duration-700"
                               />
-                            </div>
-                            <div className="p-4 flex flex-col flex-grow">
-                              <h4 className="text-lg font-semibold mb-2 text-white">{product.title}</h4>
-                              <p className="text-blue-300 text-sm line-clamp-3 flex-grow">{product.description}</p>
-                              <div className="mt-4">
-                                <span className="text-blue-400 text-sm font-medium">Learn More →</span>
+                              
+                              {/* Floating Category Badge */}
+                              <div className="absolute top-4 right-4 z-20">
+                                <div className="px-3 py-1 rounded-full bg-blue-500/30 backdrop-blur-md">
+                                  <span className="text-xs font-medium text-white">
+                                    {selectedSubcategory.name}
+                                  </span>
+                                </div>
                               </div>
                             </div>
+
+                            {/* Product Info */}
+                            <div className="relative z-20 p-6">
+                              <h4 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-300 transition-colors">
+                                {product.title}
+                              </h4>
+                              
+                              <p className="text-blue-200/80 text-sm line-clamp-2 mb-4">
+                                {product.description}
+                              </p>
+
+                              {/* Interactive Elements */}
+                              <div className="flex items-center justify-between">
+                                <motion.div
+                                  whileHover={{ scale: 1.05 }}
+                                  className="flex items-center space-x-2 text-blue-300"
+                                >
+                                  <span className="text-sm font-medium">View Details</span>
+                                  <FaArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                                </motion.div>
+
+                                {/* Interaction Indicators */}
+                                <div className="flex items-center space-x-3">
+                                  <motion.button
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center"
+                                  >
+                                    <FaSearch className="w-4 h-4 text-blue-300" />
+                                  </motion.button>
+                                </div>
+                              </div>
+
+                              {/* Hover Effect Overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            </div>
+
+                            {/* Interactive Border Effect */}
+                            <div className="absolute inset-0 border border-blue-400/20 rounded-2xl group-hover:border-blue-400/40 transition-colors duration-300" />
                           </motion.div>
                         ))}
                       </div>
@@ -558,40 +775,86 @@ export default function ProductPortfolio() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -50 }}
                       transition={{ duration: 0.5 }}
+                      className="relative"
                     >
-                      <button onClick={handleBack} className="mb-8 text-blue-300 flex items-center hover:text-blue-100">
-                        <FaChevronLeft className="mr-2" /> Back to {selectedSubcategory.name}
+                      <button 
+                        onClick={handleBack} 
+                        className="flex items-center space-x-2 text-blue-300 hover:text-blue-100 transition-colors mb-8"
+                      >
+                        <FaChevronLeft className="w-4 h-4" />
+                        <span>Back to {selectedSubcategory.name}</span>
                       </button>
-                      <div className="bg-white/10 p-8 rounded-lg shadow-xl">
-                        <div className="mb-8 rounded-lg overflow-hidden max-w-2xl mx-auto">
-                          <Image
-                            src={selectedProduct.image || '/images/default-product.jpg'}
-                            alt={selectedProduct.title}
-                            width={400}
-                            height={200}
-                            layout="responsive"
-                            objectFit="contain"
-                          />
+
+                      <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-2xl overflow-hidden backdrop-blur-md">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                          {/* Product Image Section */}
+                          <div className="relative h-[400px] lg:h-full">
+                            <Image
+                              src={selectedProduct.image || '/images/default-product.jpg'}
+                              alt={selectedProduct.title}
+                              layout="fill"
+                              objectFit="cover"
+                              className="rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                          </div>
+
+                          {/* Product Details Section */}
+                          <div className="p-8 lg:p-12">
+                            <div className="mb-6">
+                              <div className="inline-block px-3 py-1 rounded-full bg-blue-500/30 text-blue-200 text-sm mb-4">
+                                {selectedSubcategory.name}
+                              </div>
+                              <h3 className="text-3xl font-bold text-white mb-4">{selectedProduct.title}</h3>
+                              <p className="text-blue-200 text-lg leading-relaxed">
+                                {selectedProduct.description}
+                              </p>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex flex-wrap gap-4 mt-8">
+                              <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-xl font-medium 
+                                         hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
+                              >
+                                <span>Request Quote</span>
+                                <FaArrowRight className="w-4 h-4" />
+                              </motion.button>
+                              
+                              <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="flex-1 bg-white/10 text-blue-300 px-6 py-3 rounded-xl font-medium 
+                                         hover:bg-white/20 transition-colors flex items-center justify-center space-x-2"
+                              >
+                                <span>Download Specs</span>
+                                <FaArrowRight className="w-4 h-4" />
+                              </motion.button>
+                            </div>
+
+                            {/* Additional Information */}
+                            <div className="mt-8 pt-8 border-t border-white/10">
+                              <div className="grid grid-cols-2 gap-6">
+                                <div>
+                                  <h4 className="text-blue-300 text-sm font-medium mb-2">Materials</h4>
+                                  <p className="text-white">Premium Quality</p>
+                                </div>
+                                <div>
+                                  <h4 className="text-blue-300 text-sm font-medium mb-2">Applications</h4>
+                                  <p className="text-white">Multiple Industries</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <h3 className="text-3xl font-bold mb-4 text-white">{selectedProduct.title}</h3>
-                        <p className="text-xl text-blue-300 mb-8">{selectedProduct.description}</p>
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <Link
-                            href="/contact"
-                            className="bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition duration-300 inline-flex items-center"
-                          >
-                            Request Quote <FaArrowRight className="ml-2" />
-                          </Link>
-                        </motion.div>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -799,180 +1062,143 @@ export default function ProductPortfolio() {
           </div>
         </section>
 
-        <section className="mt-32 mb-32">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-1 rounded-full border border-blue-400/30 
-                            bg-blue-500/10 backdrop-blur-sm text-blue-300 text-sm font-medium mb-4">
-              Innovation Hub
-            </span>
-            <h2 className="text-5xl font-bold mb-6 text-white">Submit Your Idea to ARBAB PACK Ltd.</h2>
-            <p className="text-xl text-blue-300 max-w-3xl mx-auto">
-              We are committed to fostering innovation in packaging. Share your ideas that can enhance our packaging solutions and improve efficiency, sustainability, and functionality.
-            </p>
-          </motion.div>
+        <section className="py-24 relative">
+          {/* Header Section - Optimized Animations */}
+          <div className="text-center mb-24">
+            <div className="relative">
+              {/* Icon Container with Smooth Animation */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="w-32 h-32 mx-auto mb-8"
+              >
+                <div className="relative bg-gradient-to-br from-blue-400 to-blue-600 
+                             rounded-full p-8 transition-all duration-300 ease-out 
+                             hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25">
+                  <FaLightbulb className="w-full h-full text-white" />
+                </div>
+              </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="max-w-3xl mx-auto"
-          >
-            <h3 className="text-3xl font-bold mb-6 text-white">Areas of Interest</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {[
-                {
-                  title: "Package Enhancement",
-                  description: "Innovations that offer differentiation on the shelf, enhancing the appeal and functionality of packaging.",
-                  icon: FaBoxOpen,
-                  details: [
-                    "New printing and decoration technologies",
-                    "Improved sustainability solutions",
-                    "Enhanced product protection features"
-                  ]
-                },
-                {
-                  title: "Manufacturing Improvements",
-                  description: "Innovations that lead to more efficient manufacturing processes.",
-                  icon: FaCog,
-                  details: [
-                    "Improved manufacturing speed",
-                    "Enhanced output efficiency",
-                    "Waste reduction solutions"
-                  ]
-                },
-                {
-                  title: "Shelf Life & Barrier Performance",
-                  description: "Ideas that enhance the preservation of products through improved barrier performance.",
-                  icon: FaClock,
-                  details: [
-                    "Extended shelf life technologies",
-                    "Advanced coating solutions",
-                    "Barrier performance innovations"
-                  ]
-                },
-                {
-                  title: "Smart / Intelligent Packaging",
-                  description: "Solutions that incorporate smart features to improve user experience.",
-                  icon: FaMicrochip,
-                  details: [
-                    "IoT integration",
-                    "Smart monitoring features",
-                    "Interactive packaging solutions"
-                  ]
-                },
-                {
-                  title: "Branding and Customization",
-                  description: "New branding options to enhance visibility and engagement.",
-                  icon: FaPalette,
-                  details: [
-                    "Custom design solutions",
-                    "Brand enhancement features",
-                    "Unique identification methods"
-                  ]
-                },
-                {
-                  title: "Transit Packaging",
-                  description: "Innovations that enhance the safety and efficiency of transporting goods.",
-                  icon: FaTruck,
-                  details: [
-                    "Protective packaging solutions",
-                    "Secure transportation features",
-                    "Efficient logistics innovations"
-                  ]
-                }
-              ].map((area, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ y: -5 }}
-                  className="bg-white/10 rounded-xl p-6 backdrop-blur-sm border border-blue-400/20"
-                >
-                  <div className="flex items-center mb-4">
-                    <div className="bg-blue-500/20 p-3 rounded-lg mr-4">
-                      <area.icon className="w-6 h-6 text-blue-400" />
-                    </div>
-                    <h4 className="text-xl font-semibold text-white">{area.title}</h4>
-                  </div>
-                  <p className="text-blue-300 mb-4">{area.description}</p>
-                  <ul className="space-y-2">
-                    {area.details.map((detail, idx) => (
-                      <li key={idx} className="text-blue-400 text-sm flex items-center">
-                        <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2" />
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
+              {/* Text Content with Staggered Animation */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+              >
+                <h2 className="text-5xl font-bold mb-6 text-white">
+                  Transform the Future
+                </h2>
+                <p className="text-xl text-blue-200 max-w-3xl mx-auto">
+                  Join us in revolutionizing the packaging industry with your innovative ideas
+                </p>
+              </motion.div>
             </div>
+          </div>
 
-            <h3 className="text-3xl font-bold mb-6 text-white">Submission Process</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-              {steps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeUpVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white/10 rounded-xl p-6 backdrop-blur-sm border border-blue-400/20 relative overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -mr-16 -mt-16 backdrop-blur-sm" />
-                  <div className="relative z-10">
-                    <div className="bg-blue-500/20 w-fit p-2 rounded-lg mb-4">
-                      <step.icon className="w-6 h-6 text-blue-400" />
+          {/* Rest of the content with transparent background */}
+          <div className="relative max-w-7xl mx-auto px-4">
+            {/* Areas of Interest - Circular Layout */}
+            <div className="relative mb-32">
+              <div className="flex flex-wrap justify-center gap-12">
+                {[...areas].map((area, index) => (
+                  <motion.div
+                    key={area.title}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className="relative group"
+                    style={{
+                      transform: `rotate(${index * (360 / areas.length)}deg) translateX(150px) rotate(-${index * (360 / areas.length)}deg)`,
+                    }}
+                  >
+                    {/* Circular Content */}
+                    <div className="w-64 h-64 rounded-full relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/50 to-indigo-900/50 
+                                   backdrop-blur-md border border-blue-500/20" />
+                      
+                      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                        <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 
+                                     rounded-full flex items-center justify-center mb-4">
+                          <area.icon className="w-6 h-6 text-white" />
+                        </div>
+                        <h3 className="text-lg font-bold text-white mb-2">{area.title}</h3>
+                        <p className="text-sm text-blue-200">{area.description}</p>
+                      </div>
                     </div>
-                    <div className="text-blue-400 font-medium mb-2">{step.step}</div>
-                    <h4 className="text-xl font-semibold text-white mb-3">{step.title}</h4>
-                    <p className="text-blue-300">{step.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white/10 rounded-xl p-6 backdrop-blur-sm border border-blue-400/20 mb-12"
-            >
-              <div className="flex items-center mb-4">
-                <FaInfoCircle className="text-blue-400 w-5 h-5 mr-3" />
-                <h4 className="text-xl font-semibold text-white">Important Note</h4>
+                  </motion.div>
+                ))}
               </div>
-              <p className="text-blue-300">
-                We only accept non-confidential information at the initial stage. If we decide to pursue your submission further, 
-                we may require a confidentiality agreement to facilitate more detailed discussions.
-              </p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center"
-            >
+            {/* Process Steps - Wave Design */}
+            <div className="max-w-5xl mx-auto mb-20 relative">
+              <motion.div
+                className="absolute left-0 right-0 h-1 top-1/2 -translate-y-1/2"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                transition={{ duration: 1 }}
+              >
+                <div className="h-full bg-gradient-to-r from-blue-500 to-blue-600" />
+              </motion.div>
+
+              <div className="flex justify-between relative">
+                {steps.map((step, index) => (
+                  <motion.div
+                    key={step.step}
+                    initial={{ opacity: 0, y: index % 2 === 0 ? -50 : 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.2 }}
+                    className="relative w-64"
+                    style={{
+                      marginTop: index % 2 === 0 ? '-100px' : '100px'
+                    }}
+                  >
+                    <div className="relative">
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 
+                                 flex items-center justify-center mx-auto mb-4"
+                      >
+                        <step.icon className="text-2xl text-white" />
+                      </motion.div>
+                      
+                      <div className="text-center">
+                        <h4 className="text-xl font-bold text-white mb-2">{step.title}</h4>
+                        <p className="text-sm text-blue-200">{step.description}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="text-center relative">
               <Link href="/product-portfolio/submit-innovation">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-blue-600 text-white px-12 py-4 rounded-full text-lg font-semibold 
-                           hover:bg-blue-700 transition-all duration-300 inline-flex items-center"
+                  className="relative bg-gradient-to-r from-blue-500 to-blue-600 text-white px-12 py-4 
+                           rounded-full text-lg font-semibold group overflow-hidden"
                 >
-                  Submit Your Innovation
-                  <FaArrowRight className="ml-2" />
+                  <span className="relative z-10 flex items-center">
+                    Submit Your Innovation
+                    <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  
+                  {/* Ripple Effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-white/20"
+                    initial={{ scale: 0, opacity: 0.5 }}
+                    whileHover={{ scale: 1.5, opacity: 0 }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
+                  />
                 </motion.button>
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </section>
 
         <section className="mt-32 mb-32">
@@ -1071,8 +1297,8 @@ export default function ProductPortfolio() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-16 text-center"
+            transition={{ duration: 0.5 }}
+            className="text-center mt-12"
           >
             <Link
               href="/contact"
@@ -1287,7 +1513,7 @@ export default function ProductPortfolio() {
                 category: "Design Guide",
                 downloadCount: "1.2k",
                 lastUpdated: "Jan 2024",
-                icon: "📕"
+                icon: "📘"
               },
               {
                 title: "Sustainable Packaging Materials",
@@ -1296,7 +1522,7 @@ export default function ProductPortfolio() {
                 category: "Research Paper",
                 downloadCount: "856",
                 lastUpdated: "Feb 2024",
-                icon: "📗"
+                icon: "📙"
               },
               {
                 title: "Food Packaging Safety Standards",
