@@ -113,7 +113,7 @@ const InfoOption = ({ icon: Icon, title, link, gradientFrom, gradientTo, hoverFr
 const infoOptions = [
   {
     icon: FaAward,
-    title: "APL Certifications and Facilities",
+    title: "APL Certifications & Facilities",
     link: "/about-apl/apl-certification",
     gradientFrom: "from-blue-500",
     gradientTo: "to-blue-600",
@@ -142,35 +142,12 @@ const infoOptions = [
 
 const HeroSection = () => {
   return (
-    <section className="relative h-[70vh] flex flex-col items-center justify-between bg-gradient-to-br from-gray-900 via-blue-900 to-black">
-      {/* Background Effects */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.2, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[120px]"
-      />
+    <section className="relative h-[70vh] mb-24 flex flex-col items-center justify-between bg-gradient-to-br from-gray-900 via-blue-900 to-black overflow-visible">
+      {/* Static Background Glow Effects */}
+      <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px]" />
+      <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-blue-600/10 rounded-full blur-[80px]" />
 
-      <motion.div
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.2, 0.3, 0.2],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1
-        }}
-        className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[100px]"
-      />
-
+      {/* Static Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/arbab_office.jpg"
@@ -178,18 +155,16 @@ const HeroSection = () => {
           fill
           style={{ objectFit: 'cover', opacity: 0.4 }}
           priority
+          sizes="100vw"
+          quality={60}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/90 via-blue-900/80 to-black/90" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 w-full flex flex-col h-full">
-        {/* Header Content - Centered */}
+        {/* Header Content */}
         <div className="flex-1 flex items-center justify-center">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center"
-          >
+          <div className="text-center animate-fadeIn">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 
                          bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
               Arbab Pack Limited
@@ -198,28 +173,113 @@ const HeroSection = () => {
               Leading the way in innovative packaging solutions with sustainable practices 
               and cutting-edge technology.
             </p>
-          </motion.div>
-        </div>
-
-        {/* Info Options Grid - Positioned to overlap sections */}
-        <div className="absolute left-1/2 -bottom-16 transform -translate-x-1/2 w-full max-w-4xl px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {infoOptions.map((option, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
-              >
-                <InfoOption {...option} />
-              </motion.div>
-            ))}
           </div>
+        </div>
+      </div>
+
+      {/* Info Options Grid - Added margin bottom to create gap */}
+      <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-1/2 w-full max-w-3xl px-4 z-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {infoOptions.map((option, index) => (
+            <div
+              key={index}
+              className={`animate-fadeInUp`}
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
+              <Link 
+                href={option.link} 
+                className="block bg-white/10 backdrop-blur-md rounded-xl p-4 
+                         hover:bg-white/15 transition-all duration-300 relative overflow-hidden group
+                         border border-white/10 shadow-lg hover:shadow-xl
+                         transform hover:-translate-y-1"
+              >
+                <div className="flex flex-col items-center text-center relative z-10">
+                  <div className={`w-10 h-10 bg-gradient-to-br ${option.gradientFrom} ${option.gradientTo}
+                               rounded-lg flex items-center justify-center mb-3
+                               shadow-md transition-transform duration-300
+                               group-hover:scale-110 flex-shrink-0`}
+                  >
+                    <option.icon className="text-base text-white" />
+                  </div>
+                  
+                  <h3 className="text-sm font-medium text-white/90 transition-colors duration-300 leading-snug">
+                    {option.title}
+                  </h3>
+                </div>
+
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent 
+                             opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 };
+
+// Add these styles to your global CSS file (globals.css)
+const styles = `
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-fadeInUp {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@layer utilities {
+  .gpu-accelerate {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
+    will-change: transform;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-glow {
+  animation: glow 8s ease-in-out infinite;
+  will-change: opacity;
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+`;
 
 // Capacity Section Component
 const CapacitySection = () => {
@@ -841,137 +901,97 @@ export default function AboutAPL() {
       {/* Production Capacity Section */}
       <CapacitySection />
 
-      {/* Brand Value Section - Creative Redesign */}
+      {/* Brand Value Section - With Progress Animation */}
       <section className="py-20 relative overflow-hidden">
-        {/* Dynamic Background Effect */}
+        {/* Background remains the same */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 via-blue-900/30 to-gray-900/50" />
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={`bubble-${i}`}
-              className="absolute w-[100px] h-[100px] rounded-full"
-              style={{
-                background: `radial-gradient(circle at center, ${['#60A5FA', '#3B82F6', '#2563EB'][i % 3]}15, transparent)`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [-20, 20, -20],
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.6, 0.3],
-              }}
-              transition={{
-                duration: 5 + Math.random() * 3,
-                repeat: Infinity,
-                delay: i * 0.2,
-              }}
-            />
-          ))}
+          <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px]" />
+          <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-blue-600/10 rounded-full blur-[80px]" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 relative">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-center mb-20"
+          {/* Header remains the same */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
           >
-            <h2 className="text-5xl font-bold text-white mb-6 relative inline-block">
-              <span className="relative z-10">Elevating Brand Value</span>
-              <motion.div
-                className="absolute -bottom-2 left-0 w-full h-2 bg-blue-500/30"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                transition={{ duration: 1, delay: 0.5 }}
-              />
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Elevating Brand Value
             </h2>
             <p className="text-xl text-blue-200 max-w-3xl mx-auto">
               Transforming packaging into powerful brand assets through innovation and excellence
             </p>
           </motion.div>
 
-          {/* 3D Rotating Cube Display */}
+          {/* Updated Grid with Progress Animation */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {brandValueProps.map((prop, index) => (
-              <motion.div
+              <div
                 key={prop.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="relative group"
+                className="opacity-0 translate-y-4 animate-fadeIn"
+                style={{ animationDelay: `${index * 150}ms` }}
               >
-                {/* Card Face */}
-                <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-md 
-                             rounded-2xl p-8 border border-white/10 h-full transform 
-                             transition-all duration-500 group-hover:scale-[0.97]">
-                  {/* Floating Icon */}
-                  <motion.div
-                    animate={{
-                      y: [-5, 5, -5],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    className="relative z-10"
-                  >
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 
-                                 rounded-2xl flex items-center justify-center transform 
-                                 -rotate-12 group-hover:rotate-0 transition-transform duration-500">
-                      <prop.icon className="text-2xl text-white" />
-                    </div>
-                  </motion.div>
-
-                  {/* Content */}
-                  <div className="mt-6 relative z-10">
-                    <h3 className="text-2xl font-bold text-white mb-4 
-                                 group-hover:text-blue-400 transition-colors duration-300">
-                      {prop.title}
-                    </h3>
-                    <p className="text-blue-200 mb-6 group-hover:text-blue-100 
-                               transition-colors duration-300">
-                      {prop.description}
-                    </p>
-
-                    {/* Stats Display */}
-                    <div className="flex items-center justify-between 
-                                 bg-white/5 rounded-xl p-4 backdrop-blur-sm">
-                      <div>
-                        <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 
-                                     bg-clip-text text-transparent">
-                          {prop.stats}
-                        </div>
-                        <div className="text-sm text-blue-300">{prop.statsLabel}</div>
-                      </div>
-                      <motion.div
-                        animate={{
-                          rotate: [0, 360],
-                        }}
-                        transition={{
-                          duration: 20,
-                          repeat: Infinity,
-                          ease: "linear"
-                        }}
-                      >
-                        <div className="w-12 h-12 rounded-full border-2 border-blue-500/30 
-                                     flex items-center justify-center">
-                          <div className="w-8 h-8 rounded-full border-2 border-blue-400/50 
-                                      flex items-center justify-center">
-                            <div className="w-4 h-4 rounded-full bg-blue-400" />
-                          </div>
-                        </div>
-                      </motion.div>
-                    </div>
+                <div className="group h-full bg-gradient-to-br from-white/5 to-white/10 
+                               backdrop-blur-sm rounded-2xl p-8 border border-white/10
+                               transition-all duration-300 hover:-translate-y-1 hover:bg-white/15">
+                  {/* Icon */}
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 
+                                rounded-xl flex items-center justify-center mb-6
+                                transition-transform duration-300 group-hover:scale-110">
+                    <prop.icon className="text-2xl text-white" />
                   </div>
 
-                  {/* Decorative Elements */}
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full 
-                               blur-2xl group-hover:bg-blue-400/20 transition-colors duration-300" />
-                  <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-600/10 rounded-full 
-                               blur-2xl group-hover:bg-blue-500/20 transition-colors duration-300" />
+                  {/* Content */}
+                  <h3 className="text-2xl font-bold text-white mb-4 
+                               transition-colors duration-300 group-hover:text-blue-400">
+                    {prop.title}
+                  </h3>
+                  <p className="text-blue-200 mb-6 
+                               transition-colors duration-300 group-hover:text-blue-100">
+                    {prop.description}
+                  </p>
+                  
+                  {/* Stats Box with Progress Animation */}
+                  <div className="bg-white/5 rounded-xl p-4 relative overflow-hidden
+                               transition-all duration-300 group-hover:bg-white/10">
+                    {/* Progress Bar Background */}
+                    <motion.div
+                      initial={{ width: "0%" }}
+                      whileInView={{ width: prop.stats.replace('%', '') + "%" }}
+                      transition={{ duration: 1, ease: "easeOut" }}
+                      className="absolute inset-0 bg-blue-500/10"
+                      style={{
+                        originX: 0
+                      }}
+                    />
+                    
+                    <div className="relative z-10">
+                      <div className="text-3xl font-bold text-blue-400 flex items-baseline gap-1">
+                        <motion.span
+                          initial={{ opacity: 0 }}
+                          whileInView={{ opacity: 1 }}
+                          transition={{ duration: 0.5, delay: 0.5 }}
+                        >
+                          {prop.stats}
+                        </motion.span>
+                      </div>
+                      <div className="text-sm text-blue-300">
+                        {prop.statsLabel}
+                      </div>
+                    </div>
+
+                    {/* Decorative Elements */}
+                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r 
+                                 from-blue-500/50 via-blue-400/50 to-transparent" />
+                    <div className="absolute top-0 right-0 w-0.5 h-full bg-gradient-to-b 
+                                 from-blue-500/50 via-blue-400/50 to-transparent" />
+                  </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { FaShoppingCart, FaHandshake, FaHeart, FaComments, FaSearch } from "react-icons/fa"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 
 const contactSections = [
   {
@@ -226,7 +226,179 @@ const FAQSection = () => {
   );
 };
 
-const ChatbotButton = () => (
+const chatFAQs = [
+  {
+    question: "What are your minimum order quantities?",
+    answer: "Our minimum order quantities vary by product type. For flexible packaging, it's typically 1,000 pieces. For rigid packaging, it's 500 pieces."
+  },
+  {
+    question: "How long does delivery take?",
+    answer: "Standard delivery takes 5-7 business days within Bangladesh. International shipping typically takes 14-21 business days."
+  },
+  {
+    question: "Do you offer custom packaging solutions?",
+    answer: "Yes! We offer fully customized packaging solutions including design, materials, and specifications to meet your specific needs."
+  },
+  {
+    question: "What are your payment terms?",
+    answer: "We accept various payment methods including bank transfer, LC, and advance payment. Standard terms are 50% advance, 50% before shipment."
+  },
+  {
+    question: "How can I track my order?",
+    answer: "Once your order is confirmed, you'll receive a tracking code via email. You can use this code in our 'Track your contact' section."
+  }
+];
+
+const ChatWindow = ({ isOpen, onClose }) => {
+  const [messages, setMessages] = useState([
+    {
+      type: 'bot',
+      content: "Hello! How can I help you today? Please select from the following frequently asked questions:",
+      timestamp: new Date()
+    }
+  ]);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleFAQClick = (faq) => {
+    setMessages(prev => [
+      ...prev,
+      {
+        type: 'user',
+        content: faq.question,
+        timestamp: new Date()
+      },
+      {
+        type: 'bot',
+        content: faq.answer,
+        timestamp: new Date()
+      },
+      {
+        type: 'bot',
+        content: "Is there anything else you'd like to know? Here are more questions I can help with:",
+        timestamp: new Date()
+      }
+    ]);
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      className="fixed bottom-24 right-8 w-96 max-w-[calc(100vw-2rem)] z-50"
+    >
+      {/* Modern Glass Container */}
+      <div className="relative bg-white/[0.02] backdrop-blur-md rounded-2xl overflow-hidden
+                    border border-white/[0.05] shadow-[0_8px_16px_rgba(0,0,0,0.2)]">
+        {/* Enhanced Header */}
+        <div className="relative bg-gradient-to-r from-blue-600 to-blue-700 p-4">
+          {/* Animated Gradient Background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-blue-600/20 
+                       animate-gradient-shift" />
+          
+          <div className="relative flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {/* Animated Status Indicator */}
+              <div className="relative">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                <div className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full 
+                             animate-ping opacity-75" />
+              </div>
+              
+              <h3 className="font-semibold text-white">APL Chat Assistant</h3>
+            </div>
+            
+            {/* Enhanced Close Button */}
+            <motion.button
+              whileHover={{ rotate: 90 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onClose}
+              className="text-white/70 hover:text-white transition-colors p-1
+                       hover:bg-white/10 rounded-full"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Enhanced Chat Messages Area */}
+        <div className="h-96 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-gray-50 to-white">
+          {messages.map((message, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: message.type === 'user' ? 20 : -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
+              className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+            >
+              <div
+                className={`max-w-[80%] p-3 rounded-2xl ${
+                  message.type === 'user'
+                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-tr-none'
+                    : 'bg-white text-gray-800 rounded-tl-none shadow-[0_2px_8px_rgba(0,0,0,0.08)] border border-gray-100'
+                }`}
+              >
+                <p className="text-sm">{message.content}</p>
+                <p className={`text-xs mt-1 ${
+                  message.type === 'user' ? 'text-white/50' : 'text-gray-400'
+                }`}>
+                  {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+          <div ref={messagesEndRef} />
+
+          {/* Enhanced FAQ Buttons */}
+          {messages[messages.length - 1]?.type === 'bot' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-2"
+            >
+              {chatFAQs.map((faq, index) => (
+                <motion.button
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleFAQClick(faq)}
+                  className="w-full p-3 text-left text-sm text-gray-700 bg-white 
+                           hover:bg-blue-50 rounded-xl transition-all duration-200
+                           border border-gray-200 hover:border-blue-200 shadow-sm
+                           hover:shadow-md group"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-400 
+                                group-hover:scale-125 transition-transform duration-200" />
+                    {faq.question}
+                  </div>
+                </motion.button>
+              ))}
+            </motion.div>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const ChatbotButton = ({ onOpenChat }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0 }}
     animate={{ opacity: 1, scale: 1 }}
@@ -236,7 +408,7 @@ const ChatbotButton = () => (
     <button
       className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg 
                  flex items-center gap-2 transition-all duration-300"
-      onClick={() => console.log('Open chatbot')}
+      onClick={onOpenChat}
     >
       <FaComments className="text-2xl" />
       <span className="hidden md:inline font-medium">Chat with us</span>
@@ -247,6 +419,7 @@ const ChatbotButton = () => (
 const HeroSection = () => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   
   return (
     <>
@@ -347,7 +520,8 @@ const HeroSection = () => {
       </section>
 
       <FAQSection />
-      <ChatbotButton />
+      <ChatbotButton onOpenChat={() => setIsChatOpen(true)} />
+      <ChatWindow isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       <FollowUpModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
