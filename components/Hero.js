@@ -53,32 +53,20 @@ const Hero = () => {
 
   return (
     <div className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Image Slider */}
-      <AnimatePresence initial={false} custom={direction}>
-        <motion.div
-          key={currentImage}
-          custom={direction}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{
-            x: { type: "tween", duration: 1.5, ease: "easeInOut" },
-            opacity: { duration: 1 }
-          }}
-          className="absolute inset-0 z-10"
-        >
-          <Image
-            src={images[currentImage]}
-            layout="fill"
-            objectFit="cover"
-            alt={`Slider image ${currentImage + 1}`}
-          />
-        </motion.div>
-      </AnimatePresence>
+      {/* Background Video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-10"
+      >
+        <source src="/videos/arbab_hero_video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
       {/* Overlay */}
-      <div className="absolute z-20 w-full h-full bg-gradient-to-b from-black/50 to-black/70"></div>
+      <div className="absolute z-20 w-full h-full bg-gradient-to-b from-black/30 to-black/50"></div>
 
       {/* Content */}
       <div className="relative z-30 text-white text-center px-4">
