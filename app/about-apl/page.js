@@ -773,7 +773,7 @@ export default function AboutAPL() {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-center mb-20"
           >
-            <h2 className="text-5xl font-bold text-white mb-6">Our Journey</h2>
+            <h2 className="text-5xl font-bold text-white mb-6">APL Journey</h2>
             <p className="text-xl text-blue-200 max-w-3xl mx-auto">
               From humble beginnings to industry leadership: Our 37-year evolution in packaging excellence
             </p>
