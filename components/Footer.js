@@ -50,7 +50,7 @@ const Footer = () => {
               <FaPhone className="w-6 h-6" />
             </a>
           </div>
-          <p className="text-sm">&copy; 2024 Arbab Pack Ltd. All rights reserved.</p>
+          <p className="text-sm">&copy; 2025 Arbab Pack Ltd. All rights reserved.</p>
         </div>
       </div>
 

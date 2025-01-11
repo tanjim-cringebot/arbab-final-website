@@ -13,51 +13,6 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { FaFacebookF } from 'react-icons/fa';
 import { FaYoutube } from 'react-icons/fa';
 
-const productCategories = [
-  {
-    name: "Food Packaging",
-    items: [
-      "Dairy Products",
-      "Snacks",
-      "Condiments",
-      "Instant Foods"
-    ]
-  },
-  {
-    name: "Personal Care & Hygiene",
-    items: [
-      "Diapers",
-      "Sanitary Products",
-      "Soaps"
-    ]
-  },
-  {
-    name: "Beverages",
-    items: [
-      "Tea and Coffee",
-      "Soft Drinks",
-    ]
-  },
-  {
-    name: "Pharmaceutical",
-    items: [
-      "Nutritional Supplements"
-    ]
-  },
-  {
-    name: "Household Products",
-    items: [
-      "Cleaning Supplies",
-      "Paper Products"
-    ]
-  },
-  {
-    name: "Tobacco Industry",
-    items: [
-      "Cigarette Packaging",
-    ]
-  }
-];
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -101,34 +56,40 @@ const Navbar = () => {
       name: "APL",
       path: "/about-apl",
       dropdown: [
-        { name: "Our Journey", path: "/about-apl#our-journey" },
-        { name: "Our Expertise", path: "/about-apl#our-expertise" },
-        { name: "Vision & Mission", path: "/about-apl#vision-mission" },
-        { name: "Essence of Strength", path: "/about-apl#essence-of-strength" },
-        { name: "Why Choose APL", path: "/about-apl#why-choose-apl" },
-        { name: "What People Say", path: "/about-apl#testimonials" },
+        { name: "APL Journey", path: "/about-apl#our-journey" },
+        { name: "APL Packaging Excellence", path: "/about-apl#our-expertise" },
+        { name: "APL Transforming Packaging", path: "/about-apl#vision-mission" },
+        { name: "APL Transforming Branding", path: "/about-apl#essence-of-strength" },
+        { name: "APL Climate Contribution", path: "/about-apl#why-choose-apl" },
+        { name: "APL Value Proposition", path: "/about-apl#testimonials" },
+        { name: "APL USP", path: "/about-apl#usp" },
+        { name: "APL Purpose", path: "/about-apl#purpose" },
       ],
     },
     {
-      name: "Products",
+      name: "APL",
       path: "/product-portfolio",
-      dropdown: productCategories.map(category => ({
-        name: category.name,
-        items: category.items,
-        path: `/product-portfolio#${category.name.toLowerCase().replace(/\s+/g, '-')}`
-      }))
+      dropdown: [
+        { name: "Food Packaging", path: "/product-portfolio#food-packaging" },
+        { name: "Personal Care & Hygiene", path: "/product-portfolio#personal-care-hygiene" },
+        { name: "Beverage", path: "/product-portfolio#beverage" },
+        { name: "Pharmaceutical & Nutritional Products", path: "/product-portfolio#pharmaceutical-nutritional-products" },
+        { name: "Household Products", path: "/product-portfolio#household-products" },
+        { name: "Tobacco Industry Packaging", path: "/product-portfolio#tobacco-industry-packaging" },
+        { name: "Submit Your Idea", path: "/product-portfolio#submit-your-idea" },
+        { name: "Upcoming Innovations", path: "/product-portfolio#upcoming-innovations" },
+        { name: "Schedule a Consultant", path: "/product-portfolio#schedule-consultant" },
+        { name: "Study Materials", path: "/product-portfolio#study-materials" },
+        {name: "Customize Your Packaging", path: "/product-portfolio#customize-packaging" }
+      ],
     },
     {
       name: "About Group",
       path: "/about-ag",
       dropdown: [
-        { name: "Arbab Group", path: "/about-ag#arbab-group" },
-        { name: "Arbab Pack Ltd.", path: "/about-ag#arbab-pack-ltd" },
-        { name: "ZK Foils Ltd.", path: "/about-ag#zk-foils-ltd" },
-        { name: "ZK Plastics Ltd", path: "/about-ag#zk-plastics-ltd" },
-        { name: "ZK Ink Ltd.", path: "/about-ag#zk-ink-ltd" },
-        { name: "ZK Healthcare", path: "/about-ag#zk-healthcare" },
-        { name: "Aant Cosmetics Ltd", path: "/about-ag#aant-cosmetics-ltd" },
+        { name: "Founders Portfolio", path: "/about-ag#founders-portfolio" },
+        { name: "AG Leadership Legacy", path: "/about-ag#ag-leadership-legacy" },
+        { name: "AG Group Structure", path: "/about-ag#ag-group-structure" }
       ],
     },
   ];
