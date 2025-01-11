@@ -224,8 +224,7 @@ export default function APLVision() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              Pioneering the future of sustainable packaging in Bangladesh through innovation, 
-              responsibility, and environmental stewardship.
+              This initiative sets 20 measurable goals under five strategic pillars
             </motion.p>
           </motion.div>
         </div>

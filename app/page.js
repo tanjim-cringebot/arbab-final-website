@@ -1321,7 +1321,7 @@ export default function Home() {
                   title="Factory Space" 
                   value="500000" 
                   unit="sq ft" 
-                  imageSrc="/images/area.jpg"
+                  imageSrc="/images/area.png"
                 />
                 <CapacityItem 
                   icon={FaUsers} 

@@ -146,7 +146,7 @@ const HeroSection = () => {
       {/* Static Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/arbab_office.jpg"
+          src="/images/arbab_office.jpeg"
           alt="APL Background"
           fill
           style={{ objectFit: 'cover' }}

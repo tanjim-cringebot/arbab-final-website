@@ -67,7 +67,7 @@ const Navbar = () => {
       ],
     },
     {
-      name: "APL",
+      name: "Products",
       path: "/product-portfolio",
       dropdown: [
         { name: "Food Packaging", path: "/product-portfolio#food-packaging" },
