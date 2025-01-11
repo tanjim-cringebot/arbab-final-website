@@ -76,7 +76,6 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          Arbab Pack Ltd
         </motion.h1>
         <motion.p 
           className="text-xl md:text-3xl mb-8"
@@ -84,19 +83,8 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
         >
-          Innovating Packaging Solutions since 1988
         </motion.p>
-        <motion.button 
-          className="bg-white text-black py-3 px-8 rounded-full text-lg font-semibold hover:bg-opacity-90 transition duration-300"
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleTourClick}
-        >
-          GET A TOUR
-        </motion.button>
+       
       </div>
     </div>
   );

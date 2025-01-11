@@ -529,9 +529,7 @@ export default function ProductPortfolio() {
       <div className="absolute w-[800px] h-[800px] bg-gradient-to-br from-blue-500/10 to-transparent" />
 
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
-        <Link href="/" className="text-blue-300 flex items-center mb-16 hover:text-blue-100 transition duration-300">
-          <FaArrowLeft className="w-5 h-5 mr-2" /> Back to Home
-        </Link>
+      
         
         <h1 className="text-5xl md:text-6xl font-bold text-center mb-8 text-white">Our Products</h1>
         
@@ -858,210 +856,6 @@ export default function ProductPortfolio() {
           </div>
         </div>
 
-        <section className="mt-32 mb-32">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-5xl font-bold mb-6 text-white">Customize Your Packaging</h2>
-            <p className="text-xl text-blue-300 max-w-3xl mx-auto">
-              Explore our interactive tool to visualize and customize your perfect packaging solution
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto px-4">
-            <div className="space-y-8">
-              <motion.div
-                className="bg-white/10 p-8 rounded-2xl shadow-lg"
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="flex items-center mb-6">
-                  <FaBoxOpen className="text-3xl text-blue-400 mr-4" />
-                  <h3 className="text-2xl font-bold text-white">Package Type</h3>
-                </div>
-                <select
-                  value={customizationProduct.type}
-                  onChange={(e) => handleCustomizationChange('type', e.target.value)}
-                  className="w-full p-3 bg-white/5 border border-blue-400/30 rounded-lg text-blue-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="food-packaging">Food Packaging</option>
-                  <option value="beverage-packaging">Personal Care & Hygiene</option>
-                  <option value="personal-care">Beverages</option>
-                  <option value="personal-care">Pharmaceutical & Nutritional Products</option>
-                  <option value="personal-care">Household Products</option>
-                  <option value="personal-care">Tobacco Industry Packaging</option>
-                </select>
-              </motion.div>
-
-              <motion.div
-                className="bg-white/10 p-8 rounded-2xl shadow-lg"
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="flex items-center mb-6">
-                  <FaRuler className="text-3xl text-blue-400 mr-4" />
-                  <h3 className="text-2xl font-bold text-white">Dimensions</h3>
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                  {['small', 'medium', 'large'].map((size) => (
-                    <motion.button
-                      key={size}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => handleCustomizationChange('size', size)}
-                      className={`p-3 rounded-lg ${
-                        customizationProduct.size === size
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-blue-50 text-blue-900'
-                      }`}
-                    >
-                      {size.charAt(0).toUpperCase() + size.slice(1)}
-                    </motion.button>
-                  ))}
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="bg-white/10 p-8 rounded-2xl shadow-lg"
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="flex items-center mb-6">
-                  <FaPalette className="text-3xl text-blue-400 mr-4" />
-                  <h3 className="text-2xl font-bold text-white">Color & Material</h3>
-                </div>
-                <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Color</label>
-                    <input
-                      type="color"
-                      value={customizationProduct.color}
-                      onChange={(e) => handleCustomizationChange('color', e.target.value)}
-                      className="w-full h-12 rounded-lg cursor-pointer"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Material</label>
-                    <select
-                      value={customizationProduct.material}
-                      onChange={(e) => handleCustomizationChange('material', e.target.value)}
-                      className="w-full p-3 border border-blue-200 rounded-lg"
-                    >
-                      <option value="plastic">Plastic</option>
-                      <option value="paper">Paper</option>
-                      <option value="biodegradable">Biodegradable</option>
-                    </select>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="bg-white/10 p-8 rounded-2xl shadow-lg"
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="flex items-center mb-6">
-                  <FaCog className="text-3xl text-blue-400 mr-4" />
-                  <h3 className="text-2xl font-bold text-white">Order Quantity</h3>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Number of Units (Minimum 1,000)</label>
-                  <input
-                    type="number"
-                    min="1000"
-                    step="100"
-                    value={customizationProduct.quantity}
-                    onChange={(e) => handleCustomizationChange('quantity', Math.max(1000, parseInt(e.target.value) || 1000))}
-                    className="w-full p-3 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-              </motion.div>
-            </div>
-
-            <motion.div
-              animate={customizationControls}
-              className="bg-white/10 p-8 rounded-2xl shadow-lg flex flex-col"
-            >
-              <h3 className="text-2xl font-bold mb-6 text-white">Live Preview</h3>
-              <div className="flex-grow relative bg-blue-50 rounded-xl p-8 flex items-center justify-center">
-                <motion.div
-                  className="w-64 h-64 rounded-lg"
-                  style={{
-                    backgroundColor: customizationProduct.color,
-                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
-                  }}
-                  animate={{
-                    rotate: [0, 5, -5, 0],
-                    scale: [1, 1.02, 0.98, 1]
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
-                />
-              </div>
-              <div className="mt-8">
-                <h4 className="text-xl font-semibold mb-4 text-white">Price Breakdown</h4>
-                <div className="space-y-4">
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <p className="font-medium">Base Price (per unit)</p>
-                    <p className="text-blue-600">
-                      ${materialPricing[customizationProduct.material][customizationProduct.size].toFixed(2)}
-                    </p>
-                    <p className="text-sm text-gray-500 mt-1">
-                      {customizationProduct.material.charAt(0).toUpperCase() + customizationProduct.material.slice(1)} - {
-                        customizationProduct.size.charAt(0).toUpperCase() + customizationProduct.size.slice(1)
-                      } Size
-                    </p>
-                  </div>
-                  
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <p className="font-medium">Order Quantity</p>
-                    <p className="text-blue-600">{customizationProduct.quantity.toLocaleString()} units</p>
-                  </div>
-                  
-                  <div className="bg-blue-100 p-4 rounded-lg">
-                    <p className="font-medium">Total Estimated Cost</p>
-                    <p className="text-blue-600 text-xl font-bold">
-                      ${calculateTotalPrice().toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      })}
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="text-xs text-gray-500 mt-4 mb-6">
-                  * Prices are estimates and may vary based on specific requirements and customizations
-                </div>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-center mb-12"
-                >
-                  <Link href="/product-portfolio/submit-innovation">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-blue-600 text-white px-12 py-4 rounded-full text-lg font-semibold 
-                               hover:bg-blue-700 transition-all duration-300 inline-flex items-center"
-                    >
-                      Submit Your Innovation
-                      <FaArrowRight className="ml-2" />
-                    </motion.button>
-                  </Link>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
         <section className="py-24 relative">
           {/* Header Section - Optimized Animations */}
           <div className="text-center mb-24">
@@ -1087,7 +881,7 @@ export default function ProductPortfolio() {
                 transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
               >
                 <h2 className="text-5xl font-bold mb-6 text-white">
-                  Transform the Future
+                  Submit Your Product Idea to APL
                 </h2>
                 <p className="text-xl text-blue-200 max-w-3xl mx-auto">
                   Join us in revolutionizing the packaging industry with your innovative ideas
@@ -1210,7 +1004,7 @@ export default function ProductPortfolio() {
           >
             <h2 className="text-5xl font-bold mb-6 text-white">Upcoming Products & Innovation</h2>
             <p className="text-xl text-blue-300 max-w-3xl mx-auto">
-              Discover our latest innovations and upcoming product releases that are shaping the future of packaging
+                Discover the industry&apos;s latest innovations and upcoming product releases that are shaping the future of packaging
             </p>
           </motion.div>
 
@@ -1634,26 +1428,211 @@ export default function ProductPortfolio() {
             </p>
           </motion.div>
         </section>
-
-        <section className="mt-32 bg-blue-900/50 text-white py-24 rounded-3xl relative overflow-hidden backdrop-blur-sm">
-          <div className="relative z-10 text-center px-4">
-            <h2 className="text-5xl font-bold mb-8 text-white">Need a Custom Solution?</h2>
-            <p className="text-2xl mb-12 text-blue-300 max-w-3xl mx-auto">
-              Our team of experts is ready to create the perfect packaging solution tailored to your unique needs.
+        <section className="mt-32 mb-32">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl font-bold mb-6 text-white">Customize Your Packaging</h2>
+            <p className="text-xl text-blue-300 max-w-3xl mx-auto">
+              Explore our interactive tool to visualize and customize your perfect packaging solution
             </p>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link
-                href="/contact"
-                className="bg-white text-blue-900 px-12 py-4 rounded-full text-2xl font-bold hover:bg-blue-100 transition duration-300 inline-flex items-center"
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto px-4">
+            <div className="space-y-8">
+              <motion.div
+                className="bg-white/10 p-8 rounded-2xl shadow-lg"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
               >
-                Get in Touch <FaArrowRight className="ml-2" />
-              </Link>
+                <div className="flex items-center mb-6">
+                  <FaBoxOpen className="text-3xl text-blue-400 mr-4" />
+                  <h3 className="text-2xl font-bold text-white">Package Type</h3>
+                </div>
+                <select
+                  value={customizationProduct.type}
+                  onChange={(e) => handleCustomizationChange('type', e.target.value)}
+                  className="w-full p-3 bg-white border border-blue-400/30 rounded-lg text-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                  <option value="food-packaging">Food Packaging</option>
+                  <option value="beverage-packaging">Personal Care & Hygiene</option>
+                  <option value="personal-care">Beverages</option>
+                  <option value="personal-care">Pharmaceutical & Nutritional Products</option>
+                  <option value="personal-care">Household Products</option>
+                  <option value="personal-care">Tobacco Industry Packaging</option>
+                </select>
+              </motion.div>
+
+              <motion.div
+                className="bg-white/10 p-8 rounded-2xl shadow-lg"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="flex items-center mb-6">
+                  <FaRuler className="text-3xl text-blue-400 mr-4" />
+                  <h3 className="text-2xl font-bold text-white">Dimensions</h3>
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  {['small', 'medium', 'large'].map((size) => (
+                    <motion.button
+                      key={size}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => handleCustomizationChange('size', size)}
+                      className={`p-3 rounded-lg ${
+                        customizationProduct.size === size
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-blue-50 text-blue-900'
+                      }`}
+                    >
+                      {size.charAt(0).toUpperCase() + size.slice(1)}
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="bg-white/10 p-8 rounded-2xl shadow-lg"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="flex items-center mb-6">
+                  <FaPalette className="text-3xl text-blue-400 mr-4" />
+                  <h3 className="text-2xl font-bold text-white">Color & Material</h3>
+                </div>
+                <div className="grid grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Color</label>
+                    <input
+                      type="color"
+                      value={customizationProduct.color}
+                      onChange={(e) => handleCustomizationChange('color', e.target.value)}
+                      className="w-full h-12 rounded-lg cursor-pointer"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Material</label>
+                    <select
+                      value={customizationProduct.material}
+                      onChange={(e) => handleCustomizationChange('material', e.target.value)}
+                      className="w-full p-3 border border-blue-200 rounded-lg"
+                    >
+                      <option value="plastic">Plastic</option>
+                      <option value="paper">Paper</option>
+                      <option value="biodegradable">Biodegradable</option>
+                    </select>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="bg-white/10 p-8 rounded-2xl shadow-lg"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="flex items-center mb-6">
+                  <FaCog className="text-3xl text-blue-400 mr-4" />
+                  <h3 className="text-2xl font-bold text-white">Order Quantity</h3>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Number of Units (Minimum 1,000)</label>
+                  <input
+                    type="number"
+                    min="1000"
+                    step="100"
+                    value={customizationProduct.quantity}
+                    onChange={(e) => handleCustomizationChange('quantity', Math.max(1000, parseInt(e.target.value) || 1000))}
+                    className="w-full p-3 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+              </motion.div>
+            </div>
+
+            <motion.div
+              animate={customizationControls}
+              className="bg-white/10 p-8 rounded-2xl shadow-lg flex flex-col"
+            >
+              <h3 className="text-2xl font-bold mb-6 text-white">Live Preview</h3>
+              <div className="flex-grow relative bg-blue-50 rounded-xl p-8 flex items-center justify-center">
+                <motion.div
+                  className="w-64 h-64 rounded-lg"
+                  style={{
+                    backgroundColor: customizationProduct.color,
+                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
+                  }}
+                  animate={{
+                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.02, 0.98, 1]
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
+                />
+              </div>
+              <div className="mt-8">
+                <h4 className="text-xl font-semibold mb-4 text-white">Price Breakdown</h4>
+                <div className="space-y-4">
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <p className="font-medium">Base Price (per unit)</p>
+                    <p className="text-blue-600">
+                      ${materialPricing[customizationProduct.material][customizationProduct.size].toFixed(2)}
+                    </p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      {customizationProduct.material.charAt(0).toUpperCase() + customizationProduct.material.slice(1)} - {
+                        customizationProduct.size.charAt(0).toUpperCase() + customizationProduct.size.slice(1)
+                      } Size
+                    </p>
+                  </div>
+                  
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <p className="font-medium">Order Quantity</p>
+                    <p className="text-blue-600">{customizationProduct.quantity.toLocaleString()} units</p>
+                  </div>
+                  
+                  <div className="bg-blue-100 p-4 rounded-lg">
+                    <p className="font-medium">Total Estimated Cost</p>
+                    <p className="text-blue-600 text-xl font-bold">
+                      ${calculateTotalPrice().toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      })}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="text-xs text-gray-500 mt-4 mb-6">
+                  * Prices are estimates and may vary based on specific requirements and customizations
+                </div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-center mb-12"
+                >
+                  <Link href="/product-portfolio/submit-innovation">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-blue-600 text-white px-12 py-4 rounded-full text-lg font-semibold 
+                               hover:bg-blue-700 transition-all duration-300 inline-flex items-center"
+                    >
+                      Submit Your Innovation
+                      <FaArrowRight className="ml-2" />
+                    </motion.button>
+                  </Link>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </section>
+
+      
       </div>
     </main>
   );

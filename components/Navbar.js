@@ -267,53 +267,24 @@ const Navbar = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute left-0 mt-2 w-64 rounded-xl shadow-lg 
-                                 bg-gradient-to-br from-gray-900 via-blue-900 to-black
-                                 focus:outline-none overflow-visible z-50"
+                        className="absolute left-0 mt-0 w-64 rounded-xl shadow-lg 
+                                 bg-white focus:outline-none overflow-visible z-50"
+                        onMouseEnter={() => handleMouseEnter(index)}
+                        onMouseLeave={handleMouseLeave}
                       >
                         <div className="py-2">
                           {item.name === "Products" && (
                             <>
                               {item.dropdown.map((category) => (
-                                <div 
-                                  key={category.name} 
-                                  className="relative group"
-                                  onMouseEnter={() => handleCategoryMouseEnter(category.name)}
-                                  onMouseLeave={handleCategoryMouseLeave}
+                                <Link
+                                  key={category.name}
+                                  href={category.path}
+                                  className="block px-4 py-3 text-sm text-blue-600 
+                                           hover:bg-blue-50 font-medium transition-all duration-200
+                                           flex items-center justify-between hover:text-blue-800"
                                 >
-                                  <Link
-                                    href={category.path}
-                                    className="block px-4 py-3 text-sm text-white/90 
-                                             hover:bg-white/10 font-medium transition-all duration-200
-                                             flex items-center justify-between group-hover:text-blue-300"
-                                  >
-                                    <span>{category.name}</span>
-                                  </Link>
-                                  
-                                  <div 
-                                    className={`absolute left-full top-0 w-56 rounded-xl shadow-lg 
-                                              bg-gradient-to-br from-gray-900 via-blue-900 to-black
-                                              focus:outline-none overflow-hidden ml-0.5 
-                                              transition-opacity duration-150
-                                              ${activeSubDropdown === category.name ? 'opacity-100 visible' : 'opacity-0 invisible'}
-                                              `}
-                                    style={{ marginTop: '0px' }}
-                                  >
-                                    <div className="py-2">
-                                      {category.items.map((item) => (
-                                        <Link
-                                          key={item}
-                                          href={`${category.path}/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                                          className="block px-4 py-2 text-sm text-white/80 
-                                                   hover:bg-white/10 hover:text-blue-300 
-                                                   transition-all duration-200"
-                                        >
-                                          {item}
-                                        </Link>
-                                      ))}
-                                    </div>
-                                  </div>
-                                </div>
+                                  {category.name}
+                                </Link>
                               ))}
                             </>
                           )}
@@ -321,8 +292,8 @@ const Navbar = () => {
                             <Link
                               key={subItem.name}
                               href={subItem.path}
-                              className="block px-4 py-3 text-sm text-white/90 
-                                       hover:bg-white/10 hover:text-blue-300 
+                              className="block px-4 py-3 text-sm text-blue-600 
+                                       hover:bg-blue-50 hover:text-blue-800 
                                        transition-all duration-200"
                             >
                               {subItem.name}

@@ -171,7 +171,7 @@ export default function AboutPage() {
                            rounded-full text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300
                            hover:scale-105"
                 >
-                  Explore Our Journey
+                  Founders Portfolio
                   <FaArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />
                 </button>
               </motion.div>

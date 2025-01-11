@@ -142,34 +142,32 @@ const infoOptions = [
 
 const HeroSection = () => {
   return (
-    <section className="relative h-[70vh] mb-24 flex flex-col items-center justify-between bg-gradient-to-br from-gray-900 via-blue-900 to-black overflow-visible">
-      {/* Static Background Glow Effects */}
-      <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px]" />
-      <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-blue-600/10 rounded-full blur-[80px]" />
-
+    <section className="relative h-[70vh] mb-24 flex flex-col items-center justify-between overflow-visible">
       {/* Static Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/arbab_office.jpg"
           alt="APL Background"
           fill
-          style={{ objectFit: 'cover', opacity: 0.4 }}
+          style={{ objectFit: 'cover' }}
           priority
           sizes="100vw"
           quality={60}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/90 via-blue-900/80 to-black/90" />
+        {/* Very subtle black overlay */}
+        <div className="absolute inset-0 bg-black/20"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 w-full flex flex-col h-full">
         {/* Header Content */}
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center animate-fadeIn">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 
-                         bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white
+                         drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
               Arbab Pack Limited
             </h1>
-            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+            <p className="text-xl text-white max-w-2xl mx-auto
+                       drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
               Leading the way in innovative packaging solutions with sustainable practices 
               and cutting-edge technology.
             </p>
@@ -177,7 +175,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Info Options Grid - Added margin bottom to create gap */}
+      {/* Info Options Grid - Keeping the original position */}
       <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-1/2 w-full max-w-3xl px-4 z-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {infoOptions.map((option, index) => (
@@ -920,11 +918,8 @@ export default function AboutAPL() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Elevating Brand Value
+              APL Transforming Packaging into Powerful Brand Assets
             </h2>
-            <p className="text-xl text-blue-200 max-w-3xl mx-auto">
-              Transforming packaging into powerful brand assets through innovation and excellence
-            </p>
           </motion.div>
 
           {/* Updated Grid with Progress Animation */}
@@ -1014,7 +1009,7 @@ export default function AboutAPL() {
                 className="mb-12"
               >
                 <h2 className="text-4xl font-bold text-white mb-6">
-                  Our Contribution to Climate Action
+                  APL Contribution to Climate Action
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-green-600 rounded-full mb-6" />
                 <p className="text-xl text-green-200">
@@ -1373,7 +1368,7 @@ export default function AboutAPL() {
 
                   {/* Hover Indicator */}
                   <div className="absolute bottom-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-400/40" />
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-600" />
                   </div>
@@ -1497,7 +1492,7 @@ export default function AboutAPL() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-white mb-4">Our Purpose</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">APL Purpose</h2>
             <p className="text-xl text-blue-200">Driving innovation and sustainability in packaging solutions</p>
           </motion.div>
 
@@ -1521,7 +1516,7 @@ export default function AboutAPL() {
                                 transition-transform duration-300 group-hover:scale-105">
                     <FaFlag className="text-4xl text-white" />
                   </div>
-                  <h3 className="text-3xl font-bold text-white ml-6">Our Mission</h3>
+                  <h3 className="text-3xl font-bold text-white ml-6">Mission</h3>
                 </div>
 
                 {/* Content */}
@@ -1559,7 +1554,7 @@ export default function AboutAPL() {
                                 transition-transform duration-300 group-hover:scale-105">
                     <FaBinoculars className="text-4xl text-white" />
                   </div>
-                  <h3 className="text-3xl font-bold text-white ml-6">Our Vision</h3>
+                  <h3 className="text-3xl font-bold text-white ml-6">Vision</h3>
                 </div>
 
                 {/* Content */}

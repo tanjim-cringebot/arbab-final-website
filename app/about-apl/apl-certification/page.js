@@ -1,14 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import { 
   FaAward, 
   FaCheck, 
   FaBuilding, 
   FaGlobe, 
-  FaIndustry, 
+  FaIndustry,
   FaLeaf,
   FaRecycle,
   FaCertificate,
@@ -17,112 +16,171 @@ import {
   FaEuroSign,
   FaMedal,
   FaStar,
-  FaWarehouse,
+  FaClock,
   FaBolt,
-  FaTint,
-  FaFlask,
-  FaSolarPanel,
-  FaTrashRestoreAlt,
-  FaRobot,
-  FaChartLine,
-  FaWater,
-  FaGraduationCap,
-  FaTruck,
-  FaHandshake
+  FaMicrochip,
+  FaArrowRight
 } from "react-icons/fa";
 
 export default function APLCertification() {
   const currentCertifications = [
     {
       title: "ISO 9001:2015",
-      description: "Robust quality management system ensuring consistent product quality, operational efficiency, and customer satisfaction.",
+      description: "Quality Management System certification ensuring consistent product quality and operational efficiency across all our processes.",
       icon: FaAward,
-      category: "Quality Management"
+      category: "Quality Management",
+      validUntil: "2025",
+      features: [
+        "Process standardization",
+        "Quality assurance",
+        "Continuous improvement"
+      ]
     },
     {
       title: "FSSC 22000",
-      description: "Global food safety certification guaranteeing our products meet international standards and safeguard public health.",
+      description: "Food Safety System Certification demonstrating our commitment to maintaining the highest standards in food safety management.",
       icon: FaShieldAlt,
-      category: "Food Safety"
+      category: "Food Safety",
+      validUntil: "2024",
+      features: [
+        "HACCP principles",
+        "Risk management",
+        "Food defense"
+      ]
     },
     {
       title: "IAF Membership",
-      description: "International Accreditation Forum membership aligning our practices with global accreditation norms.",
+      description: "International Accreditation Forum membership validating our conformity assessment processes with global standards.",
       icon: FaGlobe,
-      category: "Global Standards"
+      category: "Global Standards",
+      validUntil: "2025",
+      features: [
+        "International recognition",
+        "Standardized practices",
+        "Global compliance"
+      ]
     },
     {
       title: "Management Systems Certification",
-      description: "Demonstrates adherence to international management standards for efficient processes and sustainable practices.",
+      description: "Comprehensive certification covering quality, environmental, and safety management systems integration.",
       icon: FaCertificate,
-      category: "Management Excellence"
+      category: "Management Excellence",
+      validUntil: "2024",
+      features: [
+        "Integrated management",
+        "Process optimization",
+        "Performance monitoring"
+      ]
     },
     {
       title: "Export Promotion Bureau Certificate",
-      description: "Recognition of our role in driving economic growth through exports.",
+      description: "Official recognition of our contribution to national export growth and international trade development.",
       icon: FaFileAlt,
-      category: "Export Excellence"
-    },
-    {
-      title: "Export Registration Certificate",
-      description: "Ensures compliance with regulatory requirements for seamless global trade operations.",
-      icon: FaMedal,
-      category: "Compliance"
+      category: "Export Excellence",
+      validUntil: "2025",
+      features: [
+        "Export compliance",
+        "Trade facilitation",
+        "Market access"
+      ]
     },
     {
       title: "EU Export Registration",
-      description: "Validates our ability to meet stringent European Union quality and safety standards.",
+      description: "Certification for meeting European Union's stringent quality and safety standards for packaging products.",
       icon: FaEuroSign,
-      category: "International Trade"
+      category: "International Trade",
+      validUntil: "2024",
+      features: [
+        "EU compliance",
+        "Quality standards",
+        "Market authorization"
+      ]
     }
   ];
 
   const futureCertifications = [
     {
-      title: "ISO 14001",
-      description: "Environmental management systems certification",
+      title: "ISO 14001:2025",
+      description: "Environmental Management System certification to demonstrate our commitment to environmental responsibility and sustainable practices.",
       icon: FaLeaf,
-      targetYear: "2025"
+      targetYear: "2025",
+      category: "Environmental Management",
+      benefits: [
+        "Enhanced environmental performance",
+        "Sustainable resource management",
+        "Reduced environmental impact"
+      ]
     },
     {
-      title: "ISO 45001",
-      description: "Occupational health and safety management certification",
+      title: "ISO 45001:2024",
+      description: "Occupational Health and Safety Management System certification ensuring worker safety and workplace well-being.",
       icon: FaShieldAlt,
-      targetYear: "2026"
+      targetYear: "2024",
+      category: "Safety Standards",
+      benefits: [
+        "Improved workplace safety",
+        "Risk prevention",
+        "Employee well-being"
+      ]
     },
     {
-      title: "B Corporation",
-      description: "Verification of social and environmental performance",
-      icon: FaStar,
-      targetYear: "2027"
-    },
-    // ... add other future certifications
+      title: "ISO 50001:2024",
+      description: "Energy Management System certification for optimizing energy consumption and promoting energy efficiency.",
+      icon: FaBolt,
+      targetYear: "2024",
+      category: "Energy Management",
+      benefits: [
+        "Energy efficiency",
+        "Cost reduction",
+        "Sustainable operations"
+      ]
+    }
   ];
 
   const coreFacilities = [
     {
-      name: "Warehouse Capacity",
-      description: "Ample storage solutions for efficient inventory management",
-      icon: FaWarehouse,
-      features: ["Optimized space utilization", "Climate-controlled storage", "Advanced tracking systems"]
+      name: "Advanced Manufacturing Plant",
+      description: "State-of-the-art manufacturing facility with automated production lines",
+      icon: FaIndustry,
+      features: [
+        "Automated production lines with Industry 4.0 integration",
+        "Advanced quality control systems",
+        "Energy-efficient machinery and processes",
+        "Real-time production monitoring"
+      ]
     },
     {
-      name: "Power Supply",
-      description: "2060 KVA Gas Generator for uninterrupted operations",
-      icon: FaBolt,
-      features: ["Reliable power backup", "Energy-efficient systems", "24/7 operation capability"]
+      name: "Quality Control Laboratory",
+      description: "Cutting-edge testing and quality assurance facility",
+      icon: FaShieldAlt,
+      features: [
+        "Advanced material testing equipment",
+        "Comprehensive quality inspection protocols",
+        "Environmental testing chambers",
+        "Product safety verification systems"
+      ]
     },
     {
-      name: "Water Plant",
-      description: "Sustainable water management system",
-      icon: FaTint,
-      features: ["Purification systems", "Recycling capabilities", "Efficient distribution"]
+      name: "Research & Development Center",
+      description: "Innovation hub for developing sustainable packaging solutions",
+      icon: FaMicrochip,
+      features: [
+        "Material research laboratory",
+        "Prototype development facility",
+        "Sustainability testing center",
+        "Innovation workshop space"
+      ]
     },
     {
-      name: "Quality Labs",
-      description: "Advanced testing facilities for global standards compliance",
-      icon: FaFlask,
-      features: ["Modern equipment", "Certified technicians", "Comprehensive testing protocols"]
+      name: "Sustainable Production Unit",
+      description: "Eco-friendly manufacturing facility focused on sustainable practices",
+      icon: FaLeaf,
+      features: [
+        "Solar-powered operations",
+        "Water recycling systems",
+        "Waste reduction technology",
+        "Green energy integration"
+      ]
     }
   ];
 
@@ -132,19 +190,11 @@ export default function APLCertification() {
       
       {/* Hero Section */}
       <section className="relative pt-20 pb-32">
-        {/* Background Effects */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.2, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[120px]"
-        />
+        {/* Modern Geometric Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[120px]" />
+          <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[100px]" />
+        </div>
 
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -152,96 +202,218 @@ export default function APLCertification() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-20"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              APL Certifications & Facilities
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+              Global Standards & Excellence
             </h1>
             <p className="text-xl text-blue-200 max-w-3xl mx-auto">
-              Our commitment to quality, safety, and sustainability is reflected in our certifications and state-of-the-art facilities
+              Our commitment to quality, safety, and sustainability is validated through international certifications and state-of-the-art facilities
             </p>
           </motion.div>
 
-          {/* Current Certifications Grid */}
+          {/* Current Certifications */}
           <div className="mb-32">
-            <h2 className="text-3xl font-bold text-white mb-6 text-center">Certifications of Excellence</h2>
-            <p className="text-xl text-blue-200 max-w-3xl mx-auto mb-12 text-center">
-              APL&apos;s dedication to upholding global standards and ensuring excellence across our operations
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl font-bold text-white mb-4">Current Certifications</h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full" />
+            </motion.div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {currentCertifications.map((cert, index) => (
                 <motion.div
                   key={cert.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                  className="relative group"
                 >
-                  <cert.icon className="text-4xl text-blue-400 mb-4" />
-                  <div className="text-sm text-blue-300 mb-2">{cert.category}</div>
-                  <h3 className="text-xl font-bold text-white mb-2">{cert.title}</h3>
-                  <p className="text-blue-200">{cert.description}</p>
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-xl blur-xl 
+                               opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 
+                               hover:border-blue-500/50 transition-all duration-300">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg 
+                                    flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                          <cert.icon className="text-xl text-white" />
+                        </div>
+                        <div className="text-sm text-blue-400">{cert.category}</div>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-blue-300">
+                        <FaClock className="text-xs" />
+                        <span>Valid until {cert.validUntil}</span>
+                      </div>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                      {cert.title}
+                    </h3>
+                    <p className="text-blue-200 mb-4 group-hover:text-blue-100 transition-colors duration-300">
+                      {cert.description}
+                    </p>
+                    
+                    <div className="space-y-2">
+                      {cert.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm text-blue-300">
+                          <div className="w-5 h-5 bg-blue-500/20 rounded-full flex items-center justify-center">
+                            <FaCheck className="text-xs text-blue-400" />
+                          </div>
+                          {feature}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </div>
           </div>
 
-          {/* Future Certifications Section */}
+          {/* Future Certifications */}
           <div className="mb-32">
-            <h2 className="text-3xl font-bold text-white mb-6 text-center">Vision 2050: Future Certifications</h2>
-            <p className="text-xl text-blue-200 max-w-3xl mx-auto mb-12 text-center">
-              Supporting the APL 20-50 program and aligning with Sustainable Development Goals
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl font-bold text-white mb-4">Future Certifications</h2>
+              <p className="text-blue-200 max-w-2xl mx-auto mb-6">
+                Our roadmap to excellence includes acquiring these prestigious certifications to further strengthen our commitment to quality and sustainability
+              </p>
+              <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-green-600 mx-auto rounded-full" />
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {futureCertifications.map((cert, index) => (
                 <motion.div
                   key={cert.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                  className="relative group"
                 >
-                  <cert.icon className="text-3xl text-green-400 mb-4" />
-                  <h3 className="text-lg font-bold text-white mb-2">{cert.title}</h3>
-                  <p className="text-blue-200 mb-2">{cert.description}</p>
-                  <div className="text-sm text-green-400">Target: {cert.targetYear}</div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-600/20 to-blue-600/20 rounded-xl blur-xl 
+                               opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 
+                               hover:border-green-500/50 transition-all duration-300">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg 
+                                    flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                          <cert.icon className="text-xl text-white" />
+                        </div>
+                        <div className="text-sm text-green-400">{cert.category}</div>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-green-300">
+                        <FaClock className="text-xs" />
+                        <span>Target: {cert.targetYear}</span>
+                      </div>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors duration-300">
+                      {cert.title}
+                    </h3>
+                    <p className="text-blue-200 mb-4 group-hover:text-blue-100 transition-colors duration-300">
+                      {cert.description}
+                    </p>
+                    
+                    <div className="space-y-2">
+                      {cert.benefits.map((benefit, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm text-green-300">
+                          <div className="w-5 h-5 bg-green-500/20 rounded-full flex items-center justify-center">
+                            <FaCheck className="text-xs text-green-400" />
+                          </div>
+                          {benefit}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </div>
           </div>
 
-          {/* Facilities Section */}
-          <div>
-            <h2 className="text-3xl font-bold text-white mb-6 text-center">State-of-the-Art Facilities</h2>
-            <p className="text-xl text-blue-200 max-w-3xl mx-auto mb-12 text-center">
-              Empowering sustainable operations with cutting-edge infrastructure
-            </p>
+          {/* State-of-the-Art Facilities */}
+          <div className="mb-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl font-bold text-white mb-4">State-of-the-Art Facilities</h2>
+              <p className="text-blue-200 max-w-2xl mx-auto mb-6">
+                Our world-class facilities are equipped with cutting-edge technology to ensure the highest standards of quality and innovation
+              </p>
+              <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-purple-600 mx-auto rounded-full" />
+            </motion.div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {coreFacilities.map((facility, index) => (
                 <motion.div
                   key={facility.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                  className="relative group"
                 >
-                  <div className="flex items-center mb-6">
-                    <facility.icon className="text-4xl text-blue-400 mr-4" />
-                    <div>
-                      <h3 className="text-xl font-bold text-white">{facility.name}</h3>
-                      <p className="text-blue-300">{facility.description}</p>
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-blue-600/20 rounded-xl blur-xl 
+                               opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 
+                               hover:border-purple-500/50 transition-all duration-300">
+                    <div className="flex items-center gap-6 mb-6">
+                      <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl 
+                                  flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                        <facility.icon className="text-2xl text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white group-hover:text-purple-400 transition-colors duration-300">
+                          {facility.name}
+                        </h3>
+                        <p className="text-blue-300">{facility.description}</p>
+                      </div>
                     </div>
+
+                    <div className="grid grid-cols-1 gap-4">
+                      {facility.features.map((feature, idx) => (
+                        <div 
+                          key={idx} 
+                          className="flex items-center gap-3 p-3 rounded-lg bg-white/5 
+                                   group-hover:bg-purple-500/10 transition-colors duration-300"
+                        >
+                          <div className="w-6 h-6 bg-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <FaCheck className="text-xs text-purple-400" />
+                          </div>
+                          <span className="text-blue-200 group-hover:text-blue-100">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <motion.div 
+                      className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center">
+                        <FaArrowRight className="text-purple-400" />
+                      </div>
+                    </motion.div>
                   </div>
-                  <ul className="space-y-2">
-                    {facility.features.map((feature, i) => (
-                      <li key={i} className="flex items-center text-blue-200">
-                        <FaCheck className="text-blue-400 mr-2" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
                 </motion.div>
               ))}
             </div>
           </div>
+
+          {/* Would you like to see the next sections? */}
         </div>
       </section>
     </main>

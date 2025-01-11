@@ -206,34 +206,34 @@ const ProductSlider = () => {
           className="text-center mb-16"
         >
           <AnimatedProductTitle />
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-            Discover our comprehensive range of packaging solutions designed to meet your specific needs. 
-            From smart packaging to eco-friendly options, we deliver excellence in every product.
-          </p>
+
           <div className="flex flex-wrap justify-center gap-6 mb-12">
             <motion.div
-              className="flex items-center text-gray-300"
+              className="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-gray-300 border border-white/20"
               whileHover={{ scale: 1.05 }}
             >
               <FaLeaf className="text-green-400 mr-2" />
               <span>Eco-Friendly</span>
             </motion.div>
+            
             <motion.div
-              className="flex items-center text-gray-300"
+              className="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-gray-300 border border-white/20"
               whileHover={{ scale: 1.05 }}
             >
               <FaRocket className="text-blue-400 mr-2" />
               <span>Smart Solutions</span>
             </motion.div>
+            
             <motion.div
-              className="flex items-center text-gray-300"
+              className="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-gray-300 border border-white/20"
               whileHover={{ scale: 1.05 }}
             >
               <FaRecycle className="text-teal-400 mr-2" />
               <span>Sustainable</span>
             </motion.div>
+            
             <motion.div
-              className="flex items-center text-gray-300"
+              className="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-gray-300 border border-white/20"
               whileHover={{ scale: 1.05 }}
             >
               <FaCertificate className="text-yellow-400 mr-2" />
@@ -249,18 +249,9 @@ const ProductSlider = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <p className="text-gray-400 flex items-center justify-center gap-2">
-            <FaMousePointer className="text-white" />
-            Hover over products to explore details
-          </p>
+
         </motion.div>
 
-        {/* Innovative Packaging Solutions Title */}
-        <div className="text-center mb-12">
-          <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Innovative Packaging Solutions
-          </h3>
-        </div>
 
         <div className="relative h-[700px]">
           {/* Center Display */}
@@ -858,7 +849,7 @@ const VisionSection = () => {
             },
             {
               icon: FaGlobeAsia,
-              title: "Global Impact",
+              title: "Nationwide Impact",
               description: "Creating sustainable solutions that benefit communities worldwide",
               gradient: "from-purple-500/20 to-pink-500/20",
               delay: 0.4
@@ -898,8 +889,8 @@ const VisionSection = () => {
         {/* Vision Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
-            { value: "20+", label: "Years Experience", icon: FaClock },
-            { value: "50+", label: "Countries Served", icon: FaGlobe },
+            { value: "37+", label: "Years Experience", icon: FaClock },
+            { value: "200+", label: "Clients Served", icon: FaGlobe },
             { value: "1000+", label: "Products", icon: FaBox },
             { value: "100%", label: "Customer Satisfaction", icon: FaSmile }
           ].map((stat, index) => (
@@ -937,7 +928,7 @@ const InnovationHub = () => {
       description: "Integrating IoT and NFC technologies for interactive consumer experiences and supply chain visibility",
       stats: ["40% Increased Engagement", "Real-time Tracking", "Anti-counterfeit Protection"],
       color: "from-blue-500 to-cyan-500",
-      image: "/images/smart-packaging.jpg"
+      image: "/images/advance_machine.jpg"
     },
     {
       title: "Eco-Innovation",
@@ -945,7 +936,7 @@ const InnovationHub = () => {
       description: "Revolutionary biodegradable materials and sustainable packaging solutions for a greener future",
       stats: ["100% Biodegradable", "60% Carbon Reduction", "Zero Waste Process"],
       color: "from-green-500 to-emerald-500",
-      image: "/images/eco-innovation.jpg"
+      image: "/images/rnd.jpg"
     },
     {
       title: "Advanced Materials",
@@ -953,7 +944,7 @@ const InnovationHub = () => {
       description: "Cutting-edge material science creating stronger, lighter, and more adaptable packaging",
       stats: ["2x Durability", "30% Weight Reduction", "Enhanced Protection"],
       color: "from-purple-500 to-pink-500",
-      image: "/images/advanced-materials.jpg"
+      image: "/images/workforce.jpg"
     }
   ];
 
@@ -1093,7 +1084,7 @@ const InnovationHub = () => {
                 className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-4
                          group-hover:bg-white/20 transition-all duration-300"
               >
-                <metric.icon className="text-3xl text-blue-300" />
+                <metric.icon className="text-2xl text-blue-300" />
               </motion.div>
               <h4 className="text-3xl font-bold text-white mb-2">{metric.value}</h4>
               <p className="text-gray-400">{metric.label}</p>
@@ -1523,13 +1514,6 @@ export default function Home() {
           {/* Vision Section - Changed from Our Vision to APL Vision */}
           <VisionSection />
 
-          {/* Meet the Leaders */}
-          <section className="mb-40">
-            <SectionTitle className="mb-24">Meet the Leaders</SectionTitle>
-            <div className="max-w-7xl mx-auto">
-              <LeaderSlider />
-            </div>
-          </section>
 
           {/* Innovation Hub */}
           <InnovationHub />
