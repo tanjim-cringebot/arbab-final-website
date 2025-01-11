@@ -183,9 +183,8 @@ export default function APLVision() {
     <main className="bg-gradient-to-br from-gray-900 via-blue-900 to-black min-h-screen">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-32">
-        {/* Background Effects */}
+      {/* Hero Section - Redesigned */}
+      <section className="relative min-h-[90vh] flex items-center justify-center">
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -196,54 +195,102 @@ export default function APLVision() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-green-500/20 rounded-full blur-[120px]"
-        />
+          className="absolute inset-0 w-full h-full"
+        >
+          <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-green-500/20 rounded-full blur-[120px]" />
+          <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-blue-500/20 rounded-full blur-[90px]" />
+        </motion.div>
 
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-20"
+            className="text-center space-y-8"
           >
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              APL 20/50: Towards Sustainability
-            </h1>
-            <p className="text-xl text-blue-200 max-w-4xl mx-auto">
-              As a leading Paper Converting & Flexible Packaging material manufacturer in Bangladesh, 
-              APL is committed to pioneering a new era of packaging that prioritizes sustainability, 
-              innovation, and responsibility through its &quot;APL 20-50: Towards Sustainability&quot; program.
-            </p>
+            <motion.h1 
+              className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              APL 20/50: <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-400">
+                Towards Sustainability
+              </span>
+            </motion.h1>
+            <motion.p 
+              className="text-xl md:text-2xl text-blue-200 max-w-4xl mx-auto leading-relaxed"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              Pioneering the future of sustainable packaging in Bangladesh through innovation, 
+              responsibility, and environmental stewardship.
+            </motion.p>
           </motion.div>
+        </div>
+      </section>
 
-          {/* Strategic Pillars */}
+      {/* Strategic Pillars - Redesigned */}
+      <section className="relative py-20">
+        <div className="max-w-7xl mx-auto px-4">
           {strategicPillars.map((pillar, index) => (
-            <div key={pillar.title} className="mb-32">
-              <div className="flex items-center justify-center mb-12">
-                <pillar.icon className="text-4xl text-green-400 mr-4" />
-                <h2 className="text-3xl font-bold text-white">{index + 1}. {pillar.title}</h2>
+            <motion.div 
+              key={pillar.title}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="mb-32"
+            >
+              <div className="flex flex-col items-center justify-center mb-16 relative">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="absolute -z-10 w-24 h-24 bg-green-400/10 rounded-full blur-lg"
+                />
+                <pillar.icon className="text-5xl text-green-400 mb-6" />
+                <h2 className="text-4xl font-bold text-white text-center">
+                  <span className="text-green-400">{index + 1}.</span> {pillar.title}
+                </h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {pillar.goals.map((goal, goalIndex) => (
                   <motion.div
                     key={goal.title}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: goalIndex * 0.1 }}
-                    className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 
-                             hover:bg-white/10 transition-all duration-300"
+                    className="group relative bg-white/[0.03] backdrop-blur-xl rounded-2xl p-8 
+                             border border-white/10 hover:border-green-400/50 transition-all duration-300
+                             hover:transform hover:-translate-y-1"
                   >
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-400/0 to-blue-400/0 
+                                  group-hover:from-green-400/10 group-hover:to-blue-400/10 rounded-2xl 
+                                  transition-all duration-300" />
                     <goal.icon className="text-3xl text-green-400 mb-4" />
-                    <h3 className="text-lg font-bold text-white mb-2">{goal.title}</h3>
-                    <p className="text-blue-200">{goal.target}</p>
+                    <h3 className="text-xl font-bold text-white mb-3">{goal.title}</h3>
+                    <p className="text-blue-200 text-sm">{goal.target}</p>
                   </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
 
-          {/* Achievements Section */}
-          <div className="mt-32">
-            <h2 className="text-3xl font-bold text-white mb-12 text-center">Achievements to Date</h2>
+          {/* Achievements Section - Redesigned */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="mt-32 relative"
+          >
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-white">
+                Our Progress
+                <span className="block text-lg text-blue-300 mt-2">Measurable Impact Towards Sustainability</span>
+              </h2>
+            </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {achievements.map((achievement, index) => (
                 <motion.div
@@ -251,16 +298,24 @@ export default function APLVision() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 
-                           hover:bg-white/10 transition-all duration-300 text-center"
+                  className="relative group bg-white/[0.03] backdrop-blur-xl rounded-2xl p-10 
+                           border border-white/10 hover:border-green-400/50 transition-all duration-300"
                 >
-                  <achievement.icon className="text-4xl text-green-400 mb-4 mx-auto" />
-                  <div className="text-4xl font-bold text-green-400 mb-4">{achievement.metric}</div>
-                  <p className="text-blue-200">{achievement.description}</p>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-green-400/0 to-blue-400/0 
+                                group-hover:from-green-400/20 group-hover:to-blue-400/20 rounded-2xl 
+                                blur opacity-0 group-hover:opacity-100 transition duration-300" />
+                  <div className="relative">
+                    <achievement.icon className="text-5xl text-green-400 mb-6 mx-auto" />
+                    <div className="text-5xl font-bold text-transparent bg-clip-text 
+                                  bg-gradient-to-r from-green-400 to-blue-400 mb-4">
+                      {achievement.metric}
+                    </div>
+                    <p className="text-blue-200 text-lg">{achievement.description}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>

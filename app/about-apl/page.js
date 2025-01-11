@@ -132,7 +132,7 @@ const infoOptions = [
   {
     icon: FaShieldAlt,
     title: "APL Policy Guidelines",
-    link: "#policy-section",
+    link: "/about-apl/apl-guidelines",
     gradientFrom: "from-purple-500",
     gradientTo: "to-purple-600",
     hoverFrom: "purple-600",
@@ -401,7 +401,7 @@ const CapacitySection = () => {
             className="text-center mb-20"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              Production Capacity
+              APL Packaging Excellence 
             </h2>
             <p className="text-xl text-blue-200">
               State-of-the-art manufacturing excellence
@@ -1283,22 +1283,7 @@ export default function AboutAPL() {
             </div>
           </div>
 
-          {/* Download Report Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="mt-12 text-center"
-          >
-            <Link 
-              href="/sustainability-report"
-              className="inline-flex items-center gap-2 bg-green-500/20 hover:bg-green-500/30 
-                       text-green-400 px-6 py-3 rounded-lg transition-all duration-300
-                       border border-green-500/20 hover:border-green-500/40"
-            >
-              <FaDownload className="text-sm" />
-              Download Sustainability Report
-            </Link>
-          </motion.div>
+
         </div>
       </section>
 
