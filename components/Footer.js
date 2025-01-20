@@ -62,7 +62,7 @@ const Footer = () => {
           rel="noopener noreferrer" 
           className="group relative"
         >
-          <span className="font-['Brush_Script_MT'] text-lg bg-gradient-to-r from-blue-400 to-purple-400 
+          <span className="font-['Verdana'] text-lg bg-gradient-to-r from-blue-400 to-purple-400 
                         bg-clip-text text-transparent hover:from-blue-300 hover:to-purple-300 
                         transition-all duration-300">
             SomporCo
