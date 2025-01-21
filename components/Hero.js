@@ -34,7 +34,7 @@ const Hero = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % heroContent.length);
-    }, 5000);
+    }, 8000); // Increased to 8 seconds
 
     return () => clearInterval(timer);
   }, []);
@@ -64,7 +64,7 @@ const Hero = () => {
           ]
         }}
         transition={{
-          duration: 5,
+          duration: 8,
           repeat: Infinity,
           ease: "easeInOut"
         }}
@@ -75,25 +75,50 @@ const Hero = () => {
         <AnimatePresence mode='wait'>
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.2 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            transition={{
+              duration: 0.7,
+              ease: "easeOut"
+            }}
             className="space-y-6"
           >
-            <motion.h1 
-              className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: [0, 1, 1, 0],
+              }}
+              transition={{
+                duration: 8,
+                times: [0, 0.1, 0.9, 1],
+                ease: "easeInOut"
+              }}
             >
-              {heroContent[currentIndex].heading}
-            </motion.h1>
+              <motion.h1 
+                className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  duration: 0.5,
+                  ease: "easeOut",
+                }}
+              >
+                {heroContent[currentIndex].heading}
+              </motion.h1>
+            </motion.div>
+
             <motion.p 
               className="text-xl md:text-2xl text-blue-200/90"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.4 }}
+              animate={{ 
+                opacity: [0, 1, 1, 0],
+              }}
+              transition={{
+                duration: 8,
+                times: [0, 0.1, 0.9, 1],
+                ease: "easeInOut"
+              }}
             >
               {heroContent[currentIndex].description}
             </motion.p>

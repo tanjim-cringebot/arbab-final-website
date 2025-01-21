@@ -31,22 +31,46 @@ const Footer = () => {
         </div>
         <div className="mt-8 border-t border-gray-700 pt-8 text-center">
           <div className="flex justify-center space-x-6 mb-4">
-            <a href="#" className="text-gray-400 hover:text-white">
+            <a 
+              href="https://www.linkedin.com/company/arbab-group/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white"
+            >
               <FaLinkedin className="w-6 h-6" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-white">
+            <a 
+              href="#" 
+              className="text-gray-400 hover:text-white"
+            >
               <FaWhatsapp className="w-6 h-6" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-white">
+            <a 
+              href="https://www.facebook.com/share/1Ex9M37XkC/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white"
+            >
               <FaFacebookF className="w-6 h-6" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-white">
+            <a 
+              href="https://youtube.com/@arbabpolypackltd1224?si=9fsqRGE8c8hc_uao"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white"
+            >
               <FaYoutube className="w-6 h-6" />
             </a>
-            <a href="mailto:info@arbabpackltd.com" className="text-gray-400 hover:text-white">
+            <a 
+              href="mailto:ag.global@arbabgroup.com" 
+              className="text-gray-400 hover:text-white"
+            >
               <FaEnvelope className="w-6 h-6" />
             </a>
-            <a href="tel:+8801844454079" className="text-gray-400 hover:text-white">
+            <a 
+              href="tel:+8801844454079" 
+              className="text-gray-400 hover:text-white"
+            >
               <FaPhone className="w-6 h-6" />
             </a>
           </div>

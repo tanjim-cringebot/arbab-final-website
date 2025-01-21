@@ -116,7 +116,9 @@ const Navbar = () => {
     return (
       <div className="flex space-x-3">
         <motion.a 
-          href="#" 
+          href="https://www.linkedin.com/company/arbab-group/"
+          target="_blank"
+          rel="noopener noreferrer"
           whileHover={{ scale: 1.1 }}
           className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
         >
@@ -130,14 +132,16 @@ const Navbar = () => {
           <FaWhatsapp className="w-3 h-3" />
         </motion.a>
         <motion.a 
-          href="#" 
+          href="https://www.facebook.com/share/1Ex9M37XkC/"
+          target="_blank"
+          rel="noopener noreferrer"
           whileHover={{ scale: 1.1 }}
           className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
         >
           <FaFacebookF className="w-3 h-3" />
         </motion.a>
         <motion.a 
-          href="mailto:info@arbabpackltd.com" 
+          href="mailto:ag.global@arbabgroup.com" 
           whileHover={{ scale: 1.1 }}
           className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
         >
@@ -151,7 +155,9 @@ const Navbar = () => {
           <FaPhone className="w-3 h-3" />
         </motion.a>
         <motion.a 
-          href="#" 
+          href="https://youtube.com/@arbabpolypackltd1224?si=9fsqRGE8c8hc_uao"
+          target="_blank"
+          rel="noopener noreferrer"
           whileHover={{ scale: 1.1 }}
           className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
         >
@@ -224,10 +230,13 @@ const Navbar = () => {
                     </Link>
                     {item.dropdown && activeDropdown === index && (
                       <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
+                        initial={{ opacity: 0, y: -10, scaleY: 0.8 }}
+                        animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                        exit={{ opacity: 0, y: -10, scaleY: 0.8 }}
+                        transition={{ 
+                          duration: 0.3,
+                          ease: [0.4, 0, 0.2, 1]
+                        }}
                         className="absolute left-0 mt-0 w-64 rounded-xl shadow-lg 
                                  bg-white focus:outline-none overflow-visible z-50"
                         onMouseEnter={() => handleMouseEnter(index)}
@@ -236,28 +245,49 @@ const Navbar = () => {
                         <div className="py-2">
                           {item.name === "Products" && (
                             <>
-                              {item.dropdown.map((category) => (
+                              {item.dropdown.map((category, idx) => (
                                 <Link
                                   key={category.name}
                                   href={category.path}
                                   className="block px-4 py-3 text-sm text-blue-600 
-                                           hover:bg-blue-50 font-medium transition-all duration-200
+                                           hover:bg-blue-50 font-medium transition-all duration-300
                                            flex items-center justify-between hover:text-blue-800"
                                 >
-                                  {category.name}
+                                  <motion.div
+                                    initial={{ x: -10, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    transition={{ 
+                                      duration: 0.3,
+                                      delay: idx * 0.05,
+                                      ease: [0.4, 0, 0.2, 1]
+                                    }}
+                                    className="flex items-center w-full"
+                                  >
+                                    {category.name}
+                                  </motion.div>
                                 </Link>
                               ))}
                             </>
                           )}
-                          {item.name !== "Products" && item.dropdown.map((subItem) => (
+                          {item.name !== "Products" && item.dropdown.map((subItem, idx) => (
                             <Link
                               key={subItem.name}
                               href={subItem.path}
                               className="block px-4 py-3 text-sm text-blue-600 
                                        hover:bg-blue-50 hover:text-blue-800 
-                                       transition-all duration-200"
+                                       transition-all duration-300"
                             >
-                              {subItem.name}
+                              <motion.div
+                                initial={{ x: -10, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ 
+                                  duration: 0.3,
+                                  delay: idx * 0.05,
+                                  ease: [0.4, 0, 0.2, 1]
+                                }}
+                              >
+                                {subItem.name}
+                              </motion.div>
                             </Link>
                           ))}
                         </div>
@@ -291,20 +321,78 @@ const Navbar = () => {
                 
                 <div className="border-l border-gray-200 pl-6 ml-6">
                   <div className="grid grid-cols-3 gap-2">
-                    {[FaLinkedin, FaWhatsapp, FaFacebookF, FaEnvelope, FaPhone, FaYoutube].map((Icon, index) => (
-                      <motion.a 
-                        key={index}
-                        href="#" 
-                        whileHover={{ scale: 1.1 }}
-                        className={`transition-colors duration-200 ${
-                          (isScrolled || isHovered || mobileMenuOpen)
-                            ? 'text-blue-600 hover:text-blue-800'
-                            : 'text-white hover:text-blue-200'
-                        }`}
-                      >
-                        <Icon className="w-3 h-3" />
-                      </motion.a>
-                    ))}
+                    <motion.a 
+                      href="https://www.linkedin.com/company/arbab-group/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.1 }}
+                      className={`transition-colors duration-200 ${
+                        (isScrolled || isHovered || mobileMenuOpen)
+                          ? 'text-blue-600 hover:text-blue-800'
+                          : 'text-white hover:text-blue-200'
+                      }`}
+                    >
+                      <FaLinkedin className="w-3 h-3" />
+                    </motion.a>
+                    <motion.a 
+                      href="#"
+                      whileHover={{ scale: 1.1 }}
+                      className={`transition-colors duration-200 ${
+                        (isScrolled || isHovered || mobileMenuOpen)
+                          ? 'text-blue-600 hover:text-blue-800'
+                          : 'text-white hover:text-blue-200'
+                      }`}
+                    >
+                      <FaWhatsapp className="w-3 h-3" />
+                    </motion.a>
+                    <motion.a 
+                      href="https://www.facebook.com/share/1Ex9M37XkC/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.1 }}
+                      className={`transition-colors duration-200 ${
+                        (isScrolled || isHovered || mobileMenuOpen)
+                          ? 'text-blue-600 hover:text-blue-800'
+                          : 'text-white hover:text-blue-200'
+                      }`}
+                    >
+                      <FaFacebookF className="w-3 h-3" />
+                    </motion.a>
+                    <motion.a 
+                      href="mailto:ag.global@arbabgroup.com"
+                      whileHover={{ scale: 1.1 }}
+                      className={`transition-colors duration-200 ${
+                        (isScrolled || isHovered || mobileMenuOpen)
+                          ? 'text-blue-600 hover:text-blue-800'
+                          : 'text-white hover:text-blue-200'
+                      }`}
+                    >
+                      <FaEnvelope className="w-3 h-3" />
+                    </motion.a>
+                    <motion.a 
+                      href="tel:+8801844454079"
+                      whileHover={{ scale: 1.1 }}
+                      className={`transition-colors duration-200 ${
+                        (isScrolled || isHovered || mobileMenuOpen)
+                          ? 'text-blue-600 hover:text-blue-800'
+                          : 'text-white hover:text-blue-200'
+                      }`}
+                    >
+                      <FaPhone className="w-3 h-3" />
+                    </motion.a>
+                    <motion.a 
+                      href="https://youtube.com/@arbabpolypackltd1224?si=9fsqRGE8c8hc_uao"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.1 }}
+                      className={`transition-colors duration-200 ${
+                        (isScrolled || isHovered || mobileMenuOpen)
+                          ? 'text-blue-600 hover:text-blue-800'
+                          : 'text-white hover:text-blue-200'
+                      }`}
+                    >
+                      <FaYoutube className="w-3 h-3" />
+                    </motion.a>
                   </div>
                 </div>
               </div>
